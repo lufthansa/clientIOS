@@ -472,7 +472,6 @@ static AppDelegate s_sharedApplication;
 {
     NSLog(@"in thirdLogin");
 
-    return [AppController sendWeChatAuth];
     
     NSObject* obj = [dict objectForKey:@"_nidx"];
     if (nil != obj)
@@ -484,6 +483,8 @@ static AppDelegate s_sharedApplication;
         [pApp setLoginCallFunC:[[dict objectForKey:@"scriptHandler"] intValue]];        
 //        [[ThirdParty getInstance] thirdPartyLogin:platstr delegate:pApp];
     }
+    
+    return [AppController sendWeChatAuth];
 }
 
 //分享
@@ -929,49 +930,104 @@ static AppDelegate s_sharedApplication;
 // 微信回调
 - (void)onResp:(BaseResp *)resp {
     NSString *func = NULL;
+    NSString *backMsg = NULL;
     
     if ([resp isKindOfClass:[SendAuthResp class]]) {
         NSLog(@"--------微信登录onResp-----------");
         SendAuthResp *authResp = (SendAuthResp*)resp;
-        // TODO 组织回调函数
-        NSString *strMsg0 = [NSString stringWithFormat:@"code:%@,state:%@,errcode:%d", authResp.code, authResp.state, authResp.errCode];
-        NSString *luaFuncFormat = @"('onWeChatLoginResp', %d, '%@');";
         switch (resp.errCode) {
-            case WXSuccess:
-                func = [NSString stringWithFormat:luaFuncFormat, authResp.errCode, authResp.code];
+            case WXSuccess: {
+                [self sendWechatGetAccessToken:authResp];
                 break;
+            }
             case WXErrCodeUserCancel:
-                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"用户取消授权！"];
                 break;
             case WXErrCodeAuthDeny:
-                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"用户授权被拒绝！"];
                 break;
             case WXErrCodeUnsupport:
-                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"不支持的操作！"];
                 break;
             default:
                 break;
         }
     } else if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
         NSLog(@"--------微信分享onResp-----------");
-        // TODO 组织回调函数
-        SendMessageToWXResp *sendMessageResp = (SendMessageToWXResp*)resp;
-        NSString *luaFuncFormat = @"('onWeChatSendMessageResp', %d, '%@');";
         switch (resp.errCode) {
             case WXSuccess:
-                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"0"];
                 break;
             case WXErrCodeUserCancel:
-                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"0"];
                 break;
             default:
                 break;
         }
     }
-    const char*stringFunc = [func UTF8String];
-    // TODO 这里回调给客户端。登陆成功还是分享成功，调用OnLoginxxxx接口或自己调用lua
+}
+
+- (void)sendWechatGetAccessToken:(SendAuthResp *)authResp
+{
+    NSString *urlStr = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",@"wx2675e915e32971a4",@"39566d61fc7bf7c96c90c23e64a385d5",authResp.code];
+    // 转码URL里面不能包含中文
+    urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    // 创建请求对象
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url]; // 默认就是GET请求
+    request.timeoutInterval = 5; // 设置请求超时
     
-//    se::ScriptEngine::getInstance()->evalString(stringFunc);
+    NSOperationQueue *queue = [NSOperationQueue mainQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (data) { // 请求成功
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            NSString *error = dict[@"errcode"];
+            if (error) { // 登录失败
+                NSLog(@"请求失败!");
+            } else {     // 登录成功
+                NSString *access_token  =  dict[@"access_token"]; // 接口调用凭证(有效期2h)
+                NSString *openid        =  dict[@"openid"];       // 授权用户唯一标识
+                
+                NSLog(@"openid=%@"      ,openid);
+                NSLog(@"access_token=%@",access_token);
+                NSLog(@"请求成功!");
+                [self sendWechatGetUserInfo:openid accessToken:access_token];
+            }
+        } else { // 请求失败
+            NSLog(@"网络繁忙, 请稍后再试");
+        }
+    }];
+}
+
+- (void)sendWechatGetUserInfo:(NSString * ) openid accessToken:(NSString *) accesstk
+{
+    NSString *urlStr = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@&lang=zh_CN",accesstk,openid];
+    // 转码URL里面不能包含中文
+    urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url]; // 默认就是GET请求
+    request.timeoutInterval = 5; // 设置请求超时
+    
+    NSOperationQueue *queue = [NSOperationQueue mainQueue];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (data) { // 请求成功
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            NSString *error = dict[@"errcode"];
+            if (error) { // 登录失败
+                NSLog(@"请求失败!");
+            } else {     // 登录成功
+                NSString *nickname  =  dict[@"nickname"]; // 接口调用凭证(有效期2h)
+                NSString *headimgurl        =  dict[@"headimgurl"];       // 授权用户唯一标识
+                
+                NSLog(@"nickname=%@"      ,nickname);
+                NSLog(@"headimgurl=%@",headimgurl);
+                NSLog(@"请求成功!");
+                
+                // TODO 这里回调给客户端。登陆成功还是分享成功，调用OnLoginxxxx接口或自己调用lua
+                // cz test 不知道lua接收什么。
+                AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
+                [pApp onLoginSuccess:@"third_WECHAT_CIRCLE" backMsg:nickname];
+            }
+        } else { // 请求失败
+            NSLog(@"网络繁忙, 请稍后再试");
+        }
+    }];
 }
 
 // 微信回调
