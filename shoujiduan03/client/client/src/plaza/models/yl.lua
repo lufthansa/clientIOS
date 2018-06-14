@@ -8,11 +8,11 @@ yl.KIND_ID								= 122
 yl.STATION_ID							= 1
 
 --测试
-yl.LOGONSERVER							= "180.97.220.196" --@login_ip
+yl.LOGONSERVER							= "222.186.180.41" --@login_ip
 -- 登陆地址列表
 yl.SERVER_LIST = 
 {
-    "180.97.220.196", --@login_ip
+    "222.186.180.41", --@login_ip
     --"120.25.147.47", --@login_ip
 }
 -- 当前地址索引
@@ -35,7 +35,7 @@ yl.VALIDATE 							= "B3D44854-9C2F-4C78-807F-8C08E940166D" --@compilation
 --http请求链接地址
 --yl.HTTP_URL								= "http://ry.webfox.com" --@http_url
 --yl.HTTP_URL								= "http://ry.webfox.com" --@http_url
-yl.HTTP_URL								= "http://180.97.220.196:8082" --@http_url
+yl.HTTP_URL								= "http://222.186.180.41:8082" --@http_url
 
 -- http请求支持(loginScene)
 yl.HTTP_SUPPORT							= true
@@ -416,8 +416,8 @@ yl.ShareErrorCode =
 --微信配置定义
 yl.WeChat = 
 {
-	AppID 								= "wxbcfeee8fec9ccc19", --@wechat_appid_wx
-	AppSecret 							= "4036e3c9e483929a0a2771d8603f2a25", --@wechat_secret_wx
+	AppID 								= "wx6ac3f5090a6b99c5", --@wechat_appid_wx
+	AppSecret 							= " ", --@wechat_secret_wx
 	-- 商户id
 	PartnerID 							= " ", --@wechat_partnerid_wx
 	-- 支付密钥					        
