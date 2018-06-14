@@ -35,6 +35,9 @@
 #include "tolua_fix.h"
 #endif
 
+#import "WXApi.h"
+#import "WXApiObject.h"
+
 #import "AppController.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
@@ -44,7 +47,6 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "utils/Utils.h"
-#import "thirdparty/ThirdParty.h"
 
 static const std::string g_LuaToastFun = "g_NativeToast";
 
@@ -103,6 +105,11 @@ static AppDelegate s_sharedApplication;
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView(eaglView);
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
+    //向微信注册
+    [WXApi registerApp:@"wx2675e915e32971a4"];  // guagua
+//    [WXApi registerApp:@"wxe25e78084fb65f35"];  // baz
+    
+    
     [self initAppController];
     app->run();
     return YES;
@@ -143,7 +150,7 @@ static AppDelegate s_sharedApplication;
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
-    [[ThirdParty getInstance] willEnterForegound];
+//    [[ThirdParty getInstance] willEnterForegound];
     cocos2d::Application::getInstance()->applicationWillEnterForeground();
 }
 
@@ -156,7 +163,10 @@ static AppDelegate s_sharedApplication;
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    return [[ThirdParty getInstance] openURL:url];
+    NSLog(@"in application handleOpenURL %@", url);
+    return  [WXApi handleOpenURL:url delegate:self];
+
+    return false; //[[ThirdParty getInstance] openURL:url];
 }
 
 #pragma mark -
@@ -440,63 +450,76 @@ static AppDelegate s_sharedApplication;
 //配置第三方平台
 + (void) thirdPartyConfig:(NSDictionary *)dict
 {
+    
     NSObject* obj = [dict objectForKey:@"_nidx"];
     if (nil != obj)
     {
-        NSString *platstr = [[ThirdParty getInstance] getPlatform:[(NSString*)obj intValue]];
-        [[ThirdParty getInstance] configThirdParty:platstr platConfig:dict];
+//        NSString *platstr = [[ThirdParty getInstance] getPlatform:[(NSString*)obj intValue]];
+        NSLog(@"in thirdPartyConfig");
+//        [[ThirdParty getInstance] configThirdParty:platstr platConfig:dict];
     }
 }
 
 //配置分享
 + (void) socialShareConfig:(NSDictionary *)dict
 {
-    [[ThirdParty getInstance] configSocialShare:dict];
+    NSLog(@"in socialShareConfig");
+//    [[ThirdParty getInstance] configSocialShare:dict];
 }
 
 //第三方登陆
 + (void) thirdLogin:(NSDictionary *)dict
 {
+    NSLog(@"in thirdLogin");
+
+    return [AppController sendWeChatAuth];
+    
     NSObject* obj = [dict objectForKey:@"_nidx"];
     if (nil != obj)
     {
-        NSString *platstr = [[ThirdParty getInstance] getPlatform:[(NSString*)obj intValue]];
+//        NSString *platstr = [[ThirdParty getInstance] getPlatform:[(NSString*)obj intValue]];
         
         AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
         //设置回调
         [pApp setLoginCallFunC:[[dict objectForKey:@"scriptHandler"] intValue]];        
-        [[ThirdParty getInstance] thirdPartyLogin:platstr delegate:pApp];
+//        [[ThirdParty getInstance] thirdPartyLogin:platstr delegate:pApp];
     }
 }
 
 //分享
 + (void) startShare:(NSDictionary *)dict
 {
-    ShareConfig* share = [[ThirdParty getInstance] getDefaultShareConfig];
-    NSString* title = [NSString stringWithString:share.ShareTitle];
-    NSString* content = [NSString stringWithString:share.ShareContent];
-    NSString* url = [NSString stringWithString:share.ShareUrl];
-    struct tagShareParam param = {0, title, content, url, @"", FALSE};
+    NSLog(@"in startShare");
+
+//    ShareConfig* share = [[ThirdParty getInstance] getDefaultShareConfig];
+//    NSString* title = [NSString stringWithString:share.ShareTitle];
+//    NSString* content = [NSString stringWithString:share.ShareContent];
+//    NSString* url = [NSString stringWithString:share.ShareUrl];
+//    struct tagShareParam param = {0, title, content, url, @"", FALSE};
     
     AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
     //设置回调
     [pApp setShareCallFunC:[[dict objectForKey:@"scriptHandler"] intValue]];
-    [[ThirdParty getInstance] openShare:pApp share:param];
+//    [[ThirdParty getInstance] openShare:pApp share:param];
 }
 
 //自定义分享
 + (void) customShare:(NSDictionary *)dict
 {
-    struct tagShareParam param = [AppController getShareParam: dict];
+    NSLog(@"in customShare");
+
+//    struct tagShareParam param = [AppController getShareParam: dict];
     AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
     //设置回调
     [pApp setShareCallFunC:[[dict objectForKey:@"scriptHandler"] intValue]];
-    [[ThirdParty getInstance] openShare:pApp share:param];
+//    [[ThirdParty getInstance] openShare:pApp share:param];
 }
 
 // 分享到指定平台
 + (void) shareToTarget:(NSDictionary *)dict
 {
+    NSLog(@"in shareToTarget");
+
     AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
     int nLuaFunC = [[dict objectForKey:@"scriptHandler"] intValue];
     //设置回调
@@ -504,10 +527,10 @@ static AppDelegate s_sharedApplication;
     NSString* obj = [dict objectForKey:@"target"];
     if (nil != obj)
     {
-        struct tagShareParam param = [AppController getShareParam: dict];
-        param.nTarget = [obj intValue];
-        [pApp setShareCallFunC:nLuaFunC];
-        [[ThirdParty getInstance] targetShare:pApp share:param];
+//        struct tagShareParam param = [AppController getShareParam: dict];
+//        param.nTarget = [obj intValue];
+//        [pApp setShareCallFunC:nLuaFunC];
+//        [[ThirdParty getInstance] targetShare:pApp share:param];
     }
     else
     {
@@ -515,77 +538,86 @@ static AppDelegate s_sharedApplication;
     }
 }
 
-+ (tagShareParam) getShareParam:(NSDictionary *)dict
+//+ (tagShareParam) getShareParam:(NSDictionary *)dict
++ (void) getShareParam:(NSDictionary *)dict
 {
-    ShareConfig* share = [[ThirdParty getInstance] getDefaultShareConfig];
-    NSString* title = [dict objectForKey:@"title"];
-    if (nil == title)
-    {
-        title = share.ShareTitle;
-    }
-    NSString* content = [dict objectForKey:@"content"];
-    if (nil == content)
-    {
-        content = share.ShareContent;
-    }
-    NSString* url = [dict objectForKey:@"url"];
-    if (nil == url)
-    {
-        url = share.ShareUrl;
-    }
-    NSString* img = [dict objectForKey:@"img"];
-    if (nil == img)
-    {
-        img = share.ShareMediaPath;
-    }
-    NSString* imageOnly = [dict objectForKey:@"imageOnly"];
-    BOOL bImageOnly = FALSE;
-    if (nil != imageOnly && [imageOnly isEqualToString:@"true"])
-    {
-        bImageOnly = TRUE;
-    }
-    struct tagShareParam param = {0, title, content, url, img, bImageOnly};
-    return param;
+    NSLog(@"in getShareParam");
+
+//    ShareConfig* share = [[ThirdParty getInstance] getDefaultShareConfig];
+//    NSString* title = [dict objectForKey:@"title"];
+//    if (nil == title)
+//    {
+//        title = share.ShareTitle;
+//    }
+//    NSString* content = [dict objectForKey:@"content"];
+//    if (nil == content)
+//    {
+//        content = share.ShareContent;
+//    }
+//    NSString* url = [dict objectForKey:@"url"];
+//    if (nil == url)
+//    {
+//        url = share.ShareUrl;
+//    }
+//    NSString* img = [dict objectForKey:@"img"];
+//    if (nil == img)
+//    {
+//        img = share.ShareMediaPath;
+//    }
+//    NSString* imageOnly = [dict objectForKey:@"imageOnly"];
+//    BOOL bImageOnly = FALSE;
+//    if (nil != imageOnly && [imageOnly isEqualToString:@"true"])
+//    {
+//        bImageOnly = TRUE;
+//    }
+//    struct tagShareParam param = {0, title, content, url, img, bImageOnly};
+//    return param;
 }
 
 //支付
 + (void) thirdPartyPay:(NSDictionary*) dict
 {
-    NSObject* obj = [dict objectForKey:@"_nidx"];
-    if (nil != obj)
-    {
-        NSString *platstr = [[ThirdParty getInstance] getPlatform:[(NSString*)obj intValue]];
-        
-        AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
-        //设置回调
-        [pApp setPayCallFunC:[[dict objectForKey:@"scriptHandler"] intValue]];
-        [[ThirdParty getInstance] thirdPartyPay:platstr delegate:pApp payparam:dict];
-    }
+    NSLog(@"in thirdPartyPay");
+
+//    NSObject* obj = [dict objectForKey:@"_nidx"];
+//    if (nil != obj)
+//    {
+//        NSString *platstr = [[ThirdParty getInstance] getPlatform:[(NSString*)obj intValue]];
+//
+//        AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
+//        //设置回调
+//        [pApp setPayCallFunC:[[dict objectForKey:@"scriptHandler"] intValue]];
+//        [[ThirdParty getInstance] thirdPartyPay:platstr delegate:pApp payparam:dict];
+//    }
 }
 
 //获取竣付通支付列表
 + (void) getPayList:(NSDictionary*) dict
 {
+    NSLog(@"in getPayList");
+
     AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
     //设置回调
     [pApp setPayCallFunC:[[dict objectForKey:@"scriptHandler"] intValue]];
     //token
     NSString *token = [dict objectForKey:@"token"];
-    [[ThirdParty getInstance] getPayList:token delegate:pApp];
+//    [[ThirdParty getInstance] getPayList:token delegate:pApp];
 }
 
 //
 + (char) isPlatformInstalled:(NSDictionary*) dict
 {
-    NSObject* obj = [dict objectForKey:@"_nidx"];
-    if (nil != obj)
-    {
-        NSString *platstr = [[ThirdParty getInstance] getPlatform:[(NSString*)obj intValue]];
-        if (TRUE == [[ThirdParty getInstance] isPlatformInstalled: platstr])
-        {
-            return 1;
-        }
-    }
+    NSLog(@"in isPlatformInstalled");
+
+//    NSObject* obj = [dict objectForKey:@"_nidx"];
+//    if (nil != obj)
+//    {
+//        NSString *platstr = [[ThirdParty getInstance] getPlatform:[(NSString*)obj intValue]];
+//        if (TRUE == [[ThirdParty getInstance] isPlatformInstalled: platstr])
+//        {
+//            return 1;
+//        }
+//    }
     return 0;
 }
 
@@ -642,15 +674,19 @@ static AppDelegate s_sharedApplication;
 
 + (void) requestLocation:(NSDictionary*) dict
 {
-    AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
-    //设置回调
-    [pApp setLocationCallFunC:[[dict objectForKey:@"scriptHandler"] intValue]];
-    [[ThirdParty getInstance] requestLocation:pApp];
+    NSLog(@"in requestLocation");
+
+//    AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
+//    //设置回调
+//    [pApp setLocationCallFunC:[[dict objectForKey:@"scriptHandler"] intValue]];
+//    [[ThirdParty getInstance] requestLocation:pApp];
 }
 
 + (NSString*) metersBetweenLocation:(NSDictionary*) dict
 {
-    return [[ThirdParty getInstance] metersBetweenLocation:dict];
+    NSLog(@"in metersBetweenLocation");
+    return @"1000000";
+//    return [[ThirdParty getInstance] metersBetweenLocation:dict];
 }
 
 + (void) requestContact:(NSDictionary*) dict
@@ -724,6 +760,244 @@ static AppDelegate s_sharedApplication;
         return 1;
     }
     return 0;
+}
+
+//微信登录
++(void)sendWeChatAuth{
+    NSLog(@"---发送微信登录消息---");
+    
+    if (![WXApi isWXAppInstalled])  {
+        NSString *func = NULL;
+        NSString *jsFuncFormat = @"cc.poker.NativeEventHandler('onWeChatLoginResp', %d, '%@');";
+        func = [NSString stringWithFormat:jsFuncFormat, -7, @""];
+        const char*stringFunc = [func UTF8String];
+        // TODO 通知微信没有按照
+//        se::ScriptEngine::getInstance()->evalString(stringFunc);
+    }
+    
+    SendAuthReq *req = [[SendAuthReq alloc] init];
+    req.scope = @"snsapi_userinfo";
+    req.state = @"jchzbz";
+    [WXApi sendReq:req];
+}
+
+//微信分享URL
++(void)sendWeChatURL:(NSString*)urlString
+           withTitle:(NSString*)title
+      andDescription:(NSString*)description
+             inScene:(NSNumber*)scene
+     withTransaction:(NSString*)transaction{
+    NSLog(@"---发送微信分享URL消息---");
+    WXWebpageObject *ext = [WXWebpageObject object];
+    ext.webpageUrl = urlString;
+    
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = title;
+    message.description = description;
+    message.mediaObject = ext;
+    [message setThumbImage:[UIImage imageNamed:@"share.png"]];
+    
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.scene = [scene intValue];
+    req.message = message;
+    
+    [WXApi sendReq:req];
+}
+
+//微信分享本地图片
++(BOOL)sendWeChatImage:(NSString*)filePath
+             withTitle:(NSString*)title
+        andDescription:(NSString*)description
+               inScene:(NSNumber*)scene
+       withTransaction:(NSString*)transaction{
+    NSLog(@"---发送微信分享图片消息--- %@", filePath);
+    
+    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+    
+    BOOL ret = [self sendImgToWeChat:imageData withTitle:title andDescription:description inScene:scene withTransaction:transaction];
+    return ret;
+}
+
+//微信分享URL图片
++(BOOL)sendWeChatUrlImage:(NSString*)iurl
+                withTitle:(NSString*)title
+           andDescription:(NSString*)description
+                  inScene:(NSNumber*)scene
+          withTransaction:(NSString*)transaction{
+    NSLog(@"---发送微信分享url图片消息--- %@", iurl);
+    
+    NSURL *url=[NSURL URLWithString:iurl];
+    NSData *imageData=[NSData dataWithContentsOfURL:url];
+    
+    BOOL ret = [self sendImgToWeChat:imageData withTitle:title andDescription:description inScene:scene withTransaction:transaction];
+    return ret;
+}
+
+// 将nsdata数据发送给微信分享。
++(BOOL)sendImgToWeChat:(NSData*)imageData
+             withTitle:(NSString*)title
+        andDescription:(NSString*)description
+               inScene:(NSNumber*)scene
+       withTransaction:(NSString*)transaction{
+    // 压缩缩略图
+    UIImage *thumbImage2 = [UIImage imageWithData:imageData];
+    if(thumbImage2 == nil)
+    { return NO;}
+    
+    CGFloat origanSize = [self getImageLengthWithImage:thumbImage2];
+    NSLog(@"ori image s = %d size 0 = %f w %f h %f", (int)(imageData.length), origanSize, thumbImage2.size.width, thumbImage2.size.height);
+    
+    CGSize newSize;
+    newSize.width = 256;
+    newSize.height = 144;
+    UIImage * thumbImage = [self imageWithImage:thumbImage2 scaledToSize:newSize];
+    origanSize = [self getImageLengthWithImage:thumbImage];
+    NSLog(@"ori size 3 = %f w %f h %f", origanSize, thumbImage.size.width, thumbImage.size.height);
+    
+    
+    WXImageObject *ext = [WXImageObject object];
+    ext.imageData = imageData;
+    
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = title;
+    message.description = description;
+    message.mediaObject = ext;
+    message.messageExt = @"messageExt";
+    message.messageAction = @"action";
+    message.mediaTagName = @"tagName";
+    [message setThumbImage:thumbImage];
+    
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.scene = [scene intValue];
+    req.message = message;
+    
+    [WXApi sendReq:req];
+    
+    return YES;
+}
+
+// 压缩图片
++ (UIImage *)scaleImageCompression:(UIImage *)image {
+    CGFloat origanSize = [self getImageLengthWithImage:image];
+    
+    NSLog(@"ori size = %f", origanSize);
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+    if (origanSize > 512) {
+        imageData=UIImageJPEGRepresentation(image, 0.1);
+    } else if (origanSize > 256) {
+        imageData=UIImageJPEGRepresentation(image, 0.5);
+    }
+    UIImage *image1 = [UIImage imageWithData:imageData];
+    
+    origanSize = [self getImageLengthWithImage:image1];
+    NSLog(@"ori size 2 = %f", origanSize);
+    
+    return image1;
+}
+
++ (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
+{
+    // Create a graphics image context
+    NSInteger newWidth = (NSInteger)newSize.width;
+    NSInteger newHeight = (NSInteger)newSize.height;
+    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
+    
+    // Tell the old image to draw in this new context, with the desired
+    // new size
+    
+    [image drawInRect:CGRectMake(0 , 0,newWidth, newHeight)];
+    
+    // Get the new image from the context
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // End the context
+    UIGraphicsEndImageContext();
+    
+    // Return the new image.
+    return newImage;
+}
+
++ (CGFloat)getImageLengthWithImage:(UIImage *)image {
+    NSData * imageData = UIImageJPEGRepresentation(image,1);
+    CGFloat length = [imageData length]/1000;
+    return length;
+}
+
+// 微信回调
+- (void)onResp:(BaseResp *)resp {
+    NSString *func = NULL;
+    
+    if ([resp isKindOfClass:[SendAuthResp class]]) {
+        NSLog(@"--------微信登录onResp-----------");
+        SendAuthResp *authResp = (SendAuthResp*)resp;
+        // TODO 组织回调函数
+        NSString *strMsg0 = [NSString stringWithFormat:@"code:%@,state:%@,errcode:%d", authResp.code, authResp.state, authResp.errCode];
+        NSString *luaFuncFormat = @"('onWeChatLoginResp', %d, '%@');";
+        switch (resp.errCode) {
+            case WXSuccess:
+                func = [NSString stringWithFormat:luaFuncFormat, authResp.errCode, authResp.code];
+                break;
+            case WXErrCodeUserCancel:
+                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"用户取消授权！"];
+                break;
+            case WXErrCodeAuthDeny:
+                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"用户授权被拒绝！"];
+                break;
+            case WXErrCodeUnsupport:
+                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"不支持的操作！"];
+                break;
+            default:
+                break;
+        }
+    } else if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
+        NSLog(@"--------微信分享onResp-----------");
+        // TODO 组织回调函数
+        SendMessageToWXResp *sendMessageResp = (SendMessageToWXResp*)resp;
+        NSString *luaFuncFormat = @"('onWeChatSendMessageResp', %d, '%@');";
+        switch (resp.errCode) {
+            case WXSuccess:
+                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"0"];
+                break;
+            case WXErrCodeUserCancel:
+                func = [NSString stringWithFormat:luaFuncFormat, resp.errCode, @"0"];
+                break;
+            default:
+                break;
+        }
+    }
+    const char*stringFunc = [func UTF8String];
+    // TODO 这里回调给客户端。登陆成功还是分享成功，调用OnLoginxxxx接口或自己调用lua
+    
+//    se::ScriptEngine::getInstance()->evalString(stringFunc);
+}
+
+// 微信回调
+- (void)onReq:(BaseReq *)req {
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
+  sourceApplication:(nullable NSString *)sourceApplication
+         annotation:(nonnull id)annotation{
+    [WXApi handleOpenURL:url delegate:self];  //(微信回调)
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
+            options:(nonnull NSDictionary<NSString *,id> *)options
+{
+    /*
+     if(支付宝回调) return 支付宝回调处理逻辑;
+     else if(微信回调) return 微信回调处理逻辑;
+     else if(其他第三方回调) return 其他第三方回调处理逻辑;
+     else return [MWApi routeMLink:url];
+     */
+    //必写
+    NSLog(@"--------openURL-----------");
+    [WXApi handleOpenURL:url delegate:self];  //(微信回调)
+    return YES;
 }
 
 #pragma mark -

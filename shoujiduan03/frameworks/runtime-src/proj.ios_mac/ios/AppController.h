@@ -22,12 +22,14 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#import "thirdparty/ThirdProtocol.h"
+//#import "thirdparty/ThirdProtocol.h"
 #import <ContactsUI/ContactsUI.h>
 #import <Contacts/Contacts.h>
+#import "WXApi.h"
+
 @class RootViewController;
 
-@interface AppController : NSObject <UIApplicationDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, LoginDelegate, ShareDelegate, PayDelegate, LocationDelegate, CNContactPickerDelegate>
+@interface AppController : NSObject <UIApplicationDelegate, WXApiDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CNContactPickerDelegate>
 {
     UIWindow *window;
 @public

@@ -21,18 +21,18 @@
 #include "ide-support/RuntimeLuaImpl.h"
 #endif
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 
-
+#if  CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #elif  CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 	#include "platform/android/jni/JniHelper.h"
 	#include "bugly/CrashReport.h"
 	#include "bugly/lua/BuglyLuaAgent.h"
     #include "SimpleAudioEngine.h"
     using namespace CocosDenshion;
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-	#include "CrashReport.h"
-	#include "BuglyLuaAgent.h"
+#elif  CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+//    #include "CrashReport.h"
+//    #include "BuglyLuaAgent.h"
 #endif
+
 #include "audio/include/AudioEngine.h"
 using namespace experimental;
 
@@ -875,9 +875,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     	CrashReport::initCrashReport("a5f9bb958c", isDebug);
     #elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    	CrashReport::initCrashReport("fb732f6832", isDebug);
-    #endif    
-    BuglyLuaAgent::registerLuaExceptionHandler(engine);
+//        CrashReport::initCrashReport("fb732f6832", isDebug);
+    #endif
+//    BuglyLuaAgent::registerLuaExceptionHandler(engine);
 #endif
 
     ScriptEngineManager::getInstance()->setScriptEngine(engine);

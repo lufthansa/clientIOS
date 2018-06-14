@@ -8,6 +8,8 @@
 	<string>大厅</string>
 	<key>CFBundleExecutable</key>
 	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>CFBundleIconFile</key>
 	<string>Icon-58.png</string>
 	<key>CFBundleIconFiles</key>
@@ -46,7 +48,7 @@
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string> </string>
+				<string>wx2675e915e32971a4</string>
 			</array>
 		</dict>
 		<dict>
@@ -61,7 +63,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>com.alading.game.plz</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>WHAliPay</string>
@@ -77,6 +79,18 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>222.186.180.41</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>NSContactsUsageDescription</key>
 	<string>请求访问通讯录</string>

@@ -10,45 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.058454"
+            timestampString = "548592523.090498"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "158"
             endingLineNumber = "158"
             landmarkName = "-paymentQueue:removedTransactions:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[iAPTransactionObserver paymentQueue:removedTransactions:]"
-                  moduleName = "GloryProject-mobile"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengzuan/Desktop/rongyao392/lesson/shoujiduan03/frameworks/runtime-src/proj.ios_mac/ios/thirdparty/IAP/IOSiAP.mm"
-                  timestampString = "546155946.701158"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "158"
-                  endingLineNumber = "158"
-                  offsetFromSymbolStart = "92">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[iAPTransactionObserver paymentQueue:removedTransactions:]"
-                  moduleName = "GloryProject-mobile"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengzuan/Desktop/rongyao392/lesson/shoujiduan03/frameworks/runtime-src/proj.ios_mac/ios/thirdparty/IAP/IOSiAP.mm"
-                  timestampString = "546155946.7058409"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "158"
-                  endingLineNumber = "158"
-                  offsetFromSymbolStart = "132">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -58,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.058723"
+            timestampString = "548592523.0917031"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "168"
@@ -74,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.058858"
+            timestampString = "548592523.0917929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "174"
@@ -90,45 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.059033"
+            timestampString = "548592523.0918421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "98"
             endingLineNumber = "98"
             landmarkName = "-paymentQueue:updatedTransactions:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[iAPTransactionObserver paymentQueue:updatedTransactions:]"
-                  moduleName = "GloryProject-mobile"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengzuan/Desktop/rongyao392/lesson/shoujiduan03/frameworks/runtime-src/proj.ios_mac/ios/thirdparty/IAP/IOSiAP.mm"
-                  timestampString = "546155946.714239"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "88">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[iAPTransactionObserver paymentQueue:updatedTransactions:]"
-                  moduleName = "GloryProject-mobile"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengzuan/Desktop/rongyao392/lesson/shoujiduan03/frameworks/runtime-src/proj.ios_mac/ios/thirdparty/IAP/IOSiAP.mm"
-                  timestampString = "546155946.7193"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "124">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -138,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.059149"
+            timestampString = "548592523.091895"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
@@ -154,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.0593261"
+            timestampString = "548592523.091936"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
@@ -170,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.059425"
+            timestampString = "548592523.091976"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
@@ -186,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.05951"
+            timestampString = "548592523.092016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "186"
@@ -202,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.059598"
+            timestampString = "548592523.092055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "193"
@@ -218,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.0596991"
+            timestampString = "548592523.0921021"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "211"
@@ -234,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.059826"
+            timestampString = "548592523.092144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "226"
@@ -250,7 +186,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.0599411"
+            timestampString = "548592523.0921839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "242"
@@ -266,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios/thirdparty/IAP/IOSiAP.mm"
-            timestampString = "539603878.060078"
+            timestampString = "548592523.092222"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "251"
@@ -400,6 +336,102 @@
             startingLineNumber = "14"
             endingLineNumber = "14"
             landmarkName = "IOSiAP_Bridge::IOSiAP_Bridge()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios/thirdparty/ThirdParty.mm"
+            timestampString = "548653737.2594939"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
+            landmarkName = "-parseAuthorizeData:response:delegate:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios/thirdparty/ThirdParty.mm"
+            timestampString = "548653737.260215"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
+            landmarkName = "-openShare:share:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios/thirdparty/ThirdParty.mm"
+            timestampString = "548653737.260475"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "577"
+            endingLineNumber = "577"
+            landmarkName = "-targetShare:share:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios/thirdparty/ThirdParty.mm"
+            timestampString = "548653737.260718"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "473"
+            endingLineNumber = "473"
+            landmarkName = "-thirdPartyLogin:delegate:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios/thirdparty/ThirdParty.mm"
+            timestampString = "548653737.26094"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "484"
+            endingLineNumber = "484"
+            landmarkName = "-thirdPartyLogin:delegate:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios/AppController.mm"
+            timestampString = "550653218.688033"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "484"
+            endingLineNumber = "484"
+            landmarkName = "+thirdLogin:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
