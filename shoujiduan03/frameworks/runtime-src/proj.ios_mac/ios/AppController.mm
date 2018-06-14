@@ -983,8 +983,8 @@ static AppDelegate s_sharedApplication;
                 NSString *access_token  =  dict[@"access_token"]; // 接口调用凭证(有效期2h)
                 NSString *openid        =  dict[@"openid"];       // 授权用户唯一标识
                 
-                NSLog(@"openid=%@"      ,openid);
-                NSLog(@"access_token=%@",access_token);
+                NSLog(@"openid=%@", openid);
+                NSLog(@"access_token=%@", access_token);
                 NSLog(@"请求成功!");
                 [self sendWechatGetUserInfo:openid accessToken:access_token];
             }
@@ -1012,11 +1012,11 @@ static AppDelegate s_sharedApplication;
             if (error) { // 登录失败
                 NSLog(@"请求失败!");
             } else {     // 登录成功
-                NSString *nickname  =  dict[@"nickname"]; // 接口调用凭证(有效期2h)
-                NSString *headimgurl        =  dict[@"headimgurl"];       // 授权用户唯一标识
+                NSString *nickname     =  dict[@"nickname"]; // 接口调用凭证(有效期2h)
+                NSString *headimgurl   =  dict[@"headimgurl"];       // 授权用户唯一标识
                 
-                NSLog(@"nickname=%@"      ,nickname);
-                NSLog(@"headimgurl=%@",headimgurl);
+                NSLog(@"nickname=%@", nickname);
+                NSLog(@"headimgurl=%@", headimgurl);
                 NSLog(@"请求成功!");
                 
                 // TODO 这里回调给客户端。登陆成功还是分享成功，调用OnLoginxxxx接口或自己调用lua
