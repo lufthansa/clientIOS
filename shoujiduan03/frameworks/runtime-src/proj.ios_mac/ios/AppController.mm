@@ -471,7 +471,6 @@ static AppDelegate s_sharedApplication;
 + (void) thirdLogin:(NSDictionary *)dict
 {
     NSLog(@"in thirdLogin");
-
     
     NSObject* obj = [dict objectForKey:@"_nidx"];
     if (nil != obj)
@@ -1014,7 +1013,11 @@ static AppDelegate s_sharedApplication;
             } else {     // 登录成功
                 NSString *nickname     =  dict[@"nickname"]; // 接口调用凭证(有效期2h)
                 NSString *headimgurl   =  dict[@"headimgurl"];       // 授权用户唯一标识
-                
+                NSString *unionid      =  dict[@"unionid"];
+                NSString *sex          =  dict[@"sex"];
+                NSString *bmsg         =  [NSString stringWithFormat:@"{\"unionid\":\"%@\",\"screen_name\":\"%@\",\"profile_image_url\":\"%@\",\"sex\":%@}",
+                                           unionid, nickname, headimgurl, sex];
+
                 NSLog(@"nickname=%@", nickname);
                 NSLog(@"headimgurl=%@", headimgurl);
                 NSLog(@"请求成功!");
@@ -1022,7 +1025,7 @@ static AppDelegate s_sharedApplication;
                 // TODO 这里回调给客户端。登陆成功还是分享成功，调用OnLoginxxxx接口或自己调用lua
                 // cz test 不知道lua接收什么。
                 AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
-                [pApp onLoginSuccess:@"third_WECHAT_CIRCLE" backMsg:nickname];
+                [pApp onLoginSuccess:@"third_WECHAT_CIRCLE" backMsg:bmsg];
             }
         } else { // 请求失败
             NSLog(@"网络繁忙, 请稍后再试");
