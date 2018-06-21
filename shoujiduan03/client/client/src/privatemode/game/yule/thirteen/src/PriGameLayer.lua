@@ -66,8 +66,8 @@ function PriGameLayer:onButtonClickedEvent( tag, sender )
                 end
                 --GlobalUserItem.bAutoConnect = true
             end
-            local shareTxt = "斗地主约战 房间ID:" .. self.m_atlasRoomID:getString() .. " 局数:" .. PriRoom:getInstance().m_tabPriData.dwDrawCountLimit
-            local friendC = "斗地主房间ID:" .. self.m_atlasRoomID:getString() .. " 局数:" .. PriRoom:getInstance().m_tabPriData.dwDrawCountLimit
+            local shareTxt = "十三水约战 房间ID:" .. self.m_atlasRoomID:getString() .. " 局数:" .. PriRoom:getInstance().m_tabPriData.dwDrawCountLimit
+            local friendC = "十三水房间ID:" .. self.m_atlasRoomID:getString() .. " 局数:" .. PriRoom:getInstance().m_tabPriData.dwDrawCountLimit
             local url = GlobalUserItem.szWXSpreaderURL or yl.HTTP_URL
             if bMyFriend then
                 PriRoom:getInstance():getTagLayer(PriRoom.LAYTAG.LAYER_FRIENDLIST, function( frienddata )
@@ -75,7 +75,7 @@ function PriGameLayer:onButtonClickedEvent( tag, sender )
                     PriRoom:getInstance():priInviteFriend(frienddata, GlobalUserItem.nCurGameKind, serverid, yl.INVALID_TABLE, friendC)
                 end)
             elseif nil ~= target then
-                MultiPlatform:getInstance():shareToTarget(target, sharecall, "斗地主约战", shareTxt .. " 斗地主游戏精彩刺激, 一起来玩吧! ", url, "")
+                MultiPlatform:getInstance():shareToTarget(target, sharecall, "十三水约战", shareTxt .. " 十三水游戏精彩刺激, 一起来玩吧! ", url, "")
             end
         end)
     elseif BTN_SHARE == tag then
