@@ -527,45 +527,45 @@ static AppDelegate s_sharedApplication;
     NSString* obj = [dict objectForKey:@"target"];
     if (nil != obj)
     {
-       struct tagShareParam param = [AppController getShareParam: dict];
-       param.nTarget = [obj intValue];
-       [pApp setShareCallFunC:nLuaFunC];
-
-       // 是不是分享图片
-       bool isImageShare = param.bImageOnly;
-       if (param.bImageOnly == true)
-       {
-           WXMediaMessage *message = [WXMediaMessage message];
-           [message setThumbImage:[UIImage imageNamed:@"图片.png"]];
-           //缩略图
-           WXImageObject *imageObject = [WXImageObject object];
-           NSString *filePaht = param.img;
-           imageObject.imageData = [NSD]
-
-           SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-           req.bText = NO;
-           req.message = message;
-           req.scene = param.nTarget;    // 0 是分享到好友, 1是分享到朋友圈
-           [WXApi sendReq:req];
-       }
-       else
-       {
-           // 分享链接
-           WXMediaMessage *message = [WXMediaMessage message];
-           message.title = param.title;
-           message.description = param.content;
-           [message setThumbImage:[UIImage imageNamed:@"res2.png"]];
-
-           WXWebpageObject *webpageObject = [WXWebpageObject object];
-           webpageObject.webpageUrl = param.url;
-           message.mediaObject = webpageObject;
-
-           SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-           req.bText = NO;
-           req.message = message;
-           req.scene = param.nTarget;    // 0 是分享到好友, 1是分享到朋友圈
-           [WXApi sendReq:req];
-       }
+       [AppController getShareParam: dict];
+//       param.nTarget = [obj intValue];
+//       [pApp setShareCallFunC:nLuaFunC];
+//
+//       // 是不是分享图片
+//       bool isImageShare = param.bImageOnly;
+//       if (param.bImageOnly == true)
+//       {
+//           WXMediaMessage *message = [WXMediaMessage message];
+//           [message setThumbImage:[UIImage imageNamed:@"图片.png"]];
+//           //缩略图
+//           WXImageObject *imageObject = [WXImageObject object];
+//           NSString *filePaht = param.img;
+//           imageObject.imageData = [NSD]
+//
+//           SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+//           req.bText = NO;
+//           req.message = message;
+//           req.scene = param.nTarget;    // 0 是分享到好友, 1是分享到朋友圈
+//           [WXApi sendReq:req];
+//       }
+//       else
+//       {
+//           // 分享链接
+//           WXMediaMessage *message = [WXMediaMessage message];
+//           message.title = param.title;
+//           message.description = param.content;
+//           [message setThumbImage:[UIImage imageNamed:@"res2.png"]];
+//
+//           WXWebpageObject *webpageObject = [WXWebpageObject object];
+//           webpageObject.webpageUrl = param.url;
+//           message.mediaObject = webpageObject;
+//
+//           SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+//           req.bText = NO;
+//           req.message = message;
+//           req.scene = param.nTarget;    // 0 是分享到好友, 1是分享到朋友圈
+//           [WXApi sendReq:req];
+//       }
        // [[ThirdParty getInstance] targetShare:pApp share:param];
     }
     else
@@ -577,37 +577,39 @@ static AppDelegate s_sharedApplication;
 //+ (tagShareParam) getShareParam:(NSDictionary *)dict
 + (void) getShareParam:(NSDictionary *)dict
 {
-    NSLog(@"in getShareParam");
+        NSLog(@"in getShareParam");
 
-   // ShareConfig* share = [[ThirdParty getInstance] getDefaultShareConfig];
-   NSString* title = [dict objectForKey:@"title"];
-   if (nil == title)
-   {
-       title = "十三水";    //share.ShareTitle;
-   }
-   NSString* content = [dict objectForKey:@"content"];
-   if (nil == content)
-   {
-       content = "十三水";    //share.ShareContent;
-   }
-   NSString* url = [dict objectForKey:@"url"];
-   if (nil == url)
-   {
-       url = "十三水";    //share.ShareUrl;
-   }
-   NSString* img = [dict objectForKey:@"img"];
-   if (nil == img)
-   {
-       img = "十三水";    //share.ShareMediaPath;
-   }
-   NSString* imageOnly = [dict objectForKey:@"imageOnly"];
-   BOOL bImageOnly = FALSE;
-   if (nil != imageOnly && [imageOnly isEqualToString:@"true"])
-   {
-       bImageOnly = TRUE;
-   }
-   struct tagShareParam param = {0, title, content, url, img, bImageOnly};
-   return param;
+//    ShareConfig* share = [[ThirdParty getInstance] getDefaultShareConfig];
+       NSString* title = [dict objectForKey:@"title"];
+       if (nil == title)
+       {
+           title=@"十三水";    //share.ShareTitle;
+       }
+       NSString* content = [dict objectForKey:@"content"];
+       if (nil == content)
+       {
+           content =@"十三水";    //share.ShareContent;
+       }
+       NSString* url = [dict objectForKey:@"url"];
+       if (nil == url)
+       {
+           url = @"十三水";    //share.ShareUrl;
+       }
+       NSString* img = [dict objectForKey:@"img"];
+       if (nil == img)
+       {
+           img = @"十三水";    //share.ShareMediaPath;
+       }
+       NSString* imageOnly = [dict objectForKey:@"imageOnly"];
+       BOOL bImageOnly = FALSE;
+       if (nil != imageOnly && [imageOnly isEqualToString:@"true"])
+       {
+           bImageOnly = TRUE;
+       }
+    NSNumber* target = [dict objectForKey:@"target"];
+
+    [AppController sendWeChatURL:url withTitle:title andDescription:content inScene:target withTransaction:@""];
+    return;
 }
 
 //支付
