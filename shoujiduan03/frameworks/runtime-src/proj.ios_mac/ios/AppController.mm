@@ -608,7 +608,13 @@ static AppDelegate s_sharedApplication;
        }
     NSNumber* target = [dict objectForKey:@"target"];
 
-    [AppController sendWeChatURL:url withTitle:title andDescription:content inScene:target withTransaction:@""];
+    if (bImageOnly == TRUR)
+    {
+        [AppController sendWeChatImage:img withTitle:title andDescription:content inScene:target withTransaction:@""];
+    }
+    else{
+        [AppController sendWeChatURL:url withTitle:title andDescription:content inScene:target withTransaction:@""];
+    }
     return;
 }
 
