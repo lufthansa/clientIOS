@@ -133,6 +133,9 @@ function PriRoomCreateLayer:ctor( scene )
     -- 提示
     self.m_spTips = csbNode:getChildByName("priland_sp_card_tips")
     self.m_spTips:setVisible(self.m_bLow)
+    -- change by Owen, 2018.6.23, 豆子不足的提示往下移动
+    self.m_spTips:setPosition(self.m_spTips:getPositionX() - 240,
+        self.m_spTips:getPositionY() - 50)
     if PriRoom:getInstance().m_tabRoomOption.cbCardOrBean == 0 then
         local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame("priland_sp_card_tips_bean.png")
         if nil ~= frame then
