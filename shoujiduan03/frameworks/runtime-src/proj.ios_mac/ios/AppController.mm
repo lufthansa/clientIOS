@@ -608,7 +608,7 @@ static AppDelegate s_sharedApplication;
        }
     NSNumber* target = [dict objectForKey:@"target"];
 
-    if (bImageOnly == TRUR)
+    if (bImageOnly == true)
     {
         [AppController sendWeChatImage:img withTitle:title andDescription:content inScene:target withTransaction:@""];
     }
