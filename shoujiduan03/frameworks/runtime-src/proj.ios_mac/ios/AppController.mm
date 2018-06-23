@@ -576,7 +576,7 @@ static AppDelegate s_sharedApplication;
 
 //+ (tagShareParam) getShareParam:(NSDictionary *)dict
 + (void) getShareParam:(NSDictionary *)dict
-{
+{ 
         NSLog(@"in getShareParam");
 
 //    ShareConfig* share = [[ThirdParty getInstance] getDefaultShareConfig];
