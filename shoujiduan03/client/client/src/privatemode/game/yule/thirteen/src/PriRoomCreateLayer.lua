@@ -154,8 +154,8 @@ function PriRoomCreateLayer:ctor( scene )
     self.m_spTips:setVisible(self.m_bLow)
     if PriRoom:getInstance().m_tabRoomOption.cbCardOrBean == 0 then
 
-            -- change by Owen, 2018.6.23, 豆子不足的提示往下移动
-    self.m_spTips:setPosition(self.m_spTips:getPositionX() - 240,
+        -- change by Owen, 2018.6.23, 豆子不足的提示往下移动
+        self.m_spTips:setPosition(self.m_spTips:getPositionX() - 240,
         self.m_spTips:getPositionY() - 50)
 
         local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame("priland_sp_card_tips_bean.png")
@@ -263,10 +263,10 @@ function PriRoomCreateLayer:onLoginPriRoomFinish()
 end
 
 function PriRoomCreateLayer:getInviteShareMsg( roomDetailInfo )
-    local shareTxt = "诈金花约战 房间ID:" .. roomDetailInfo.szRoomID .. " 局数:" .. roomDetailInfo.dwPlayTurnCount
-    shareTxt = shareTxt .. " 诈金花游戏精彩刺激, 一起来玩吧! "
-    local friendC = "诈金花约战 房间ID:" .. roomDetailInfo.szRoomID .. " 局数:" .. roomDetailInfo.dwPlayTurnCount
-    return {title = "诈金花约战", content = shareTxt, friendContent = friendC}
+    local shareTxt = "十三水约战 房间ID:" .. roomDetailInfo.szRoomID .. " 局数:" .. roomDetailInfo.dwPlayTurnCount
+    shareTxt = shareTxt .. " 十三水游戏精彩刺激, 一起来玩吧! "
+    local friendC = "十三水约战 房间ID:" .. roomDetailInfo.szRoomID .. " 局数:" .. roomDetailInfo.dwPlayTurnCount
+    return {title = "十三水约战", content = shareTxt, friendContent = friendC}
 end
 
 function PriRoomCreateLayer:onExit()
