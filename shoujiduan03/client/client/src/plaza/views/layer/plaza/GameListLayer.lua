@@ -35,7 +35,7 @@ function GameListLayer:ctor(gamelist)
 	end
 
 	self._logonFrame = LogonFrame:create(self,logonCallBack)
-	
+
 
 	self:registerScriptHandler(function(eventType)
 		if eventType == "enterTransitionFinish" then	-- 进入场景而且过渡动画结束时候触发。
@@ -51,7 +51,7 @@ function GameListLayer:ctor(gamelist)
 
 	--游戏列表
 	self._listView = cc.TableView:create(cc.size(yl.WIDTH, 420))
-	self._listView:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)    
+	self._listView:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
 	self._listView:setPosition(cc.p(0,160))
 	self._listView:setDelegate()
 	self._listView:addTo(self)
@@ -96,7 +96,7 @@ function GameListLayer:onEnterGame( gameinfo, isQuickStart)
 	local roomCount = GlobalUserItem.GetGameRoomCount(gameinfo._KindID)
 	if not roomCount or 0 == roomCount then
 		--self:onLoadGameList(gameinfo._KindID)
-		print("GameListLayer 房间列表为空")		
+		print("GameListLayer 房间列表为空")
 	end
 	GlobalUserItem.nCurGameKind = tonumber(gameinfo._KindID)
 	GlobalUserItem.szCurGameName = gameinfo._KindName
@@ -141,8 +141,8 @@ function GameListLayer.tableCellTouched(view, cell)
 	if GlobalUserItem.isAngentAccount() then
 		return
 	end
-		
-	local index = cell:getIdx() 
+
+	local index = cell:getIdx()
 	local gamelistLayer = view:getParent()
 
 	--获取游戏信息
@@ -162,11 +162,11 @@ function GameListLayer.tableCellTouched(view, cell)
 		gamelistLayer:onEnterGame(gameinfo, false)
 	end
 end
-	
+
 --获取子视图
-function GameListLayer.tableCellAtIndex(view, idx)	
+function GameListLayer.tableCellAtIndex(view, idx)
 	local cell = view:dequeueCell()
-	
+
 	local gameinfo = view:getParent()._gameList[idx+1]
 	gameinfo.gameIndex = idx
 	local filestr = "GameList/game_"..gameinfo._KindID..".png"
@@ -187,13 +187,13 @@ function GameListLayer.tableCellAtIndex(view, idx)
 
 		local maskSp = cc.Sprite:create(filestr)
 		local pos = cc.p(0,0)
-		if nil ~= maskSp then			
+		if nil ~= maskSp then
 			maskSp:setColor(cc.BLACK)
 			maskSp:setOpacity(100)
 			local size = maskSp:getContentSize()
 			--maskSp:setAnchorPoint(cc.p(0, 0))
 			maskSp:setPosition(cc.p(size.width * 0.5,size.height * 0.5))
-			maskSp:setName("download_mask_sp")			
+			maskSp:setName("download_mask_sp")
 
 			mask = ccui.Layout:create()
 			mask:setClippingEnabled(true)
@@ -217,8 +217,8 @@ function GameListLayer.tableCellAtIndex(view, idx)
 				cycle:setScale(1.3)
 				cycle:setName("download_cycle")
 				cell:addChild(cycle)
-			end			
-		end	
+			end
+		end
 	else
 		game = cell:getChildByTag(1)
 		game:setTexture(filestr)
@@ -239,7 +239,7 @@ function GameListLayer.tableCellAtIndex(view, idx)
 				spTip:setPosition(cellpos)
 			end
 		end
-	end	
+	end
 
 	if nil ~= mask then
 		mask:setVisible(not gameinfo._Active)
@@ -261,12 +261,12 @@ function GameListLayer:onLoadGameList(nKindID)
 		local ru = cc.Director:getInstance():getRunningScene()
 		if nil ~= ru then
 			showToast(ru,"游戏ID有误！",1)
-		end	
+		end
 		return
 	end
 	GlobalUserItem.nCurGameKind = tonumber(nKindID)
 	--如果是有游客
-	if GlobalUserItem.bVisitor then		
+	if GlobalUserItem.bVisitor then
 		if self._logonFrame:onLogonByVisitor() then
 			self:showPopWait()
 		end
@@ -291,11 +291,11 @@ function GameListLayer:onLogonCallBack(result,message)
 		local ru = cc.Director:getInstance():getRunningScene()
 		if nil ~= ru then
 			showToast(ru,message,2)
-		end		
+		end
 	end
 	if result == 0 then
 		self:onUpdataNotify()
-	elseif result == 1 then		
+	elseif result == 1 then
 		local clientscene = self:getParent():getParent()
 		--判断是否是快速开始
 		if nil ~= clientscene.m_bQuickStart and true == clientscene.m_bQuickStart then
@@ -321,7 +321,7 @@ function GameListLayer:onLogonCallBack(result,message)
 					clientscene:onChangeShowMode(yl.SCENE_ROOMLIST, self.m_bQuickStart)
 				end
 			end
-		end		
+		end
 	end
 end
 
@@ -352,10 +352,10 @@ function GameListLayer:updateGame(gameinfo, index)
 	end
 
 	self:onGameUpdate(gameinfo)
-	if nil ~= cell then		
+	if nil ~= cell then
 		self.m_spDownloadMask = cell:getChildByName("download_mask")
 		if nil ~= self.m_spDownloadMask then
-			self.m_szMaskSize = self.m_spDownloadMask:getContentSize()			
+			self.m_szMaskSize = self.m_spDownloadMask:getContentSize()
 		end
 		self.m_labDownloadTip = cell:getChildByName("download_mask_tip")
 		if nil ~= self.m_labDownloadTip then
@@ -377,17 +377,17 @@ function GameListLayer:onGameUpdate(gameinfo)
 		self:showGameUpdateWait()
 		--self._txtTips:setString("同步服务器信息中...")
 		self._update:UpdateFile()
-		return 
+		return
 	end
 
-	if not gameinfo and not self._downgameinfo then 
+	if not gameinfo and not self._downgameinfo then
 		showToast(self,"无效游戏信息！",1)
 		return
 	end
 
 	self:showGameUpdateWait()
 	--self._txtTips:setString("同步服务器信息中...")
-	
+
 	--记录
 	if gameinfo ~= nil then
 		self._downgameinfo = gameinfo
@@ -400,7 +400,7 @@ function GameListLayer:onGameUpdate(gameinfo)
 	if cc.PLATFORM_OS_WINDOWS == targetPlatform then
 		dst = device.writablePath .. "download/game/" .. self._downgameinfo._Type .. "/"
 	end
-	
+
 	local src = device.writablePath.."game/"..self._downgameinfo._Module.."/res/filemd5List.json"
 	local downurl = self:getParent():getParent():getApp()._updateUrl .. "/game/" .. self._downgameinfo._Type .. "/"
 
@@ -417,7 +417,7 @@ end
 function GameListLayer:updateProgress(sub, msg, mainpersent)
 	local permsg = string.format("%d%%", mainpersent)
 	if nil ~= self.m_spDownloadMask then
-		local scale = (95 - mainpersent) / 100		
+		local scale = (95 - mainpersent) / 100
 		self.m_spDownloadMask:setContentSize(self.m_szMaskSize.width, self.m_szMaskSize.height * scale)
 	end
 
@@ -433,8 +433,9 @@ function GameListLayer:updateResult(result,msg)
 		self.m_spDownloadCycle:setVisible(false)
 	end
 	self:dismissGameUpdateWait()
-	
-	if result == true then
+
+	if result == true then	-- willche modify
+	--if true == true then
 		local app = self:getParent():getParent():getApp()
 
 		--更新版本号
@@ -450,8 +451,8 @@ function GameListLayer:updateResult(result,msg)
 		self:onEnterGame(self._downgameinfo)
 	else
 		local runScene = cc.Director:getInstance():getRunningScene()
-		if nil ~= runScene then			
-			if nil ~= self.m_spDownloadMask then	
+		if nil ~= runScene then
+			if nil ~= self.m_spDownloadMask then
 				self.m_spDownloadMask:setContentSize(self.m_szMaskSize.width, self.m_szMaskSize.height)
 			end
 
@@ -466,7 +467,7 @@ function GameListLayer:updateResult(result,msg)
 					end
 				end)
 				:addTo(runScene)
-		end		
+		end
 	end
 end
 

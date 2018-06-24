@@ -35,7 +35,7 @@ function PriRoom:ctor()
     cc.FileUtils:getInstance():addSearchPath(self._searchPath)
     -- 私人房游戏资源搜索路径
     self._gameSearchPath = ""
-    
+
     --网络回调
     local privateCallBack = function(command, message, dataBuffer, notShow)
         if type(command) == "table" then
@@ -50,7 +50,7 @@ function PriRoom:ctor()
                 self:dismissPopWait()
             end
         end
-        
+
     end
     self._priFrame = PriFrame:create(self, privateCallBack)
 
@@ -158,7 +158,7 @@ function PriRoom:onLoginRoom( dwServerID, bLockEnter )
     return false
 end
 
--- 
+--
 function PriRoom:onEnterPlaza( scene, gameFrame )
     self._scene = scene
     self._priFrame._gameFrame = gameFrame
@@ -180,14 +180,14 @@ function PriRoom:onEnterPlazaFinish()
         -- 更新逻辑
         if not self._scene:updateGame(GlobalUserItem.dwLockKindID)
             and not self._scene:loadGameList(GlobalUserItem.dwLockKindID) then
-            -- 
+            --
             local entergame = self._scene:getGameInfo(GlobalUserItem.dwLockKindID)
             if nil ~= entergame then
                 self._scene:updateEnterGameInfo(entergame)
                 --启动游戏
                 print("PriRoom:onEnterPlazaFinish ==> lock pri game")
                 return true, false, self:onLoginRoom(GlobalUserItem.dwLockServerID, true)
-            end            
+            end
         end
         print("PriRoom:onEnterPlazaFinish ==> lock and update game")
         return true, true, false
@@ -212,7 +212,7 @@ function PriRoom:onLoginEnterRoomList()
         print("PriRoom:onLoginEnterRoomList: self._scene:onChangeShowMode(PriRoom.LAYTAG.LAYER_ROOMLIST)")
         self._scene:onChangeShowMode(PriRoom.LAYTAG.LAYER_ROOMLIST)
         return true
-    end    
+    end
 end
 
 function PriRoom:onLoginPriRoomFinish()
@@ -238,7 +238,7 @@ function PriRoom:onLoginPriRoomFinish()
             -- 解散登陆
             elseif PriRoom:getInstance().m_nLoginAction == PriRoom.L_ACTION.ACT_DISSUMEROOM then
                 self:showPopWait()
-                -- 发送解散    
+                -- 发送解散
                 self:getNetFrame():sendDissumeGame(self.m_dwTableID)
             else
                 self._priFrame._gameFrame:onCloseSocket()
@@ -259,11 +259,11 @@ function PriRoom:onLoginPriRoomFinish()
             -- 解散登陆
             elseif PriRoom:getInstance().m_nLoginAction == PriRoom.L_ACTION.ACT_DISSUMEROOM then
                 self:showPopWait()
-                -- 发送解散    
+                -- 发送解散
                 self:getNetFrame():sendDissumeGame(self.m_dwTableID)
             end
         end
-    end    
+    end
 end
 
 -- 用户状态变更( 进入、离开、准备 等)
@@ -291,7 +291,7 @@ end
 function PriRoom:onPrivateLoginServerMessage(result, message, dataBuffer, notShow)
     self:popMessage(message, notShow)
 
-    if cmd_pri_login.SUB_MB_QUERY_PERSONAL_ROOM_LIST_RESULT == result 
+    if cmd_pri_login.SUB_MB_QUERY_PERSONAL_ROOM_LIST_RESULT == result
         or cmd_pri_login.SUB_GR_USER_QUERY_ROOM_SCORE_RESULT == result then
         -- 列表记录
         if nil ~= self._viewFrame and nil ~= self._viewFrame.onReloadRecordList then
@@ -307,8 +307,8 @@ function PriRoom:onPrivateGameServerMessage(result, message, dataBuffer, notShow
     self:popMessage(message, notShow)
     self:dismissPopWait()
 
-    if cmd_pri_game.SUB_GR_CREATE_SUCCESS == result then    
-        -- 创建成功    
+    if cmd_pri_game.SUB_GR_CREATE_SUCCESS == result then
+        -- 创建成功
         if nil ~= self._viewFrame and nil ~= self._viewFrame.onRoomCreateSuccess then
             self._viewFrame:onRoomCreateSuccess()
         end
@@ -338,7 +338,7 @@ function PriRoom:onPrivateGameServerMessage(result, message, dataBuffer, notShow
         else
             showToast(self._viewFrame, message.szDescribeString, 2)
         end
-        self.m_bRoomEnd = false   
+        self.m_bRoomEnd = false
     elseif cmd_pri_game.SUB_GR_CANCEL_REQUEST == result then
         -- 请求解散
         -- message = game.CMD_GR_CancelRequest
@@ -366,7 +366,7 @@ function PriRoom:onPrivateGameServerMessage(result, message, dataBuffer, notShow
             :addTo(self._viewFrame)
         else
 
-        end        
+        end
     elseif cmd_pri_game.SUB_GR_REQUEST_REPLY == result then
         -- 请求答复
         -- message = game.CMD_GR_RequestReply
@@ -389,7 +389,7 @@ function PriRoom:onPrivateGameServerMessage(result, message, dataBuffer, notShow
             end
             if curTag == yl.SCENE_GAME then
                 showToast(self._viewFrame, useritem.szNickName .. tips, 2)
-            end            
+            end
         end
     elseif cmd_pri_game.SUB_GR_REQUEST_RESULT == result then
         -- 请求结果
@@ -401,7 +401,7 @@ function PriRoom:onPrivateGameServerMessage(result, message, dataBuffer, notShow
             end
             if curTag == yl.SCENE_GAME then
                 showToast(self._viewFrame, "解散房间请求未通过", 2)
-            end            
+            end
             return
         end
         self.m_bCancelTable = true
@@ -410,7 +410,7 @@ function PriRoom:onPrivateGameServerMessage(result, message, dataBuffer, notShow
             bHandled = self._viewFrame:onCancelResult(message)
         end
         if not bHandled then
-            
+
         end
     elseif cmd_pri_game.SUB_GR_WAIT_OVER_TIME == result then
         -- 超时提示
@@ -449,7 +449,7 @@ function PriRoom:onPrivateGameServerMessage(result, message, dataBuffer, notShow
             self._priView:onPriGameEnd(message, dataBuffer)
         end
         self.m_bRoomEnd = true
-    elseif cmd_pri_game.SUB_GR_CANCEL_TABLE_RESULT == result then        
+    elseif cmd_pri_game.SUB_GR_CANCEL_TABLE_RESULT == result then
         -- 解散结果
         -- message = game.CMD_GR_DissumeTable
         if 1 == message.cbIsDissumSuccess then
@@ -473,7 +473,7 @@ function PriRoom:onPrivateGameServerMessage(result, message, dataBuffer, notShow
                 return a.createTimeStmp < b.createTimeStmp
             else
                 return a.sortTimeStmp < b.sortTimeStmp
-            end        
+            end
         end )
         --刷新列表
         if nil ~= self._viewFrame and nil ~= self._viewFrame.onReloadRecordList then
@@ -515,7 +515,7 @@ end
 
 -- 界面切换
 function PriRoom:getTagLayer(tag, param, scene)
-    print("willche int PriRoom:getTagLayer tag = " .. tag);
+     print("willche in PriRoom:getTagLayer tag = " .. tag);
     if LAYTAG.LAYER_ROOMLIST == tag then
         self:exitRoom()
         -- 设置搜索路径
@@ -623,10 +623,10 @@ function PriRoom:enterRoom( scene )
         local modulestr = string.gsub(entergame._KindName, "%.", "/")
         self._gameSearchPath = device.writablePath.."client/src/privatemode/game/" .. modulestr .. "/res/"
         cc.FileUtils:getInstance():addSearchPath(self._gameSearchPath)
-    end    
+    end
 end
 
-function PriRoom:exitRoom( )    
+function PriRoom:exitRoom( )
     --重置搜索路径
     local oldPaths = cc.FileUtils:getInstance():getSearchPaths()
     local newPaths = {}
@@ -685,7 +685,7 @@ function PriRoom:queryQuitGame( cbGameStatus )
         print("PriRoom:queryQuitGame 已经取消!")
         return
     end
-    if 1 == PriRoom:getInstance().cbIsJoinGame 
+    if 1 == PriRoom:getInstance().cbIsJoinGame
         and PriRoom:getInstance().m_bIsMyRoomOwner then
         local tip = "你是房主, 是否要解散该房间?"
         QueryDialog:create(tip, function(ok)
@@ -698,9 +698,9 @@ function PriRoom:queryQuitGame( cbGameStatus )
         :addTo(self._viewFrame)
         return
     end
-    
+
     -- 未玩且free
-    if 0 == PriRoom:getInstance().m_tabPriData.dwPlayCount 
+    if 0 == PriRoom:getInstance().m_tabPriData.dwPlayCount
         and 0 == cbGameStatus then
         self._scene:onKeyBack()
         return
@@ -708,7 +708,7 @@ function PriRoom:queryQuitGame( cbGameStatus )
 
     local tip = "约战房在游戏中退出需其他玩家同意, 是否申请解散房间?"
     QueryDialog:create(tip, function(ok)
-            if ok == true then    
+            if ok == true then
                 --self:showPopWait()
                 self:getNetFrame():sendRequestDissumeGame()
             end
@@ -725,8 +725,8 @@ function PriRoom:queryDismissRoom()
     end
     local tip = "约战房在游戏中退出需其他玩家同意, 是否申请解散房间?"
     QueryDialog:create(tip, function(ok)
-            if ok == true then 
-                --self:showPopWait()   
+            if ok == true then
+                --self:showPopWait()
                 self:getNetFrame():sendRequestDissumeGame()
             end
         end)

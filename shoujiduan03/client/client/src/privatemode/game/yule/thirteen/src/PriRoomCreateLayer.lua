@@ -1,7 +1,31 @@
 --
--- Author: zhong
--- Date: 2016-12-17 14:07:02
+-- Author: wang
+-- Date: 2017-2-8 
 --
+----
+ -- _ooOoo_
+ -- o8888888o
+ -- 88" . "88
+ -- (| -_- |)
+ --  O\ = /O
+ -- ___/`---'\____
+ -- .   ' \\| |// `.
+ -- / \\||| : |||// \
+ -- / _||||| -:- |||||- \
+ -- | | \\\ - /// | |
+ -- | \_| ''\---/'' | |
+ -- \ .-\__ `-` ___/-. /
+ -- ___`. .' /--.--\ `. . __
+ -- ."" '< `.___\_<|>_/___.' >'"".
+ -- | | : `- \`.;`\ _ /`;.`/ - ` : | |
+ -- \ \ `-. \_ __\ /__ _/ .-` / /
+ -- ======`-.____`-.___\_____/___.-`____.-'======
+ -- `=---='
+ --          .............................................
+ --           佛曰：bug泛滥，我已瘫痪！
+ --/
+
+
 -- 斗地主私人房创建界面
 local CreateLayerModel = appdf.req(PriRoom.MODULE.PLAZAMODULE .."models.CreateLayerModel")
 
@@ -9,11 +33,14 @@ local PriRoomCreateLayer = class("PriRoomCreateLayer", CreateLayerModel)
 local ExternalFun = appdf.req(appdf.EXTERNAL_SRC .. "ExternalFun")
 local Shop = appdf.req(appdf.CLIENT_SRC.."plaza.views.layer.plaza.ShopLayer")
 
+local ClipText = appdf.req(appdf.EXTERNAL_SRC .. "ClipText")
+
 local BTN_HELP = 1
 local BTN_CHARGE = 2
 local BTN_MYROOM = 3
 local BTN_CREATE = 4
 local CBT_BEGIN = 300
+local CBT_PLAYERNUM_BEGIN = 400 --玩家人数设置checkbox TAG 
 
 function PriRoomCreateLayer:ctor( scene )
     PriRoomCreateLayer.super.ctor(self, scene)
@@ -30,69 +57,61 @@ function PriRoomCreateLayer:ctor( scene )
     local btn = csbNode:getChildByName("btn_help")
     btn:setTag(BTN_HELP)
     btn:addTouchEventListener(btncallback)
+    btn:setVisible(false)
+
+    numbg = csbNode:getChildByName("pri_sp_numbg")
+    numbg:setVisible(false)
+    cardbg_3 = csbNode:getChildByName("pri_sp_cardbg_3")
+    cardbg_3:setVisible(false)
+    
 
     -- 充值按钮
     btn = csbNode:getChildByName("btn_cardcharge")
     btn:setTag(BTN_CHARGE)
     btn:addTouchEventListener(btncallback)    
+    btn:setVisible(false)
 
     -- 房卡数
     self.m_txtCardNum = csbNode:getChildByName("txt_cardnum")
     self.m_txtCardNum:setString(GlobalUserItem.lRoomCard .. "")
+    self.m_txtCardNum:setVisible(false)
 
     -- 我的房间
     btn = csbNode:getChildByName("btn_myroom")
     btn:setTag(BTN_MYROOM)
     btn:addTouchEventListener(btncallback)
 
-    -- 滑动条
-    local tabPercent = {3, 27, 50, 73, 98}
-    local tabCount = {10, 20, 30, 40, 50}
-    local function percentChangedEvent( sender,eventType )
-        if eventType == ccui.SliderEventType.slideBallUp then
-            local idx = 1            
-            local percent = sender:getPercent()
-            if 0 <= percent and percent < 13 then
-                idx = 1
-            elseif 13 <= percent and percent < 38 then
-                idx = 2
-            elseif 38 <= percent and percent < 63 then
-                idx = 3
-            elseif 63 <= percent and percent < 88 then
-                idx = 4
-            elseif 88 <= percent and percent <= 100 then
-                idx = 5
-            end
-            local disper = tabPercent[idx]
-            sender:setPercent(disper)
-            local count = tabCount[idx]
-            self.m_txtSelCount:setString(count .. "分")
-            self.m_nSelectScore = count
+    -- 人数选项
+    local cbtPlayerNumlistener = function (sender,eventType)
+        self:onPlayerNumSelectedEvent(sender:getTag(),sender)
+    end
+    self.m_tabPlayerNumCheckBox = {}
+
+    for i=1,5 do
+        local checkbx = csbNode:getChildByName("check_" .. i)
+        if nil ~= checkbx then
+            checkbx:setVisible(true)
+            checkbx:setTag(CBT_PLAYERNUM_BEGIN + i)
+            checkbx:addEventListener(cbtPlayerNumlistener)
+            checkbx:setSelected(false)
+            self.m_tabPlayerNumCheckBox[CBT_PLAYERNUM_BEGIN + i] = checkbx
         end
     end
-    self.m_sliderLimit = csbNode:getChildByName("slider_limit")
-    self.m_sliderLimit:setPercent(3)
-    self.m_sliderLimit:addEventListener(percentChangedEvent)
-    self.m_nSelectScore = 10
-
-    -- 局数选择
-    for k,v in pairs(tabCount) do
-        local txt = csbNode:getChildByName("txt_limit" .. k)
-        txt:setString(v .. "分")
-    end
-
-    -- 局数
-    self.m_txtSelCount = csbNode:getChildByName("txt_selcount")
-    self.m_txtSelCount:setString(tabCount[1] .. "分")
+   -- 选择的人数，默认为第一个    
+    self.m_nPlayerNumSelectIdx = CBT_PLAYERNUM_BEGIN + 1
+    self.m_tabPlayNumSelect = {2, 3, 4, 5, 0}
+    self.m_tabPlayerNumCheckBox[self.m_nPlayerNumSelectIdx]:setSelected(true)
 
     local cbtlistener = function (sender,eventType)
         self:onSelectedEvent(sender:getTag(),sender)
     end
     self.m_tabCheckBox = {}
+
     -- 玩法选项
     for i = 1, #PriRoom:getInstance().m_tabFeeConfigList do
         local config = PriRoom:getInstance().m_tabFeeConfigList[i]
-        local checkbx = csbNode:getChildByName("check_" .. i)
+        local checkbx = csbNode:getChildByName("check_" .. i .. "_0")
+        print("局数选项".."check_" .. i .. "_0")
         if nil ~= checkbx then
             checkbx:setVisible(true)
             checkbx:setTag(CBT_BEGIN + i)
@@ -101,7 +120,7 @@ function PriRoomCreateLayer:ctor( scene )
             self.m_tabCheckBox[CBT_BEGIN + i] = checkbx
         end
 
-        local txtcount = csbNode:getChildByName("count_" .. i)
+        local txtcount = csbNode:getChildByName("count_" .. i .. "_0")
         if nil ~= txtcount then
             txtcount:setString(config.dwDrawCountLimit .. "局")
         end
@@ -133,15 +152,62 @@ function PriRoomCreateLayer:ctor( scene )
     -- 提示
     self.m_spTips = csbNode:getChildByName("priland_sp_card_tips")
     self.m_spTips:setVisible(self.m_bLow)
-    -- change by Owen, 2018.6.23, 豆子不足的提示往下移动
+    if PriRoom:getInstance().m_tabRoomOption.cbCardOrBean == 0 then
+
+            -- change by Owen, 2018.6.23, 豆子不足的提示往下移动
     self.m_spTips:setPosition(self.m_spTips:getPositionX() - 240,
         self.m_spTips:getPositionY() - 50)
-    if PriRoom:getInstance().m_tabRoomOption.cbCardOrBean == 0 then
+
         local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame("priland_sp_card_tips_bean.png")
         if nil ~= frame then
             self.m_spTips:setSpriteFrame(frame)
         end
     end
+
+    
+
+    local puTonglistener = function (sender,eventType)
+        self:onSelectedPuTongEvent(sender:getTag(),sender)
+    end
+    local wanglistener = function (sender,eventType)
+        self:onSelectedWangEvent(sender:getTag(),sender)
+    end
+    local checkbx = csbNode:getChildByName("check_" .. 1)
+
+    -- 普通玩法
+    self.m_clipPuTong = ClipText:createClipText(cc.size(240, 80),"玩法选项： 普通玩法")
+    self.m_clipPuTong:setPosition(self.m_txtFee:getPositionX() + 180, self.m_txtFee:getPositionY())
+    checkbx:getParent():addChild(self.m_clipPuTong)
+    self.m_clipPuTong:setAnchorPoint(cc.p(0.0,0.5))
+    self.m_clipPuTong:setTextFontSize(26)
+    self.m_clipPuTong:setTextColor(cc.c4b(255,232,170,255))
+    -- 克隆一个check用来做有没有王的配置
+    local puTongCheckBx = checkbx:clone()
+    checkbx:getParent():addChild(puTongCheckBx)
+    puTongCheckBx:setTag(500)
+    puTongCheckBx:setPosition(self.m_txtFee:getPositionX() + 460, self.m_txtFee:getPositionY())
+    puTongCheckBx:addEventListener(puTonglistener)
+    puTongCheckBx:setSelected(true)
+    self._puTongSelected = true
+    self._puTongCheckBx = puTongCheckBx
+
+    -- 百变玩法
+    self.m_clipBaiBian = ClipText:createClipText(cc.size(200, 80),"百变玩法")
+    self.m_clipBaiBian:setPosition(self.m_txtFee:getPositionX() + 520, self.m_txtFee:getPositionY())
+    checkbx:getParent():addChild(self.m_clipBaiBian)
+    self.m_clipBaiBian:setAnchorPoint(cc.p(0.0,0.5))
+    self.m_clipBaiBian:setTextFontSize(26)
+    self.m_clipBaiBian:setTextColor(cc.c4b(255,232,170,255))
+    -- 克隆一个check用来做有没有王的配置
+    local wangCheckBx = checkbx:clone()
+    checkbx:getParent():addChild(wangCheckBx)
+    wangCheckBx:setTag(500)
+    wangCheckBx:setPosition(self.m_txtFee:getPositionX() + 660, self.m_txtFee:getPositionY())
+    wangCheckBx:addEventListener(wanglistener)
+    wangCheckBx:setSelected(false)
+    self._wangSelected = false
+    self._wangCheckBx = wangCheckBx
+
 
     -- 创建按钮
     btn = csbNode:getChildByName("btn_createroom")
@@ -167,6 +233,7 @@ function PriRoomCreateLayer:onLoginPriRoomFinish()
     if ((meUser.cbUserStatus == yl.US_FREE or meUser.cbUserStatus == yl.US_NULL or meUser.cbUserStatus == yl.US_PLAYING)) then
         if PriRoom:getInstance().m_nLoginAction == PriRoom.L_ACTION.ACT_CREATEROOM then
             -- 创建登陆
+            print("发送创建桌子")
             local buffer = CCmd_Data:create(188)
             buffer:setcmdinfo(self._cmd_pri_game.MDM_GR_PERSONAL_TABLE,self._cmd_pri_game.SUB_GR_CREATE_TABLE)
             buffer:pushscore(self.m_nSelectScore)
@@ -175,8 +242,18 @@ function PriRoomCreateLayer:onLoginPriRoomFinish()
             buffer:pushword(3)
             buffer:pushdword(0)
             buffer:pushstring("", yl.LEN_PASSWORD)
-            for i = 1, 100 do
-                buffer:pushbyte(0)
+
+            --单个游戏规则(额外规则)
+            buffer:pushbyte(1)
+            buffer:pushbyte(self.m_tabPlayNumSelect[self.m_nPlayerNumSelectIdx -CBT_PLAYERNUM_BEGIN])
+            print("人数", self.m_tabPlayNumSelect[self.m_nPlayerNumSelectIdx -CBT_PLAYERNUM_BEGIN])
+            print("有没有选中有王 self._wangCheckBx:getSelected() = "..tostring(self._wangSelected))
+            for i = 1, 100 - 2 do
+                if i == 5 and self._wangSelected then
+                    buffer:pushbyte(1)
+                else
+                    buffer:pushbyte(0)
+                end
             end
             PriRoom:getInstance():getNetFrame():sendGameServerMsg(buffer)
             return true
@@ -186,14 +263,15 @@ function PriRoomCreateLayer:onLoginPriRoomFinish()
 end
 
 function PriRoomCreateLayer:getInviteShareMsg( roomDetailInfo )
-    local shareTxt = "斗地主约战 房间ID:" .. roomDetailInfo.szRoomID .. " 局数:" .. roomDetailInfo.dwPlayTurnCount
-    local friendC = "斗地主房间ID:" .. roomDetailInfo.szRoomID .. " 局数:" .. roomDetailInfo.dwPlayTurnCount
-    return {title = "斗地主约战", content = shareTxt .. " 斗地主游戏精彩刺激, 一起来玩吧! ", friendContent = friendC}
+    local shareTxt = "诈金花约战 房间ID:" .. roomDetailInfo.szRoomID .. " 局数:" .. roomDetailInfo.dwPlayTurnCount
+    shareTxt = shareTxt .. " 诈金花游戏精彩刺激, 一起来玩吧! "
+    local friendC = "诈金花约战 房间ID:" .. roomDetailInfo.szRoomID .. " 局数:" .. roomDetailInfo.dwPlayTurnCount
+    return {title = "诈金花约战", content = shareTxt, friendContent = friendC}
 end
 
 function PriRoomCreateLayer:onExit()
-    cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("room/land_room.plist")
-    cc.Director:getInstance():getTextureCache():removeTextureForKey("room/land_room.png")
+    cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile("room/Zhajinhua_room.plist")
+    cc.Director:getInstance():getTextureCache():removeTextureForKey("room/Zhajinhua_room.png")
 end
 
 ------
@@ -202,7 +280,8 @@ end
 
 function PriRoomCreateLayer:onButtonClickedEvent( tag, sender)
     if BTN_HELP == tag then
-        self._scene:popHelpLayer(yl.HTTP_URL .. "/Mobile/Introduce.aspx?kindid=200&typeid=1")
+        --self._scene:popHelpLayer(yl.HTTP_URL .. "/Mobile/Introduce.aspx?kindid=6&typeid=1")
+        self._scene:popHelpLayer2(6, 1)
     elseif BTN_CHARGE == tag then
         local feeType = "房卡"
         if PriRoom:getInstance().m_tabRoomOption.cbCardOrBean == 0 then
@@ -245,6 +324,20 @@ function PriRoomCreateLayer:onButtonClickedEvent( tag, sender)
     end
 end
 
+function PriRoomCreateLayer:onPlayerNumSelectedEvent(tag, sender)
+    if self.m_nPlayerNumSelectIdx == tag then
+        sender:setSelected(true)
+        return
+    end
+    self.m_nPlayerNumSelectIdx = tag
+    for k,v in pairs(self.m_tabPlayerNumCheckBox) do
+        if k ~= tag then
+            v:setSelected(false)
+        end
+    end
+    --self.m_tabPlayNumSelect = tag - CBT_PLAYERNUM_BEGIN
+end
+
 function PriRoomCreateLayer:onSelectedEvent(tag, sender)
     if self.m_nSelectIdx == tag then
         sender:setSelected(true)
@@ -285,6 +378,34 @@ function PriRoomCreateLayer:onSelectedEvent(tag, sender)
         if nil ~= frame then
             self.m_spTips:setSpriteFrame(frame)
         end
+    end
+end
+
+function PriRoomCreateLayer:onSelectedPuTongEvent(tag, sender)
+
+    if self._puTongSelected then
+        -- self._puTongSelected = false
+        -- self._wangSelected = true
+        -- sender:setSelected(false)
+        -- self._wangCheckBx:setSelected(true)
+    else
+        self._puTongSelected = true
+        sender:setSelected(true)
+        self._wangSelected = false
+        self._wangCheckBx:setSelected(false)
+    end
+end
+
+function PriRoomCreateLayer:onSelectedWangEvent(tag, sender)
+
+    if self._wangSelected then
+        -- self._wangSelected = false
+        -- sender:setSelected(false)
+    else
+        self._wangSelected = true
+        sender:setSelected(true)
+        self._puTongSelected = false
+        self._puTongCheckBx:setSelected(false)
     end
 end
 

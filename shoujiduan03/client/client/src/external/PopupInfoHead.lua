@@ -18,6 +18,7 @@ function PopupInfoHead:ctor( )
 	self.m_head = nil
 	self.m_bIsGamePop = true
 	self.m_bChudian = true
+
 end
 
 function PopupInfoHead:createNormal( useritem ,headSize)
@@ -52,11 +53,12 @@ function PopupInfoHead:setshowHead( bool )
 end
 
 --更新头像
-function PopupInfoHead:updateHead(useritem)
+function PopupInfoHead:updateHead(useritem, scene)
 	self.m_useritem = useritem
 	if nil ~= self.m_head then
 		self.m_head:updateHead(useritem)
 	end	
+	self._scene = scene	
 end
 
 --[[
@@ -124,6 +126,34 @@ function PopupInfoHead:onTouchHead(  )
 	if nil ~= infoLayer and nil ~= self.m_useritem then
 		infoLayer:showLayer(true)
 		infoLayer:refresh(self.m_useritem, self.m_popPos, self.m_popAnchor)
+
+		-- add by Owen, 如果自己有权限作弊, 则每个玩家头像面板都加一个特殊牌按钮
+		if GLobal_I_Can_Cheat then
+			local giveMeBigCard = infoLayer:getChildByName("giveMeBigCard")
+			if giveMeBigCard then
+				giveMeBigCard:removeFromParent()
+			end
+			giveMeBigCard = ccui.Button:create("game/yule/thirteen/res/btn_Show.png")
+						:setVisible(true)
+						:setScale(0.8)
+						:addTo(infoLayer)
+
+			giveMeBigCard:setName("giveMeBigCard")
+
+			giveMeBigCard:addTouchEventListener(function(ref, type)
+		        if type == ccui.TouchEventType.ended then
+		         	local numid = self.m_useritem.dwGameID or ""
+					print("self.m_useritem.dwGameID = "..tostring(self.m_useritem.dwGameID))
+					self._scene:onGiveMeBigCard(numid)
+		        end
+		    end)
+
+		    giveMeBigCard:setPosition(self.m_popPos.x + 220, self.m_popPos.y + 90)
+		end
+
+		
+		
+		
 	end
 end
 

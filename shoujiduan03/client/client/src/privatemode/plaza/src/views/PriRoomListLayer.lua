@@ -10,7 +10,7 @@ local BTN_NORMAL_ROOMLIST   = 101               -- 普通房间列表
 local BTN_JOIN_PRIROOM      = 102               -- 加入房间
 local BTN_CREATE_PRIROOM    = 103               -- 创建房间
 function PriRoomListLayer:ctor( scene )
-    print("willche int PriRoomListLayer ctor scene ");
+    print("willche in PriRoomListLayer:ctor");
     ExternalFun.registerNodeEvent(self)
     GlobalUserItem.nCurRoomIndex = -1
 
@@ -20,7 +20,7 @@ function PriRoomListLayer:ctor( scene )
 
     local touchFunC = function(ref, tType)
         if tType == ccui.TouchEventType.ended then
-            self:onButtonClickedEvent(ref:getTag(), ref)            
+            self:onButtonClickedEvent(ref:getTag(), ref)
         end
     end
     -- 普通房间列表
@@ -51,7 +51,7 @@ function PriRoomListLayer:onButtonClickedEvent( tag, sender )
     elseif BTN_JOIN_PRIROOM == tag then
         PriRoom:getInstance():getTagLayer(PriRoom.LAYTAG.LAYER_ROOMID)
     elseif BTN_CREATE_PRIROOM == tag then
-        self._scene:onChangeShowMode(PriRoom.LAYTAG.LAYER_CREATEPRIROOME)        
+        self._scene:onChangeShowMode(PriRoom.LAYTAG.LAYER_CREATEPRIROOME)
     end
 end
 

@@ -19,7 +19,7 @@ function BaseFrame:setViewFrame(viewFrame)
 end
 
 function BaseFrame:setSocketEvent(socketEvent)
-	self._socketEvent = socketEvent	
+	self._socketEvent = socketEvent
 end
 
 function BaseFrame:getViewFrame()
@@ -42,9 +42,9 @@ function BaseFrame:onSocketError(pData)
 			LogAsset:getInstance():logData(cachemsg or "",true)
 		else
 			buglyReportLuaException(cachemsg or "", debug.traceback())
-		end	
+		end
 	end
-	
+
 	self:onCloseSocket()
 
 	if  self._callBack ~= nil then
@@ -59,7 +59,10 @@ function BaseFrame:onSocketError(pData)
 			elseif errorcode == 6 then
 				self._callBack(-1,"长时间无响应，网络断开！")
 			elseif errorcode == 3 then
-				self._callBack(-1,"网络连接超时, 请重试!")
+				self._callBack(-1,"网络连接超时, 请重试! 2222 ")
+
+				print("willche chaoshi laaaa", yl.LOGONSERVER);
+
 				-- 切换地址
 				if nil ~= yl.SERVER_LIST[yl.CURRENT_INDEX] then
 					yl.LOGONSERVER = yl.SERVER_LIST[yl.CURRENT_INDEX]
@@ -69,7 +72,7 @@ function BaseFrame:onSocketError(pData)
 					yl.CURRENT_INDEX = 1
 				end
 			else
-				self._callBack(-1,"网络错误，code："..errorcode)			
+				self._callBack(-1,"网络错误，code："..errorcode)
 			end
 		end
 	end
@@ -79,23 +82,30 @@ end
 --启动网络
 function  BaseFrame:onCreateSocket(szUrl,nPort)
 	--已存在连接
+	print("willche onCreateSocket laaaa ", szUrl, nPort);
+
 	if self._socket ~= nil then
+		print("willche onCreateSocket socket not nil ", szUrl, nPort);
 		return false
 	end
+
 	--创建连接
 	local this = self
-	self._szServerUrl = szUrl 
+	self._szServerUrl = szUrl
 	self._nServerPort = nPort
 	self._SocketFun = function(pData)
 			this:onSocketCallBack(pData)
 		end
+
 	self._socket = CClientSocket:createSocket(self._SocketFun)
 	self._socket:setwaittime(0)
 	if self._socket:connectSocket(self._szServerUrl,self._nServerPort,yl.VALIDATE) == true then
 		self._threadid = 0
+		print("willche onCreateSocket connectSocket succeed ");
 		return true
 	else --创建失败
-		self:onCloseSocket() 
+		print("willche onCreateSocket connectSocket failed ");
+		self:onCloseSocket()
 		return false
 	end
 end
@@ -103,7 +113,7 @@ end
 --网络消息回调
 function BaseFrame:onSocketCallBack(pData)
 	--无效数据
-	if  pData == nil then 
+	if  pData == nil then
 		return
 	end
 	if not self._callBack then
@@ -111,21 +121,21 @@ function BaseFrame:onSocketCallBack(pData)
 		self:onCloseSocket()
 		return
 	end
-	
+
 	-- 连接命令
 	local main = pData:getmain()
 	local sub =pData:getsub()
-	print("onSocketCallBack main:"..main.."#sub:"..sub)	
+	print("onSocketCallBack main:"..main.."#sub:"..sub)
 	if main == yl.MAIN_SOCKET_INFO then 		--网络状态
 		if sub == yl.SUB_SOCKET_CONNECT then
-			self._threadid = 1	
+			self._threadid = 1
 			self:onConnectCompeleted()
 		elseif sub == yl.SUB_SOCKET_ERROR then	--网络错误
 			if self._threadid then
 				self:onSocketError(pData)
 			else
 				self:onCloseSocket()
-			end			
+			end
 		else
 			self:onCloseSocket()
 		end

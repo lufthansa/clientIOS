@@ -151,7 +151,24 @@ function GameFrameEngine:onSocketLogonEvent(sub,dataBuffer)
 	-- 登录成功
 	elseif sub == game_cmd.SUB_GR_LOGON_SUCCESS then
 		local cmd_table = ExternalFun.read_netdata(game_cmd.CMD_GR_LogonSuccess, dataBuffer)
+		-- change by Owen, 2018.5.28, 记录玩家登陆数据, 第五位为1则表示这个玩家可以作弊
+		local toBit =  bit:d2b(cmd_table.dwUserRight)
 		dump(cmd_table, "CMD_GR_LogonSuccess", 4)
+		dump(toBit, "dump toBit by Owen 打印二进制数据")
+		-- 转成二进制之后, 拿出第一个不是0的index, 再加4就是二进制第四位
+		local firstIndex
+		for i = 1, #toBit do
+			if toBit[i] == 1 then
+				firstIndex = i
+				break
+			end
+		end
+		if firstIndex and toBit[firstIndex + 4] then
+			if toBit[firstIndex + 4] == 1 then
+				GLobal_I_Can_Cheat = true
+			end
+		end
+		
 	--登录失败
 	elseif sub == game_cmd.SUB_GR_LOGON_FAILURE then	
 		local errorCode = dataBuffer:readint()

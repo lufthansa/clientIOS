@@ -304,6 +304,19 @@ function ClientScene:onCreate()
 	self._btPersonInfo:setTag(ClientScene.BT_PERSON)
 	self._btPersonInfo:addTouchEventListener(btcallback)
 
+	-- add by Owen, 2018.4.30, 显示用户昵称
+	local accountName = GlobalUserItem.szAccount
+	--微信登陆显示昵称
+	if GlobalUserItem.bWeChat then
+		accountName = GlobalUserItem.szNickName
+	end
+	self._accountTxt = areaTop:getChildByName("txt_User_Name")
+	self._accountTxt:setString(accountName)
+
+	-- change by Owen, 2018.4.30, 显示玩家ID
+	self._userID = areaTop:getChildByName("txt_ID")
+	self._userID:setString(GlobalUserItem.dwGameID)
+
 	--等级信息
 	self._level = areaTop:getChildByName("atlas_levels")
 	self._level:setString(GlobalUserItem.wCurrLevelID.."")
@@ -336,10 +349,12 @@ function ClientScene:onCreate()
     --宝箱
     self.m_btnBox = areaTop:getChildByName("btn_box")
     self.m_btnBox:setTag(ClientScene.BT_BOX)
-    self.m_btnBox:addTouchEventListener(btcallback)
+    -- self.m_btnBox:addTouchEventListener(btcallback)
 	local box = ExternalFun.loadCSB("plaza/BoxAni.csb", areaTop)
 	box:setPosition(self.m_btnBox:getPosition())
 	self._btBox = box
+	-- change by Owen, 2018.4.30, 去掉大厅左上角的宝箱按钮
+	box:setVisible(false)
 
 	--底部区域
 	local areaBottom = csbNode:getChildByName("bottom_bg")
@@ -354,6 +369,8 @@ function ClientScene:onCreate()
 	local quickStart = ExternalFun.loadCSB("plaza/StartBtnAni.csb", areaBottom)
 	quickStart:setPosition(btn:getPosition())
 	self.m_quickStart = quickStart
+	-- change by Owen, 2018.4.30, 去掉大厅底部的快速开始按钮
+	quickStart:setVisible(false)
 
 	--背包
 	--[[btn = areaBottom:getChildByName("btn_bag")
@@ -480,7 +497,8 @@ function ClientScene:onCreate()
 		local bRes = false
 		if result == 1 then
 			if false == GlobalUserItem.bTodayChecked then
-				self:onChangeShowMode(yl.SCENE_CHECKIN)
+				-- change by Owen, 2018.5.16, 不显示签到页面
+				-- self:onChangeShowMode(yl.SCENE_CHECKIN)
 				self._checkInFrame = nil
 			elseif GlobalUserItem.cbMemberOrder ~= 0 then
 				self._checkInFrame:sendCheckMemberGift()
@@ -500,7 +518,8 @@ function ClientScene:onCreate()
 		end
 		if nil ~= self._checkInFrame and self._checkInFrame.QUERYMEMBERGIFT == result then
 			if true == subMessage then
-				self:onChangeShowMode(yl.SCENE_CHECKIN)
+				-- change by Owen, 2018.5.16, 不显示签到页面
+				-- self:onChangeShowMode(yl.SCENE_CHECKIN)
 			else
 				-- 显示广告
 				if GlobalUserItem.isShowAdNotice() then
@@ -1091,7 +1110,8 @@ function ClientScene:onButtonClickedEvent(tag,ref)
 		elseif self.cur_Scene == yl.SCENE_BANKRECORD then
 			self:onChangeShowMode(yl.SCENE_BANK)
 		elseif tag == ClientScene.BT_CHECKIN then
-			self:onChangeShowMode(yl.SCENE_CHECKIN)
+			-- change by Owen, 2018.5.16, 不显示签到页面
+			-- self:onChangeShowMode(yl.SCENE_CHECKIN)
 		elseif tag == ClientScene.BT_RECHARGE then
 			self:onChangeShowMode(yl.SCENE_SHOP, Shop.CBT_ENTITY)
 		elseif tag == ClientScene.BT_EXCHANGE then

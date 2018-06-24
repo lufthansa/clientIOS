@@ -47,7 +47,7 @@ login.SUB_GP_EXCHANGE_ROOM_CARD_RESULT = 222                            -- 房�
 -- 消息结构
 ------
 -- 创建房间
-login.CMD_MB_QueryGameServer = 
+login.CMD_MB_QueryGameServer =
 {
     -- 用户ID
     {t = "dword", k = "dwUserID"},
@@ -58,7 +58,7 @@ login.CMD_MB_QueryGameServer =
 }
 
 -- 创建结果
-login.CMD_MB_QueryGameServerResult = 
+login.CMD_MB_QueryGameServerResult =
 {
     -- 房间ID
     {t = "dword", k = "dwServerID"},
@@ -69,14 +69,14 @@ login.CMD_MB_QueryGameServerResult =
 }
 
 -- 强制解散搜索房间
-login.CMD_MB_SearchServerTable = 
+login.CMD_MB_SearchServerTable =
 {
     -- 房间ID
     {t = "tchar", k = "szServerID", s = private_define.ROOM_ID_LEN},
 }
 
 -- 进入游戏搜索房间
-login.CMD_MB_SerchServerTableEnter = 
+login.CMD_MB_SerchServerTableEnter =
 {
     -- 房间ID
     {t = "tchar", k = "szServerID", s = private_define.ROOM_ID_LEN},
@@ -85,7 +85,7 @@ login.CMD_MB_SerchServerTableEnter =
 }
 
 -- 搜索结果
-login.CMD_MB_SearchResult = 
+login.CMD_MB_SearchResult =
 {
     -- 房间ID
     {t = "dword", k = "dwServerID"},
@@ -94,14 +94,14 @@ login.CMD_MB_SearchResult =
 }
 
 -- 查询私人房间配置
-login.CMD_MB_GetPersonalParameter = 
+login.CMD_MB_GetPersonalParameter =
 {
     -- 类型ID
     {t = "dword", k = "dwKindID"},
 }
 
 -- 查询私人房列表
-login.CMD_MB_QeuryPersonalRoomList = 
+login.CMD_MB_QeuryPersonalRoomList =
 {
     -- 用户ID
     {t = "dword", k = "dwUserID"},
@@ -110,7 +110,7 @@ login.CMD_MB_QeuryPersonalRoomList =
 }
 
 -- 私人房间列表信息
-login.CMD_MB_PersonalRoomInfoList = 
+login.CMD_MB_PersonalRoomInfoList =
 {
     -- 用户ID
     {t = "dword", k = "dwUserID"},
@@ -119,7 +119,7 @@ login.CMD_MB_PersonalRoomInfoList =
 }
 
 -- 解散时搜索结果
-login.CMD_MB_DissumeSearchResult = 
+login.CMD_MB_DissumeSearchResult =
 {
     -- 房间ID
     {t = "dword", k = "dwServerID"},
@@ -128,7 +128,7 @@ login.CMD_MB_DissumeSearchResult =
 }
 
 -- 房卡兑换游戏币
-login.CMD_GP_ExchangeScoreByRoomCard = 
+login.CMD_GP_ExchangeScoreByRoomCard =
 {
     -- 用户标识
     {t = "dword", k = "dwUserID"},
@@ -139,7 +139,7 @@ login.CMD_GP_ExchangeScoreByRoomCard =
 }
 
 -- 房卡兑换游戏币结果
-login.CMD_GP_ExchangeRoomCardResult = 
+login.CMD_GP_ExchangeRoomCardResult =
 {
     -- 成功标识
     {t = "bool", k = "bSuccessed"},
@@ -163,7 +163,7 @@ local game = {}
 -- 命令
 ------
 -- 私人房间
-game.MDM_GR_PERSONAL_TABLE = 210                                        -- 
+game.MDM_GR_PERSONAL_TABLE = 210                                        --
 
 game.SUB_GR_CREATE_TABLE = 1                                            -- 创建桌子
 game.SUB_GR_CREATE_SUCCESS = 2                                          -- 创建成功
@@ -190,7 +190,7 @@ game.CANCELTABLE_REASON_ERROR = 3                                       -- 错�
 -- 消息结构
 ------
 -- 创建桌子
-game.CMD_GR_CreateTable = 
+game.CMD_GR_CreateTable =
 {
     -- 底分设置
     {t = "score", k = "lCellScore"},
@@ -209,7 +209,7 @@ game.CMD_GR_CreateTable =
 }
 
 -- 创建成功
-game.CMD_GR_CreateSuccess = 
+game.CMD_GR_CreateSuccess =
 {
     -- 房间编号
     {t = "string", k = "szServerID", s = private_define.ROOM_ID_LEN},
@@ -224,7 +224,7 @@ game.CMD_GR_CreateSuccess =
 }
 
 -- 创建失败
-game.CMD_GR_CreateFailure = 
+game.CMD_GR_CreateFailure =
 {
     -- 错误代码
     {t = "int", k = "lErrorCode"},
@@ -233,7 +233,7 @@ game.CMD_GR_CreateFailure =
 }
 
 -- 取消桌子
-game.CMD_GR_CancelTable = 
+game.CMD_GR_CancelTable =
 {
     -- 取消原因
     {t = "dword", k = "dwReason"},
@@ -242,7 +242,7 @@ game.CMD_GR_CancelTable =
 }
 
 -- 请求解散
-game.CMD_GR_CancelRequest = 
+game.CMD_GR_CancelRequest =
 {
     -- 用户ID
     {t = "dword", k = "dwUserID"},
@@ -253,7 +253,7 @@ game.CMD_GR_CancelRequest =
 }
 
 -- 请求答复
-game.CMD_GR_RequestReply = 
+game.CMD_GR_RequestReply =
 {
     -- 用户ID
     {t = "dword", k = "dwUserID"},
@@ -264,7 +264,7 @@ game.CMD_GR_RequestReply =
 }
 
 -- 请求结果
-game.CMD_GR_RequestResult = 
+game.CMD_GR_RequestResult =
 {
     -- 桌子ID
     {t = "dword", k = "dwTableID"},
@@ -273,14 +273,14 @@ game.CMD_GR_RequestResult =
 }
 
 -- 超时等待
-game.CMD_GR_WaitOverTime = 
+game.CMD_GR_WaitOverTime =
 {
     -- 用户ID
     {t = "dword", k = "dwUserID"},
 }
 
 -- 提示信息
-game.CMD_GR_PersonalTableTip = 
+game.CMD_GR_PersonalTableTip =
 {
     -- 桌主ID
     {t = "dword", k = "dwTableOwnerUserID"},
@@ -302,27 +302,27 @@ game.CMD_GR_PersonalTableTip =
     {t = "byte", k = "cbIsJoinGame"},
     -- 金币场0, 积分场1
     {t = "byte", k = "cbIsGoldOrGameScore"},
-    -- 房间规则
+    --房间规则
     {t = "byte", k = "cbGameRule1"},
-    -- 人数
+    ---人数
     {t = "byte", k = "cbGameRule2"},
-    -- 普通 0 加一色 1
+    ---普通 0  加一色 1
     {t = "byte", k = "cbGameRule3"},
 }
 
 -- 结束消息
-game.CMD_GR_PersonalTableEnd = 
+game.CMD_GR_PersonalTableEnd =
 {
     {t = "string", k = "szDescribeString", s = 128},
     {t = "score", k = "lScore", l = {100}},
-    -- 特殊信息长度 
+    -- 特殊信息长度
     {t = "int", k = "nSpecialInfoLen"},
     -- 特殊信息数据
     --{t = "byte", k = "cbSpecialInfo", l = {200}}
 }
 
 -- 房主强制解散
-game.CMD_GR_HostDissumeGame = 
+game.CMD_GR_HostDissumeGame =
 {
     -- 用户ID
     {t = "dword", k = "dwUserID"},
@@ -331,7 +331,7 @@ game.CMD_GR_HostDissumeGame =
 }
 
 -- 解散桌子
-game.CMD_GR_DissumeTable = 
+game.CMD_GR_DissumeTable =
 {
     -- 是否解散成功
     {t = "byte", k = "cbIsDissumSuccess"},
@@ -344,7 +344,7 @@ game.CMD_GR_DissumeTable =
 }
 
 -- 私人房消息
-game.Personal_Room_Message = 
+game.Personal_Room_Message =
 {
     -- 提示信息
     {t = "string", k = "szMessage", s = 260},
@@ -353,7 +353,7 @@ game.Personal_Room_Message =
 }
 
 -- 强制解散桌子后的游戏豆和房卡
-game.CMD_GR_CurrenceRoomCardAndBeans = 
+game.CMD_GR_CurrenceRoomCardAndBeans =
 {
     -- 游戏豆
     {t = "double", k = "dbBeans"},
@@ -362,7 +362,7 @@ game.CMD_GR_CurrenceRoomCardAndBeans =
 }
 
 -- 改变椅子数量
-game.CMD_GR_ChangeChairCount = 
+game.CMD_GR_ChangeChairCount =
 {
     -- 椅子数量
     {t = "dword", k = "dwChairCount"},

@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>plist10_0.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,320},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_10.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{330,0},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_11.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{330,320},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_12.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{660,0},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_13.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{660,320},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_14.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{990,0},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_2.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{990,320},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_3.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1320,0},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_4.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1320,320},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_5.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1650,0},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_6.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1650,320},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_7.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1980,0},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_8.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1980,320},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+			<key>plist10_9.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{2310,0},{330,320}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{330,320}</string>
+			</dict>
+		</dict>
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>textureFileName</key>
+			<string>Plist10.png</string>
+			<key>realTextureFileName</key>
+			<string>Plist10.png</string>
+			<key>size</key>
+			<string>{2640,640}</string>
+		</dict>
+		<key>texture</key>
+		<dict>
+			<key>width</key>
+			<integer>2640</integer>
+			<key>height</key>
+			<integer>640</integer>
+		</dict>
+	</dict>
+</plist>
