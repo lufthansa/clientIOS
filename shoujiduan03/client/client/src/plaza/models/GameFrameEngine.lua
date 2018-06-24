@@ -155,6 +155,8 @@ function GameFrameEngine:onSocketLogonEvent(sub,dataBuffer)
 		local toBit =  bit:d2b(cmd_table.dwUserRight)
 		dump(cmd_table, "CMD_GR_LogonSuccess", 4)
 		dump(toBit, "dump toBit by Owen 打印二进制数据")
+		print("onSocketLogonEvent：tobit = "..toBit)
+
 		-- 转成二进制之后, 拿出第一个不是0的index, 再加4就是二进制第四位
 		local firstIndex
 		for i = 1, #toBit do
@@ -166,6 +168,7 @@ function GameFrameEngine:onSocketLogonEvent(sub,dataBuffer)
 		if firstIndex and toBit[firstIndex + 4] then
 			if toBit[firstIndex + 4] == 1 then
 				GLobal_I_Can_Cheat = true
+				print("GLobal_I_Can_Ch true ：")
 			end
 		end
 		
