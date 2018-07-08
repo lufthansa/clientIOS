@@ -56,6 +56,7 @@ function PopupInfoLayer:ctor(viewParent, isGame)
 
 	--vip等级
 	self.m_textVip = bg_kuang:getChildByName("vip_text")
+	self.m_textVip:setVisible(false)
 
 	--昵称
 	tmp = bg_kuang:getChildByName("nick_text")
@@ -71,12 +72,16 @@ function PopupInfoLayer:ctor(viewParent, isGame)
 
 	--元宝
 	self.m_textIngot = bg_kuang:getChildByName("ingot_text")
+	self.m_textIngot:setVisible(false)
 
 	--游戏币
 	self.m_textScore = bg_kuang:getChildByName("score_text")
+	self.m_textScore:setVisible(false)
 
 	--游戏豆
 	self.m_textBean = bg_kuang:getChildByName("bean_text")
+	self.m_textBean:setPositionX(self.m_textIngot:getPositionX())
+	self.m_textBean:setPositionY(self.m_textIngot:getPositionY())
 
 	-- ip地址
 	self.m_textIp = bg_kuang:getChildByName("ip_text")
@@ -320,6 +325,7 @@ function PopupInfoLayer:refresh( useritem, popPos ,anr)
 	end
 	vipSp:setScale(0.9)
 	vipSp:setTextureRect(cc.rect(28*vipIdx,0,28,26))
+	vipSp:setVisible(false)
 
 	--昵称	
 	self.m_clipNick:setString(nick)

@@ -160,6 +160,12 @@ function GameViewLayer:onInitData()
 
    self.m_head ={}
 	------至此
+
+	-- 记录每个玩家这一大局的总输赢
+	self.allWinLost = {}
+	for i = 1,cmd.GAME_PLAYER do
+		self.allWinLost[i] = 0
+    end
 end
 
 function GameViewLayer:onExit()
@@ -745,6 +751,19 @@ function GameViewLayer:OnUpdateUser(viewId, userItem)
         self.userName[userItem.wChairID + 1] = userItem.szNickName
 		self:setNickname(viewId, userItem.szNickName)
 		self:setScore(viewId, userItem.lScore)
+
+		-- change by, 2018.7.8, 玩家头像下面显示这一局的总输赢
+	    local tableId = self._scene._gameFrame:GetTableID()
+	    --self._gameView:setTableID(tableId)
+	    for i = 1, cmd.GAME_PLAYER do
+	        local userItem1 = self._scene._gameFrame:getTableUserItem(tableId, i-1)
+	        if nil ~= userItem1 then
+	            local wViewChairId = self._scene:SwitchViewChairID(i-1)
+	            self:setScore(wViewChairId, self.allWinLost[i])
+	        end
+	    end
+
+
 		self.flag_ready[viewId]:setVisible(yl.US_READY == userItem.cbUserStatus)
 		self.OffLine[viewId]:setVisible(userItem.cbUserStatus == yl.US_OFFLINE)
 		
@@ -1481,6 +1500,16 @@ function GameViewLayer:gameEnd(cbArrangeCard,everyDunAmount,final,gunUser,bSpeci
 	for i = 1,cmd.GAME_PLAYER do
 		if cbArrangeCard[i][1] ~= nil and cbArrangeCard[i][1] > 0  then
 			bHadCard = true
+
+			-- change by, 2018.7.8, 更新显示每个玩家下面的总输赢
+			self.allWinLost[i] = self.allWinLost[i] + self.finalResult[i]
+
+		    local tableId = self._scene._gameFrame:GetTableID()
+	        local userItem = self._scene._gameFrame:getTableUserItem(tableId, i-1)
+	        if nil ~= userItem then
+	            local wViewChairId = self._scene:SwitchViewChairID(i-1)
+	            self:setScore(wViewChairId, self.allWinLost[i])
+	        end
 		end
 	end
 	if bHadCard then

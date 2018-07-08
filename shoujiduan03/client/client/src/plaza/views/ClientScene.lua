@@ -303,6 +303,8 @@ function ClientScene:onCreate()
 	self._btPersonInfo = areaTop:getChildByName("bt_person")
 	self._btPersonInfo:setTag(ClientScene.BT_PERSON)
 	self._btPersonInfo:addTouchEventListener(btcallback)
+	-- change by, 2018.7.8, 大厅页面头像按钮改为不可点击
+	self._btPersonInfo:setEnabled(false)
 
 	-- add by Owen, 2018.4.30, 显示用户昵称
 	local accountName = GlobalUserItem.szAccount
@@ -1390,7 +1392,7 @@ function ClientScene:onChangeShowMode(nTag, param)
 		end
 		self._btExit:setVisible(not var)
 		self._btExit:setEnabled(not var)
-		self._btPersonInfo:setEnabled(var)
+		-- self._btPersonInfo:setEnabled(var)
 		if nil ~= self._head then
 			self._head:setVisible(var)
 		end
@@ -1409,7 +1411,7 @@ function ClientScene:onChangeShowMode(nTag, param)
 		if nil ~= self._head then
 			self._head:setVisible(true)
 		end
-		self._btPersonInfo:setEnabled(true)
+		-- self._btPersonInfo:setEnabled(true)
 		self._bg:loadTexture("background_2.jpg")
 	elseif bEnableBackBtn then
 		self._btExit:setVisible(true)
