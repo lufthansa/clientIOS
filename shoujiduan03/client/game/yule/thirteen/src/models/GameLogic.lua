@@ -1442,10 +1442,45 @@ function GameLogic:CompareOneCardEx(bFirstCard,bNextCard,ttdFst,ttdNxt)
 	return 0;
 end
 
+-- -- 这个函数只有在点击下面的顺子提示按钮的时候才会调用
+-- function GameLogic:AnalysebCardDataDistributing(cbCardData,cbCardCount,Distributing)
+-- 	local cbIndexCount = 4
+-- 	for i = 1, 14 do
+-- 		Distributing.cbCardCount[i] = 0
+-- 		Distributing.cbDistributing[i] = {}
+-- 		for j = 1,5 do
+-- 			Distributing.cbDistributing[i][j] = 0
+-- 		end
+-- 	end
+-- 	for i = 1,cbCardCount do
+-- 		if (cbCardData[i]==0x41 or cbCardData[i]==0x42) then
+-- 			local nCount = Distributing.cbCardCount[1];
+-- 			Distributing.cbDistributing[1][nCount + 1] = cbCardData[i];
+-- 			Distributing.cbCardCount[1] = Distributing.cbCardCount[1] + 1
+-- 			--continue;
+--         -- change by Owen, 2018.5.5, 处理点击顺子提示
+-- 		else
+--     		local cbCardColor=self:GetCardColor(cbCardData[i]);
+--     		local cbCardValue=self:GetCardValue(cbCardData[i]);
+--     		local nCount = Distributing.cbCardCount[cbCardValue + 1];
+--     		Distributing.cbDistributing[cbCardValue + 1][nCount + 1] = cbCardData[i];
+--     		Distributing.cbCardCount[cbCardValue + 1] = Distributing.cbCardCount[cbCardValue + 1] + 1
+--         end
+-- 	end
+-- end
+
 -- 这个函数只有在点击下面的顺子提示按钮的时候才会调用
+-- 修改传入的 Distributing table
+--[[ 
+    表示自己手里有两个A
+    Distributing = {
+        cbCardCount =    {2,0,..}
+        cbDistributing = {{1,17},{},..}
+    }
+]]
 function GameLogic:AnalysebCardDataDistributing(cbCardData,cbCardCount,Distributing)
 	local cbIndexCount = 4
-	for i = 1, 14 do
+	for i = 0, 14 do
 		Distributing.cbCardCount[i] = 0
 		Distributing.cbDistributing[i] = {}
 		for j = 1,5 do
@@ -1454,17 +1489,34 @@ function GameLogic:AnalysebCardDataDistributing(cbCardData,cbCardCount,Distribut
 	end
 	for i = 1,cbCardCount do
 		if (cbCardData[i]==0x41 or cbCardData[i]==0x42) then
-			local nCount = Distributing.cbCardCount[1];
-			Distributing.cbDistributing[1][nCount + 1] = cbCardData[i];
-			Distributing.cbCardCount[1] = Distributing.cbCardCount[1] + 1
+			local nCount = Distributing.cbCardCount[0];
+			Distributing.cbDistributing[0][nCount + 1] = cbCardData[i];
+			Distributing.cbCardCount[0] = Distributing.cbCardCount[0] + 1
 			--continue;
         -- change by Owen, 2018.5.5, 处理点击顺子提示
 		else
     		local cbCardColor=self:GetCardColor(cbCardData[i]);
-    		local cbCardValue=self:GetCardValue(cbCardData[i]);
-    		local nCount = Distributing.cbCardCount[cbCardValue + 1];
-    		Distributing.cbDistributing[cbCardValue + 1][nCount + 1] = cbCardData[i];
-    		Distributing.cbCardCount[cbCardValue + 1] = Distributing.cbCardCount[cbCardValue + 1] + 1
+
+            -- 获得牌的数值（1 -- 13）, 大小王就返回14
+            local function myGetCardValue(cbCardData)
+                -- change by, 2018.7.12, 大小王的时候返回14
+                if (cbCardData == 0x41 or cbCardData == 0x42) then
+                    return 14
+                end
+                return (cbCardData - math.floor(cbCardData/16)*16)
+            end
+    		local cbCardValue = myGetCardValue(cbCardData[i]);
+
+    		local nCount = Distributing.cbCardCount[cbCardValue];
+    		Distributing.cbDistributing[cbCardValue][nCount + 1] = cbCardData[i];
+    		Distributing.cbCardCount[cbCardValue] = Distributing.cbCardCount[cbCardValue] + 1
+
+            -- A 也可以当14用, 用来组成10JQKA
+            if cbCardValue == 1 then
+                local nCount = Distributing.cbCardCount[14];
+                Distributing.cbDistributing[14][nCount + 1] = cbCardData[i];
+                Distributing.cbCardCount[14] = Distributing.cbCardCount[14] + 1
+            end
         end
 	end
 end

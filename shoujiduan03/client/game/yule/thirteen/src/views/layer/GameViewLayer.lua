@@ -1356,20 +1356,20 @@ function GameViewLayer:gameStartStart(cbCardData,specialType)
 	    end
 	end
 	-- if not bHasJoker then
-		-- self.handCard[1] = 65
-	 --    self.handCard[2] = 2
-	 --    self.handCard[3] = 3
-	 --    self.handCard[4] = 4
-	 --    self.handCard[5] = 5
-	 --    self.handCard[6] = 22
+		self.handCard[1] = 65
+	    self.handCard[2] = 1
+	    self.handCard[3] = 2
+	    self.handCard[4] = 3
+	    self.handCard[5] = 4
+	    self.handCard[6] = 5
 
-	 --    self.handCard[7] = 53
-	 --    self.handCard[8] = 61
-	 --    self.handCard[9] = 56
-	 --    self.handCard[10] = 57
-	 --    self.handCard[11] = 58
-	 --    self.handCard[12] = 59
-	 --    self.handCard[13] = 60
+	    self.handCard[7] = 7
+	    self.handCard[8] = 8
+	    self.handCard[9] = 26
+	    self.handCard[10] = 10
+	    self.handCard[11] = 11
+	    self.handCard[12] = 12
+	    self.handCard[13] = 13
 
 	-- end
 
@@ -2251,6 +2251,7 @@ function GameViewLayer:EnableShunZilButton(cbInCardData)
 	end
 end
 --同花顺
+--[[
 function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
     --定义变量
 	local bKCount = 0;
@@ -2425,6 +2426,17 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 		
 	end
 end
+]]
+
+-- --同花顺
+function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
+	local count = self:TongHuaShun(cbInCardData, #cbInCardData, {})
+	if count > 0 then
+		self.btFlush01:setEnabled(true)
+	end
+end
+
+
 function GameViewLayer:hideAllMyCard(viewID)
       assert(viewID >= 1 and viewID <= cmd.GAME_PLAYER)
       for i = 1, 13 do
@@ -3556,9 +3568,241 @@ function GameViewLayer:TongHua(cbInCardData,bCardCount,cbOutCardIndex)
 	
 	return 0
 end
+-- function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
+-- 	if (self.m_cbCardType ~= GameLogic.CT_FIVE_MIXED_FLUSH_NO_A) then
+-- 		self.cbShunZiBegin = 2;
+-- 		self.cbShnuZiEnd = 1;
+-- 		self.cbStraightCount = 0;
+-- 		self.bSetShunZiBegin = false;
+-- 		self.cbKingLeftCount = 0;
+-- 		self.m_cbCardType = GameLogic.CT_FIVE_MIXED_FLUSH_NO_A;
+-- 		GameLogic:AnalysebCardDataDistributing(cbInCardData,bCardCount,self.Distributing)
+-- 	end
+-- 	self.cbStraightCount = 0;
+-- 	--获取最大顺子的头跟尾
+-- 	self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+-- 	local bFound = false;
+-- 	self.bSetShunZiBegin = false;
+-- 	local temppp = self.Distributing
+	
+-- 	for i = self.cbShunZiBegin, 14 do
+-- 		if self.Distributing.cbCardCount[i] > 0 and not self.bSetShunZiBegin then
+-- 			self.cbShunZiBegin = i;
+-- 			self.bSetShunZiBegin = true;
+-- 			cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[i][1];
+-- 			self.cbStraightCount = self.cbStraightCount + 1
+-- 		elseif (self.Distributing.cbCardCount[i] > 0) then
+-- 			self.cbShnuZiEnd = i
+-- 			cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[i][1];
+-- 			self.cbStraightCount = self.cbStraightCount + 1
+-- 			if (self.cbShnuZiEnd - self.cbShunZiBegin >= 4) then
+-- 				bFound = true;
+-- 				break;
+-- 			elseif (self.cbShnuZiEnd >= 0x0d) then
+-- 				if (self.cbShnuZiEnd == 0x0e and self.cbShunZiBegin == 11 and self.Distributing.cbCardCount[2] > 0) then
+-- 					cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
+-- 					self.cbStraightCount = self.cbStraightCount + 1
+-- 					if (self.cbStraightCount == 5) then
+-- 						bFound = true;
+-- 						break;
+-- 					end
+-- 				elseif (self.cbShunZiBegin == 0x0c and cbShnuZiEnd == 0x0e and Distributing.cbCardCount[2] > 0) then
+-- 					if (self.cbKingLeftCount >= 1)  then
+-- 						local nKingTotalCount = self.Distributing.cbCardCount[1];
+-- 						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
+-- 						self.cbStraightCount = self.cbStraightCount + 1
+-- 						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
+-- 						self.cbStraightCount = self.cbStraightCount + 1
+-- 						self.cbKingLeftCount = self.cbKingLeftCount - 1
+-- 						if (cbStraightCount == 5) then
+-- 							bFound = true;
+-- 							break;
+-- 						end
+-- 					end
+-- 				elseif (self.cbShunZiBegin == 0x0b and self.cbShnuZiEnd == 0x0d and self.Distributing.cbCardCount[2] > 0) then
+-- 					if (self.cbKingLeftCount >= 1) then
+-- 						local nKingTotalCount = self.Distributing.cbCardCount[1];
+-- 						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
+-- 						self.cbStraightCount = self.cbStraightCount + 1
+-- 						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
+-- 						self.cbStraightCount = self.cbStraightCount + 1
+-- 						self.cbKingLeftCount = self.cbKingLeftCount - 1
+-- 						if (self.cbStraightCount == 5) then
+-- 							bFound = true;
+-- 							break;
+-- 						end
+-- 					end
+-- 				elseif (self.cbShunZiBegin == 0x0b and self.cbShnuZiEnd == 0x0e and self.Distributing.cbCardCount[2] > 0) then
+-- 					if (self.cbKingLeftCount >= 1) then
+-- 						local nKingTotalCount = self.Distributing.cbCardCount[1];
+-- 						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
+-- 						self.cbStraightCount = self.cbStraightCount + 1
+-- 						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
+-- 						self.cbStraightCount = self.cbStraightCount + 1
+-- 						self.cbKingLeftCount = self.cbKingLeftCount - 1 ;
+-- 						if (self.cbStraightCount == 5) then
+-- 							bFound = true;
+-- 							break;
+-- 						end
+-- 					end
+-- 				elseif (self.cbKingLeftCount >= 1) then
+-- 					if(self.cbShunZiBegin == 0x0b and self.cbShnuZiEnd == 0x0e) then
+-- 						local nKingTotalCount = self.Distributing.cbCardCount[1];
+-- 						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
+-- 						self.cbStraightCount = self.cbStraightCount + 1
+-- 						self.cbKingLeftCount = self.cbKingLeftCount - 1;
+-- 						if (self.cbStraightCount == 5) then
+-- 							bFound = true;
+-- 							break;
+-- 						end
+-- 					end
+-- 				end
+-- 			end
+-- 		elseif (self.Distributing.cbCardCount[i] == 0 and self.bSetShunZiBegin ~= 0) then
+-- 			if (self.cbKingLeftCount > 0) then
+-- 				self.cbShnuZiEnd = i;
+-- 				self.cbKingLeftCount = self.cbKingLeftCount - 1;
+-- 				cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][self.cbKingLeftCount + 1];
+-- 				self.cbStraightCount = self.cbStraightCount + 1
+-- 				if (self.cbStraightCount >= 5) then
+-- 					bFound = true;
+-- 					break;
+-- 				end
+-- 			else
+-- 				if (self.cbStraightCount >= 5) then
+-- 					bFound = true;
+-- 					break;
+-- 				else
+-- 					self.bSetShunZiBegin = false;
+-- 					if (self.cbStraightCount == 2) then
+-- 						if (cbOutCardData[2] ~= 0x41 and cbOutCardData[2] ~= 0x42) then
+-- 							self.cbShunZiBegin = GameLogic:GetCardValue(cbOutCardData[2]) + 1;
+-- 							local cbTemp = {};
+-- 							for j = 1,self.cbStraightCount - 1 do
+-- 								cbTemp[j] = cbOutCardData[j]
+-- 							end
+-- 							for j = 1,#cbOutCardData do
+-- 								cbOutCardData[j] = 0
+-- 							end
+-- 							for j = 1,self.cbStraightCount - 1 do
+-- 								cbOutCardData[j + 1] =cbTemp[j] 
+-- 							end
+-- 							--CopyMemory(cbTemp,cbOutCardData,cbStraightCount - 1);
+-- 							--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
+-- 							--CopyMemory(cbOutCardData + 1,cbTemp,cbStraightCount - 1);
+-- 							self.cbStraightCount = self.cbStraightCount - 1;
+-- 							self.cbShnuZiEnd = 1;
+-- 							self.bSetShunZiBegin = false;
+-- 							i = i - 1;
+-- 						else
+-- 							self.bSetShunZiBegin = false;
+-- 							self.cbShunZiBegin = 2;
+-- 							self.cbShnuZiEnd = 1;
+-- 							self.cbStraightCount = 0;
+-- 							self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+-- 							self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+-- 							for j = 1,#cbOutCardData do
+-- 								cbOutCardData[j] = 0
+-- 							end
+-- 							--ZeroMemory(cbOutCardData,MAX_CARD_COUNT);
+-- 						end
+-- 					elseif (self.cbStraightCount > 2) then
+-- 						if ((cbOutCardData[2] == 0x41 or cbOutCardData[2] == 0x42) and
+-- 							(cbOutCardData[3] == 0x41 or cbOutCardData[3] == 0x42)) then
+-- 							self.cbShunZiBegin = GameLogic:GetCardValue(cbOutCardData[2]) + 1;
+-- 							self.bSetShunZiBegin = false;
+-- 							self.cbShunZiBegin = 2;
+-- 							self.cbShnuZiEnd = 1;
+-- 							self.cbStraightCount = 0;
+-- 							self.cbKingLeftCount = self.cbKingLeftCount + 2;
+-- 							i = i - 1;
+-- 							for j = 1,#cbOutCardData do
+-- 								cbOutCardData[j] = 0
+-- 							end
+-- 							--ZeroMemory(cbOutCardData,MAX_CARD_COUNT);
+-- 						elseif (cbOutCardData[2] == 0x41 or cbOutCardData[2] == 0x42) then
+-- 							--[[cbShunZiBegin = m_gameLogic.GetCardValue(cbOutCardData[2]);
+-- 							BYTE cbTemp[MAX_COUNT] = { 0 };
+-- 							CopyMemory(cbTemp,cbOutCardData + 2,cbStraightCount - 2);
+-- 							ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
+-- 							CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 2);
+-- 							cbStraightCount -= 2;
+-- 							++cbKingLeftCount;
+-- 							cbShnuZiEnd = 0;
+-- 							--i;
+-- 							bSetShunZiBegin = true;--]]
+-- 						else
+-- 							self.cbShunZiBegin = GameLogic:GetCardValue(cbOutCardData[2]) + 1;
+-- 							local cbTemp = { };
+-- 							--CopyMemory(cbTemp,cbOutCardData + 1,cbStraightCount - 1);
+-- 							for j = 1,self.cbStraightCount - 1 do
+-- 								cbTemp[j] = cbOutCardData[j + 1]
+-- 							end
+-- 							--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
+-- 							for j = 1,#cbOutCardData do
+-- 								cbOutCardData[j] = 0
+-- 							end
+-- 							i = i - (self.cbStraightCount - 1);
+-- 							--CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 1);
+-- 							for j = 1,self.cbStraightCount - 1 do
+-- 								cbOutCardData[j] =cbTemp[j] 
+-- 							end
+-- 							self.cbStraightCount = 0;
+-- 							self.cbShnuZiEnd = 1;
+-- 							self.bSetShunZiBegin = false;
+-- 							self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+-- 						end
+-- 					else
+-- 						self.bSetShunZiBegin = false;
+-- 						self.cbShunZiBegin = 2;
+-- 						self.cbShnuZiEnd = 1;
+-- 						self.cbStraightCount = 0;
+-- 						self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+-- 						self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+-- 						--ZeroMemory(cbOutCardData,MAX_CARD_COUNT);
+-- 						for j = 1,#cbOutCardData do
+-- 							cbOutCardData[j] = 0
+-- 						end
+-- 					end
+-- 				end				
+				
+-- 			end
+-- 		else
+-- 			print("--------")	
+-- 		end
+-- 	end
+--     local n1=0
+--     for j = 1,#cbOutCardData do
+-- 		if cbOutCardData[j] >0 then
+--         n1=n1+1
+--         end
+-- 	end
+--      if n1>=5 then
+--         bFound=true
+--      end
+-- 	if (bFound) then
+-- 		if(self.cbShunZiBegin >= 11) then
+-- 			self.cbShunZiBegin = 2;
+-- 		else
+-- 			self.cbShunZiBegin = self.cbShunZiBegin + 1
+-- 		end
+-- 		return self.cbStraightCount;
+-- 	else
+-- 		self.cbShunZiBegin = 2;
+-- 		self.cbShnuZiEnd = 1;
+-- 		self.cbStraightCount = 0;
+-- 		self.bSetShunZiBegin = false;
+-- 		self.cbKingLeftCount = 0;
+-- 		return 0;
+-- 	end
+-- end
+
+-- 最终找出来的顺子数据是放到 cbOutCardData 里面
+-- self.Distributing.cbCardCount[i]          这张牌有几张
+-- self.Distributing.cbDistributing[i][1]    获得2这张牌的第一张
 function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 	if (self.m_cbCardType ~= GameLogic.CT_FIVE_MIXED_FLUSH_NO_A) then
-		self.cbShunZiBegin = 2;
+		self.cbShunZiBegin = 1;
 		self.cbShnuZiEnd = 1;
 		self.cbStraightCount = 0;
 		self.bSetShunZiBegin = false;
@@ -3566,224 +3810,311 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 		self.m_cbCardType = GameLogic.CT_FIVE_MIXED_FLUSH_NO_A;
 		GameLogic:AnalysebCardDataDistributing(cbInCardData,bCardCount,self.Distributing)
 	end
-	self.cbStraightCount = 0;
-	--获取最大顺子的头跟尾
-	self.cbKingLeftCount = self.Distributing.cbCardCount[1];
-	local bFound = false;
-	self.bSetShunZiBegin = false;
-	local temppp = self.Distributing
-	
-	for i = self.cbShunZiBegin, 14 do
-		if self.Distributing.cbCardCount[i] > 0 and not self.bSetShunZiBegin then
-			self.cbShunZiBegin = i;
-			self.bSetShunZiBegin = true;
-			cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[i][1];
-			self.cbStraightCount = self.cbStraightCount + 1
-		elseif (self.Distributing.cbCardCount[i] > 0) then
-			self.cbShnuZiEnd = i
-			cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[i][1];
-			self.cbStraightCount = self.cbStraightCount + 1
-			if (self.cbShnuZiEnd - self.cbShunZiBegin >= 4) then
-				bFound = true;
-				break;
-			elseif (self.cbShnuZiEnd >= 0x0d) then
-				if (self.cbShnuZiEnd == 0x0e and self.cbShunZiBegin == 11 and self.Distributing.cbCardCount[2] > 0) then
-					cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
-					self.cbStraightCount = self.cbStraightCount + 1
-					if (self.cbStraightCount == 5) then
-						bFound = true;
-						break;
-					end
-				elseif (self.cbShunZiBegin == 0x0c and cbShnuZiEnd == 0x0e and Distributing.cbCardCount[2] > 0) then
-					if (self.cbKingLeftCount >= 1)  then
-						local nKingTotalCount = self.Distributing.cbCardCount[1];
-						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
-						self.cbStraightCount = self.cbStraightCount + 1
-						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
-						self.cbStraightCount = self.cbStraightCount + 1
-						self.cbKingLeftCount = self.cbKingLeftCount - 1
-						if (cbStraightCount == 5) then
-							bFound = true;
-							break;
-						end
-					end
-				elseif (self.cbShunZiBegin == 0x0b and self.cbShnuZiEnd == 0x0d and self.Distributing.cbCardCount[2] > 0) then
-					if (self.cbKingLeftCount >= 1) then
-						local nKingTotalCount = self.Distributing.cbCardCount[1];
-						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
-						self.cbStraightCount = self.cbStraightCount + 1
-						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
-						self.cbStraightCount = self.cbStraightCount + 1
-						self.cbKingLeftCount = self.cbKingLeftCount - 1
-						if (self.cbStraightCount == 5) then
-							bFound = true;
-							break;
-						end
-					end
-				elseif (self.cbShunZiBegin == 0x0b and self.cbShnuZiEnd == 0x0e and self.Distributing.cbCardCount[2] > 0) then
-					if (self.cbKingLeftCount >= 1) then
-						local nKingTotalCount = self.Distributing.cbCardCount[1];
-						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
-						self.cbStraightCount = self.cbStraightCount + 1
-						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
-						self.cbStraightCount = self.cbStraightCount + 1
-						self.cbKingLeftCount = self.cbKingLeftCount - 1 ;
-						if (self.cbStraightCount == 5) then
-							bFound = true;
-							break;
-						end
-					end
-				elseif (self.cbKingLeftCount >= 1) then
-					if(self.cbShunZiBegin == 0x0b and self.cbShnuZiEnd == 0x0e) then
-						local nKingTotalCount = self.Distributing.cbCardCount[1];
-						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
-						self.cbStraightCount = self.cbStraightCount + 1
-						self.cbKingLeftCount = self.cbKingLeftCount - 1;
-						if (self.cbStraightCount == 5) then
-							bFound = true;
-							break;
-						end
-					end
+
+	--[[ 
+	    表示自己手里有两个A, 一个K
+	    self.Distributing = {
+	        cbCardCount =    {2,0,..,{1}}
+	        cbDistributing = {{1,17},{},..,{13}}
+	    }
+	]]
+
+	-- 找到的所有顺子存到这个表里面
+	local allShunZi = {}
+
+	local kingCount = self.Distributing.cbCardCount[0]
+
+	local bFound = false
+	local beginIndex = self.cbShunZiBegin
+	for i = beginIndex, 10 do
+		-- 拿出从i开始往后的5个数的组合, 如A2345这五张牌, 自己手里有几张
+		local haveCount = 0
+		for k = 0,4 do
+			if self.Distributing.cbCardCount[i+k] > 0 then
+				haveCount = haveCount + 1
+			end
+		end
+
+		
+		if haveCount == 5 then
+			-- 有五张不需要王的顺子
+			for j = 0,4 do
+				cbOutCardData[j+1] = self.Distributing.cbDistributing[i+j][1]
+			end
+			self.cbShunZiBegin = i + 1
+			bFound = true
+		elseif haveCount == 4 and kingCount >= 1 then
+			-- 插入4张牌
+			for j1 = 0,4 do
+				if self.Distributing.cbCardCount[i+j1] > 0 then
+					cbOutCardData[#cbOutCardData+1] = self.Distributing.cbDistributing[i+j1][1]
 				end
 			end
-		elseif (self.Distributing.cbCardCount[i] == 0 and self.bSetShunZiBegin ~= 0) then
-			if (self.cbKingLeftCount > 0) then
-				self.cbShnuZiEnd = i;
-				self.cbKingLeftCount = self.cbKingLeftCount - 1;
-				cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][self.cbKingLeftCount + 1];
-				self.cbStraightCount = self.cbStraightCount + 1
-				if (self.cbStraightCount >= 5) then
-					bFound = true;
-					break;
+			-- 插入一个王
+			cbOutCardData[5] = self.Distributing.cbDistributing[0][1]
+			self.cbShunZiBegin = i + 1
+			bFound = true
+		elseif haveCount == 3 and kingCount >= 2 then
+			-- 插入3张牌
+			for j1 = 0,4 do
+				if self.Distributing.cbCardCount[i+j1] > 0 then
+					cbOutCardData[#cbOutCardData+1] = self.Distributing.cbDistributing[i+j1][1]
 				end
-			else
-				if (self.cbStraightCount >= 5) then
-					bFound = true;
-					break;
-				else
-					self.bSetShunZiBegin = false;
-					if (self.cbStraightCount == 2) then
-						if (cbOutCardData[2] ~= 0x41 and cbOutCardData[2] ~= 0x42) then
-							self.cbShunZiBegin = GameLogic:GetCardValue(cbOutCardData[2]) + 1;
-							local cbTemp = {};
-							for j = 1,self.cbStraightCount - 1 do
-								cbTemp[j] = cbOutCardData[j]
-							end
-							for j = 1,#cbOutCardData do
-								cbOutCardData[j] = 0
-							end
-							for j = 1,self.cbStraightCount - 1 do
-								cbOutCardData[j + 1] =cbTemp[j] 
-							end
-							--CopyMemory(cbTemp,cbOutCardData,cbStraightCount - 1);
-							--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
-							--CopyMemory(cbOutCardData + 1,cbTemp,cbStraightCount - 1);
-							self.cbStraightCount = self.cbStraightCount - 1;
-							self.cbShnuZiEnd = 1;
-							self.bSetShunZiBegin = false;
-							i = i - 1;
-						else
-							self.bSetShunZiBegin = false;
-							self.cbShunZiBegin = 2;
-							self.cbShnuZiEnd = 1;
-							self.cbStraightCount = 0;
-							self.cbKingLeftCount = self.Distributing.cbCardCount[1];
-							self.cbKingLeftCount = self.Distributing.cbCardCount[1];
-							for j = 1,#cbOutCardData do
-								cbOutCardData[j] = 0
-							end
-							--ZeroMemory(cbOutCardData,MAX_CARD_COUNT);
-						end
-					elseif (self.cbStraightCount > 2) then
-						if ((cbOutCardData[2] == 0x41 or cbOutCardData[2] == 0x42) and
-							(cbOutCardData[3] == 0x41 or cbOutCardData[3] == 0x42)) then
-							self.cbShunZiBegin = GameLogic:GetCardValue(cbOutCardData[2]) + 1;
-							self.bSetShunZiBegin = false;
-							self.cbShunZiBegin = 2;
-							self.cbShnuZiEnd = 1;
-							self.cbStraightCount = 0;
-							self.cbKingLeftCount = self.cbKingLeftCount + 2;
-							i = i - 1;
-							for j = 1,#cbOutCardData do
-								cbOutCardData[j] = 0
-							end
-							--ZeroMemory(cbOutCardData,MAX_CARD_COUNT);
-						elseif (cbOutCardData[2] == 0x41 or cbOutCardData[2] == 0x42) then
-							--[[cbShunZiBegin = m_gameLogic.GetCardValue(cbOutCardData[2]);
-							BYTE cbTemp[MAX_COUNT] = { 0 };
-							CopyMemory(cbTemp,cbOutCardData + 2,cbStraightCount - 2);
-							ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
-							CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 2);
-							cbStraightCount -= 2;
-							++cbKingLeftCount;
-							cbShnuZiEnd = 0;
-							--i;
-							bSetShunZiBegin = true;--]]
-						else
-							self.cbShunZiBegin = GameLogic:GetCardValue(cbOutCardData[2]) + 1;
-							local cbTemp = { };
-							--CopyMemory(cbTemp,cbOutCardData + 1,cbStraightCount - 1);
-							for j = 1,self.cbStraightCount - 1 do
-								cbTemp[j] = cbOutCardData[j + 1]
-							end
-							--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
-							for j = 1,#cbOutCardData do
-								cbOutCardData[j] = 0
-							end
-							i = i - (self.cbStraightCount - 1);
-							--CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 1);
-							for j = 1,self.cbStraightCount - 1 do
-								cbOutCardData[j] =cbTemp[j] 
-							end
-							self.cbStraightCount = 0;
-							self.cbShnuZiEnd = 1;
-							self.bSetShunZiBegin = false;
-							self.cbKingLeftCount = self.Distributing.cbCardCount[1];
-						end
-					else
-						self.bSetShunZiBegin = false;
-						self.cbShunZiBegin = 2;
-						self.cbShnuZiEnd = 1;
-						self.cbStraightCount = 0;
-						self.cbKingLeftCount = self.Distributing.cbCardCount[1];
-						self.cbKingLeftCount = self.Distributing.cbCardCount[1];
-						--ZeroMemory(cbOutCardData,MAX_CARD_COUNT);
-						for j = 1,#cbOutCardData do
-							cbOutCardData[j] = 0
-						end
-					end
-				end				
-				
 			end
-		else
-			print("--------")	
+			-- 插入2个王
+			cbOutCardData[4] = self.Distributing.cbDistributing[0][1]
+			cbOutCardData[5] = self.Distributing.cbDistributing[0][2]
+			self.cbShunZiBegin = i + 1
+			bFound = true
+		end
+
+		-- 如果找到了则跳出这个循环
+		if bFound then
+			break
 		end
 	end
-    local n1=0
-    for j = 1,#cbOutCardData do
-		if cbOutCardData[j] >0 then
-        n1=n1+1
-        end
-	end
-     if n1>=5 then
-        bFound=true
-     end
+
 	if (bFound) then
-		if(self.cbShunZiBegin >= 11) then
-			self.cbShunZiBegin = 2;
+		if(self.cbShunZiBegin >= 10) then
+			self.cbShunZiBegin = 1;
 		else
-			self.cbShunZiBegin = self.cbShunZiBegin + 1
+			-- self.cbShunZiBegin = self.cbShunZiBegin + 1
 		end
-		return self.cbStraightCount;
+		return 1;
 	else
-		self.cbShunZiBegin = 2;
+		self.cbShunZiBegin = 1;
 		self.cbShnuZiEnd = 1;
 		self.cbStraightCount = 0;
 		self.bSetShunZiBegin = false;
 		self.cbKingLeftCount = 0;
 		return 0;
 	end
+
+
+	--[[
+		self.cbStraightCount = 0;
+		--获取最大顺子的头跟尾
+		self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+		local bFound = false;
+		self.bSetShunZiBegin = false;
+		local temppp = self.Distributing
+		
+		for i = self.cbShunZiBegin, 14 do
+			if self.Distributing.cbCardCount[i] > 0 and not self.bSetShunZiBegin then
+				self.cbShunZiBegin = i;
+				self.bSetShunZiBegin = true;
+				cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[i][1];
+				self.cbStraightCount = self.cbStraightCount + 1
+			elseif (self.Distributing.cbCardCount[i] > 0) then
+				self.cbShnuZiEnd = i
+				cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[i][1];
+				self.cbStraightCount = self.cbStraightCount + 1
+				if (self.cbShnuZiEnd - self.cbShunZiBegin >= 4) then
+					bFound = true;
+					break;
+				elseif (self.cbShnuZiEnd >= 0x0d) then
+					if (self.cbShnuZiEnd == 0x0e and self.cbShunZiBegin == 11 and self.Distributing.cbCardCount[2] > 0) then
+						cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
+						self.cbStraightCount = self.cbStraightCount + 1
+						if (self.cbStraightCount == 5) then
+							bFound = true;
+							break;
+						end
+					elseif (self.cbShunZiBegin == 0x0c and cbShnuZiEnd == 0x0e and Distributing.cbCardCount[2] > 0) then
+						if (self.cbKingLeftCount >= 1)  then
+							local nKingTotalCount = self.Distributing.cbCardCount[1];
+							cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
+							self.cbStraightCount = self.cbStraightCount + 1
+							cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
+							self.cbStraightCount = self.cbStraightCount + 1
+							self.cbKingLeftCount = self.cbKingLeftCount - 1
+							if (cbStraightCount == 5) then
+								bFound = true;
+								break;
+							end
+						end
+					elseif (self.cbShunZiBegin == 0x0b and self.cbShnuZiEnd == 0x0d and self.Distributing.cbCardCount[2] > 0) then
+						if (self.cbKingLeftCount >= 1) then
+							local nKingTotalCount = self.Distributing.cbCardCount[1];
+							cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
+							self.cbStraightCount = self.cbStraightCount + 1
+							cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
+							self.cbStraightCount = self.cbStraightCount + 1
+							self.cbKingLeftCount = self.cbKingLeftCount - 1
+							if (self.cbStraightCount == 5) then
+								bFound = true;
+								break;
+							end
+						end
+					elseif (self.cbShunZiBegin == 0x0b and self.cbShnuZiEnd == 0x0e and self.Distributing.cbCardCount[2] > 0) then
+						if (self.cbKingLeftCount >= 1) then
+							local nKingTotalCount = self.Distributing.cbCardCount[1];
+							cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[2][1];
+							self.cbStraightCount = self.cbStraightCount + 1
+							cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
+							self.cbStraightCount = self.cbStraightCount + 1
+							self.cbKingLeftCount = self.cbKingLeftCount - 1 ;
+							if (self.cbStraightCount == 5) then
+								bFound = true;
+								break;
+							end
+						end
+					elseif (self.cbKingLeftCount >= 1) then
+						if(self.cbShunZiBegin == 0x0b and self.cbShnuZiEnd == 0x0e) then
+							local nKingTotalCount = self.Distributing.cbCardCount[1];
+							cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][nKingTotalCount - nKingTotalCount + 1];
+							self.cbStraightCount = self.cbStraightCount + 1
+							self.cbKingLeftCount = self.cbKingLeftCount - 1;
+							if (self.cbStraightCount == 5) then
+								bFound = true;
+								break;
+							end
+						end
+					end
+				end
+			elseif (self.Distributing.cbCardCount[i] == 0 and self.bSetShunZiBegin ~= 0) then
+				if (self.cbKingLeftCount > 0) then
+					self.cbShnuZiEnd = i;
+					self.cbKingLeftCount = self.cbKingLeftCount - 1;
+					cbOutCardData[self.cbStraightCount + 1] = self.Distributing.cbDistributing[1][self.cbKingLeftCount + 1];
+					self.cbStraightCount = self.cbStraightCount + 1
+					if (self.cbStraightCount >= 5) then
+						bFound = true;
+						break;
+					end
+				else
+					if (self.cbStraightCount >= 5) then
+						bFound = true;
+						break;
+					else
+						self.bSetShunZiBegin = false;
+						if (self.cbStraightCount == 2) then
+							if (cbOutCardData[2] ~= 0x41 and cbOutCardData[2] ~= 0x42) then
+								self.cbShunZiBegin = GameLogic:GetCardValue(cbOutCardData[2]) + 1;
+								local cbTemp = {};
+								for j = 1,self.cbStraightCount - 1 do
+									cbTemp[j] = cbOutCardData[j]
+								end
+								for j = 1,#cbOutCardData do
+									cbOutCardData[j] = 0
+								end
+								for j = 1,self.cbStraightCount - 1 do
+									cbOutCardData[j + 1] =cbTemp[j] 
+								end
+								--CopyMemory(cbTemp,cbOutCardData,cbStraightCount - 1);
+								--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
+								--CopyMemory(cbOutCardData + 1,cbTemp,cbStraightCount - 1);
+								self.cbStraightCount = self.cbStraightCount - 1;
+								self.cbShnuZiEnd = 1;
+								self.bSetShunZiBegin = false;
+								i = i - 1;
+							else
+								self.bSetShunZiBegin = false;
+								self.cbShunZiBegin = 2;
+								self.cbShnuZiEnd = 1;
+								self.cbStraightCount = 0;
+								self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+								self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+								for j = 1,#cbOutCardData do
+									cbOutCardData[j] = 0
+								end
+								--ZeroMemory(cbOutCardData,MAX_CARD_COUNT);
+							end
+						elseif (self.cbStraightCount > 2) then
+							if ((cbOutCardData[2] == 0x41 or cbOutCardData[2] == 0x42) and
+								(cbOutCardData[3] == 0x41 or cbOutCardData[3] == 0x42)) then
+								self.cbShunZiBegin = GameLogic:GetCardValue(cbOutCardData[2]) + 1;
+								self.bSetShunZiBegin = false;
+								self.cbShunZiBegin = 2;
+								self.cbShnuZiEnd = 1;
+								self.cbStraightCount = 0;
+								self.cbKingLeftCount = self.cbKingLeftCount + 2;
+								i = i - 1;
+								for j = 1,#cbOutCardData do
+									cbOutCardData[j] = 0
+								end
+								--ZeroMemory(cbOutCardData,MAX_CARD_COUNT);
+							elseif (cbOutCardData[2] == 0x41 or cbOutCardData[2] == 0x42) then
+								-- cbShunZiBegin = m_gameLogic.GetCardValue(cbOutCardData[2]);
+								-- BYTE cbTemp[MAX_COUNT] = { 0 };
+								-- CopyMemory(cbTemp,cbOutCardData + 2,cbStraightCount - 2);
+								-- ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
+								-- CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 2);
+								-- cbStraightCount -= 2;
+								-- ++cbKingLeftCount;
+								-- cbShnuZiEnd = 0;
+								-- --i;
+								-- bSetShunZiBegin = true;
+							else
+								self.cbShunZiBegin = GameLogic:GetCardValue(cbOutCardData[2]) + 1;
+								local cbTemp = { };
+								--CopyMemory(cbTemp,cbOutCardData + 1,cbStraightCount - 1);
+								for j = 1,self.cbStraightCount - 1 do
+									cbTemp[j] = cbOutCardData[j + 1]
+								end
+								--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
+								for j = 1,#cbOutCardData do
+									cbOutCardData[j] = 0
+								end
+								i = i - (self.cbStraightCount - 1);
+								--CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 1);
+								for j = 1,self.cbStraightCount - 1 do
+									cbOutCardData[j] =cbTemp[j] 
+								end
+								self.cbStraightCount = 0;
+								self.cbShnuZiEnd = 1;
+								self.bSetShunZiBegin = false;
+								self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+							end
+						else
+							self.bSetShunZiBegin = false;
+							self.cbShunZiBegin = 2;
+							self.cbShnuZiEnd = 1;
+							self.cbStraightCount = 0;
+							self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+							self.cbKingLeftCount = self.Distributing.cbCardCount[1];
+							--ZeroMemory(cbOutCardData,MAX_CARD_COUNT);
+							for j = 1,#cbOutCardData do
+								cbOutCardData[j] = 0
+							end
+						end
+					end				
+					
+				end
+			else
+				print("--------")	
+			end
+		end
+	    local n1=0
+	    for j = 1,#cbOutCardData do
+			if cbOutCardData[j] >0 then
+	        n1=n1+1
+	        end
+		end
+	     if n1>=5 then
+	        bFound=true
+	     end
+
+		if (bFound) then
+			if(self.cbShunZiBegin >= 11) then
+				self.cbShunZiBegin = 1;
+			else
+				self.cbShunZiBegin = self.cbShunZiBegin + 1
+			end
+			return self.cbStraightCount;
+		else
+			self.cbShunZiBegin = 1;
+			self.cbShnuZiEnd = 1;
+			self.cbStraightCount = 0;
+			self.bSetShunZiBegin = false;
+			self.cbKingLeftCount = 0;
+			return 0;
+		end
+	]]
+
 end
+
+
 function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	if (self.m_cbCardType ~= GameLogic.CT_FIVE_STRAIGHT_FLUSH) then
 		self.m_cbIndex = 1;
@@ -3832,16 +4163,23 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 				local temp3 = GameLogic:GetCardLogicValue(cardData[i][2 + j])
 				local temp4 = GameLogic:GetCardLogicValue(cardData[i][3 + j])
 				local temp5 = GameLogic:GetCardLogicValue(cardData[i][4 + j])
-				if temp1 == (temp2 + 1) and temp1 == (temp3 + 2) and
-				temp1 == (temp4 + 3) and temp1 == (temp5 + 4)
-				then
-					for k = 1,5 do
-						table.insert(AllCardData,cardData[i][j + k - 1])
+				if temp1 ~= 14 then
+					-- 处理没有A的情况
+					-- 下面的这个判定逻辑是基于 cardData 是有序的, 从AKQ-32这样排列
+					if temp1 == (temp2 + 1) and temp1 == (temp3 + 2) and
+					temp1 == (temp4 + 3) and temp1 == (temp5 + 4)
+					then
+						for k = 1,5 do
+							table.insert(AllCardData,cardData[i][j + k - 1])
+						end
 					end
-				end
-				
-				if temp1 == 14 then
-					
+				else
+					if (temp2 == 5 and temp3 == 4 and temp4 == 3 and temp5 == 2)
+						or (temp2 == 13 and temp3 == 12 and temp4 == 11 and temp5 == 10) then
+						for k = 1,5 do
+							table.insert(AllCardData,cardData[i][j + k - 1])
+						end
+					end
 				end
 			end
 		end
@@ -3855,14 +4193,31 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 				local temp4 = GameLogic:GetCardLogicValue(cardData[i][3 + j])
 
 				if AnalyseResult.cbKingCount >= 1 then
-					if temp1 == (temp2 + 1) and temp1 == (temp3 + 2) and
-					temp1 == (temp4 + 3)
-					then
-						for k = 1,4 do
-							table.insert(AllCardData,cardData[i][j + k - 1])
+					if temp1 ~= 14 then
+						-- 处理没有A的情况
+						if temp1 ~= temp2 and temp1 ~= temp3 and temp1 ~= temp4
+							and temp2 ~= temp3 and temp2 ~= temp4
+							and temp3 ~= temp4
+							and temp1 - temp4 <= 4
+						then
+							for k = 1,4 do
+								table.insert(AllCardData,cardData[i][j + k - 1])
+							end
+							-- 插入一个王
+							table.insert(AllCardData,AnalyseResult.cbKingData[1])
 						end
-						-- 插入一个王
-						table.insert(AllCardData,AnalyseResult.cbKingData[1])
+					else
+						if (temp1 ~= temp2 and temp1 ~= temp3 and temp1 ~= temp4
+							and temp2 ~= temp3 and temp2 ~= temp4
+							and temp3 ~= temp4)
+							and (temp2 <= 5 or temp4 >= 10)
+						then
+							for k = 1,4 do
+								table.insert(AllCardData,cardData[i][j + k - 1])
+							end
+							-- 插入一个王
+							table.insert(AllCardData,AnalyseResult.cbKingData[1])
+						end
 					end
 				end
 			end
@@ -3874,42 +4229,38 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 					local temp2 = GameLogic:GetCardLogicValue(cardData[i][1 + j])
 					local temp3 = GameLogic:GetCardLogicValue(cardData[i][2 + j])
 
-
-					if temp1 == (temp2 + 1) and temp1 == (temp3 + 2)
-					then
-						for k = 1,3 do
-							table.insert(AllCardData,cardData[i][j + k - 1])
+					if temp1 ~= 14 then
+						-- 处理没有A的情况
+						if temp1 ~= temp2 and temp1 ~= temp3
+							and temp2 ~= temp3
+							and temp1 - temp3 <= 4
+						then
+							for k = 1,3 do
+								table.insert(AllCardData,cardData[i][j + k - 1])
+							end
+							-- 插入2个王
+							table.insert(AllCardData,AnalyseResult.cbKingData[1])
+							table.insert(AllCardData,AnalyseResult.cbKingData[2])
 						end
-						-- 插入2个王
-						table.insert(AllCardData,AnalyseResult.cbKingData[1])
-						table.insert(AllCardData,AnalyseResult.cbKingData[2])
+					else
+						-- 处理没有A的情况
+						if (temp1 ~= temp2 and temp1 ~= temp3
+								and temp2 ~= temp3)
+							and (temp2 <= 5 or temp3 >= 10)
+						then
+							for k = 1,3 do
+								table.insert(AllCardData,cardData[i][j + k - 1])
+							end
+							-- 插入2个王
+							table.insert(AllCardData,AnalyseResult.cbKingData[1])
+							table.insert(AllCardData,AnalyseResult.cbKingData[2])
+						end
 					end
 				end
 			end
 		end
 	end
 
-
-
-	--循环A =1的情况
-	for i = 1,4 do
-		if #cardData[i] >= 5 then
-			local count = #cardData[i]
-			local temp1 = GameLogic:GetCardLogicValue(cardData[i][1])
-			local temp2 = GameLogic:GetCardLogicValue(cardData[i][count - 3])
-			local temp3 = GameLogic:GetCardLogicValue(cardData[i][count - 2])
-			local temp4 = GameLogic:GetCardLogicValue(cardData[i][count - 1])
-			local temp5 = GameLogic:GetCardLogicValue(cardData[i][count])
-			if temp1 == 14 and temp5 == 2 and temp4 == 3 
-			and temp3 == 4 and temp2 == 5  then
-				table.insert(AllCardData,cardData[i][1])
-				table.insert(AllCardData,cardData[i][count - 3])
-				table.insert(AllCardData,cardData[i][count - 2])
-				table.insert(AllCardData,cardData[i][count - 1])
-				table.insert(AllCardData,cardData[i][count])
-			end
-		end
-	end
 		
 	local count = #AllCardData / 5 --有多少种可能
 	local index = self.m_cbIndex
@@ -3926,6 +4277,207 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	end
 	return 5
 end
+
+
+--[[
+-- 这一次点击同花顺按钮, 取得的提示5张牌数据放到 cbOutCardData 里面
+function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
+
+	if (self.m_cbCardType ~= GameLogic.CT_FIVE_STRAIGHT_FLUSH) then
+		self.m_cbIndex = 1;
+	end
+	self.m_cbCardType = GameLogic.CT_FIVE_STRAIGHT_FLUSH;
+	-- change by Owen, 2018.5.4, 添加王的处理
+	local AnalyseResult = {cbCardCount = {},cbDistributing = {}, cbKingData = {}}
+	AnalyseResult.cbKingCount = 0
+	
+	for i =1 ,4 do
+		AnalyseResult.cbCardCount[i] = 0
+		AnalyseResult.cbDistributing[i] = {}
+		for j = 1,cmd.HAND_CARD_COUNT do
+			AnalyseResult.cbDistributing[i][j] = 0
+		end
+	end
+	GameLogic:AnalysebCardColorDistri(cbInCardData,bCardCount,AnalyseResult)
+	--存放大于5张的牌数据
+	local cccount = 0
+	-- cardData 存放的是这个花色的扑克牌有几张
+	-- cardData[1/2/3/4] 表示4种不同花色的牌, 分别有几张
+	local cardData = {}
+	for i = 1, 4 do
+		cardData[i] = {}
+		if AnalyseResult.cbCardCount[i] + AnalyseResult.cbKingCount >= 5 then
+			for j = 1,AnalyseResult.cbCardCount[i] do
+				local temp = AnalyseResult.cbDistributing[i][j]
+				if not self:FindValue(cardData[i],temp) then
+					table.insert(cardData[i],temp)
+				end
+			end
+			cccount = cccount + 1
+		end
+	end
+	if cccount == 0 then
+		return 0
+	end
+
+	-- you
+	local bFound = false
+	local foundCrads = {}
+
+	-- 从1开始往后遍历
+	local beginIndex = self.m_cbIndex
+	for i = beginIndex, 10 do
+		-- 遍历4个花色牌数组里面有没有这张牌
+		for j = 1, 4 do
+			for i1,v1 in ipairs(cardData[j]) do
+				-- 获得牌的数值（1 -- 13）, 大小王就返回14
+	            local function myGetCardValue(cbCardData)
+	                return (cbCardData - math.floor(cbCardData/16)*16)
+	            end
+	            -- 这个花色的数组里面有这一张牌
+	    		local cbCardValue = myGetCardValue(v1);
+	    		if i == cbCardValue then
+	    			-- 这个花色里面有这张牌
+	    			foundCrads = {}
+	    			foundCrads[#foundCrads + 1] = v1
+	    			-- 拿出从i开始往后的5个数的组合, 如A2345这五张牌, 
+	    			-- 这个花色的牌数组里面有几张
+					local haveCount = 0
+					for i2 = 1,4 do
+						for i3,v3 in ipairs(cardData[j]) do
+							-- 把1改成A
+							local function myGetCardValue1(cbCardData)
+				                local middleData = (cbCardData - math.floor(cbCardData/16)*16)
+				                if middleData == 1 then
+				                	middleData = 14
+				                end
+				                return middleData
+				            end
+							if (i + i2) == myGetCardValue(v3) do
+								haveCount = haveCount + 1
+								foundCrads[#foundCrads + 1] = v3
+							end
+						end
+					end
+					if haveCount + AnalyseResult.cbKingCount >= 5 then
+						bFound = true
+						cbOutCardData = foundCrads
+						if #foundCrads == 3 then
+							cbOutCardData[4] = AnalyseResult.cbKingData[1]
+							cbOutCardData[5] = AnalyseResult.cbKingData[2]
+						elseif #foundCrads == 4 then
+							cbOutCardData[5] = AnalyseResult.cbKingData[1]
+						end
+						self.m_cbIndex = self.m_cbIndex + i - beginIndex + 1
+						return
+					end
+	    		end
+			end
+		end
+	end
+
+	-- 如果没找到的话则下次从1开始查找
+	self.m_cbIndex = 1
+	return 0
+
+
+
+
+	if (self.m_cbCardType ~= GameLogic.CT_FIVE_STRAIGHT_FLUSH) then
+		self.m_cbIndex = 1;
+	end
+	self.m_cbCardType = GameLogic.CT_FIVE_STRAIGHT_FLUSH;
+
+
+	local AllCardData = {}
+	GameLogic:AnalysebCardDataDistributing(cbInCardData,bCardCount,AllCardData)
+
+
+	    -- 表示自己手里有两个A, 一个K
+	    -- AllCardData = {
+	    --     cbCardCount =    {2,0,..,{1}}
+	    --     cbDistributing = {{1,17},{},..,{13}}
+	    -- }
+	
+
+	-- 找到的所有顺子存到这个表里面
+	local allShunZi = {}
+	local thisShunZi = {}
+
+	local kingCount = AllCardData.cbCardCount[0]
+
+	local bFound = false
+	local beginIndex = self.cbShunZiBegin
+	for i = beginIndex, 13 do
+		-- 拿出从i开始往后的5个数的组合, 如A2345这五张牌, 自己手里有几张
+		local haveCount = 0
+		for k = 0,4 do
+			if AllCardData.cbCardCount[i+k] > 0 then
+				haveCount = haveCount + 1
+			end
+		end
+
+		
+		if haveCount == 5 then
+			-- 有五张不需要王的顺子
+			for j = 0,4 do
+				for j1,v1 in ipairs(AllCardData.cbDistributing[i+j])
+					allShunZi[#allShunZi+1] = {v1, AllCardData.cbDistributing[i+j]
+				end
+
+			end
+			self.cbShunZiBegin = i + 1
+			bFound = true
+		elseif haveCount == 4 and kingCount >= 1 then
+			-- 插入4张牌
+			for j1 = 0,4 do
+				if AllCardData.cbCardCount[i+j1] > 0 then
+					thisShunZi[j] = AllCardData.cbDistributing[i+j1][1]
+				end
+			end
+			-- 插入一个王
+			thisShunZi[5] = AllCardData.cbDistributing[0][1]
+			self.cbShunZiBegin = i + 1
+			bFound = true
+		elseif haveCount == 3 and kingCount >= 2 then
+			-- 插入3张牌
+			for j1 = 0,4 do
+				if AllCardData.cbCardCount[i+j1] > 0 then
+					thisShunZi[j] = AllCardData.cbDistributing[i+j1][1]
+				end
+			end
+			-- 插入2个王
+			thisShunZi[4] = AllCardData.cbDistributing[0][1]
+			thisShunZi[5] = AllCardData.cbDistributing[0][2]
+			self.cbShunZiBegin = i + 1
+			bFound = true
+		end
+
+		-- 如果找到了则跳出这个循环
+		if bFound then
+			break
+		end
+	end
+
+
+		
+	local count = #AllCardData / 5 --有多少种可能
+	local index = self.m_cbIndex
+	if index > count then
+		index = 1
+	end
+	for j = 1,5 do
+		cbOutCardData[j] = AllCardData[(index - 1) * 5 + j]
+	end
+		
+	self.m_cbIndex = self.m_cbIndex + 1
+	if self.m_cbIndex > count then
+		self.m_cbIndex = 1
+	end
+	return 5
+end
+]]
+
 function GameViewLayer:FindValue(cardData,value)
 	for i = 1,#cardData do
 		if cardData[i] == value then
