@@ -2433,6 +2433,8 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 	local count = self:TongHuaShun(cbInCardData, #cbInCardData, {})
 	if count > 0 then
 		self.btFlush01:setEnabled(true)
+	else
+		self.btFlush01:setEnabled(false)
 	end
 end
 
@@ -4275,7 +4277,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	if self.m_cbIndex > count then
 		self.m_cbIndex = 1
 	end
-	return 5
+	return count
 end
 
 
