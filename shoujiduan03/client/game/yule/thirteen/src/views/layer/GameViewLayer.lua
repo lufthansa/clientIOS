@@ -1356,20 +1356,20 @@ function GameViewLayer:gameStartStart(cbCardData,specialType)
 	    end
 	end
 	-- if not bHasJoker then
-		self.handCard[1] = 65
-	    self.handCard[2] = 1
-	    self.handCard[3] = 2
-	    self.handCard[4] = 3
-	    self.handCard[5] = 4
-	    self.handCard[6] = 5
+		-- self.handCard[1] = 65
+	 --    self.handCard[2] = 1
+	 --    self.handCard[3] = 2
+	 --    self.handCard[4] = 3
+	 --    self.handCard[5] = 4
+	 --    self.handCard[6] = 5
 
-	    self.handCard[7] = 7
-	    self.handCard[8] = 8
-	    self.handCard[9] = 26
-	    self.handCard[10] = 10
-	    self.handCard[11] = 11
-	    self.handCard[12] = 12
-	    self.handCard[13] = 13
+	 --    self.handCard[7] = 7
+	 --    self.handCard[8] = 8
+	 --    self.handCard[9] = 26
+	 --    self.handCard[10] = 10
+	 --    self.handCard[11] = 11
+	 --    self.handCard[12] = 12
+	 --    self.handCard[13] = 13
 
 	-- end
 
@@ -2433,6 +2433,8 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 	local count = self:TongHuaShun(cbInCardData, #cbInCardData, {})
 	if count > 0 then
 		self.btFlush01:setEnabled(true)
+	else
+		self.btFlush01:setEnabled(false)
 	end
 end
 
@@ -4275,7 +4277,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	if self.m_cbIndex > count then
 		self.m_cbIndex = 1
 	end
-	return 5
+	return count
 end
 
 
