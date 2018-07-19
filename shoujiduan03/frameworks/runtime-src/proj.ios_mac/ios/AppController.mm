@@ -106,7 +106,7 @@ static AppDelegate s_sharedApplication;
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
     //向微信注册
-    [WXApi registerApp:@"wx2675e915e32971a4"];  // guagua
+    [WXApi registerApp:@"wxc053ec7e155e97a2"];  // guagua
 //    [WXApi registerApp:@"wxe25e78084fb65f35"];  // baz
     
     
@@ -1007,7 +1007,7 @@ static AppDelegate s_sharedApplication;
 
 - (void)sendWechatGetAccessToken:(SendAuthResp *)authResp
 {
-    NSString *urlStr = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",@"wx2675e915e32971a4",@"39566d61fc7bf7c96c90c23e64a385d5",authResp.code];
+    NSString *urlStr = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",@"wxc053ec7e155e97a2",@"439bf1b3915ec98130a96d4a27e827a1",authResp.code];
     // 转码URL里面不能包含中文
     urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:urlStr];
