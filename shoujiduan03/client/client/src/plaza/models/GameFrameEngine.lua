@@ -767,7 +767,9 @@ function GameFrameEngine:onSocketSystemMessage(dataBuffer)
 	local bCloseGame = bit:_and(wType,yl.SMT_CLOSE_GAME)
 	local bCloseLink = bit:_and(wType,yl.SMT_CLOSE_LINK)
 	if self._viewFrame then
-		--showToast(self._viewFrame,szString,2,cc.c3b(250,0,0))
+		if string.find(szString, "下局生效") then
+			showToast(self._viewFrame,szString,2,cc.c3b(250,0,0))
+		end
 	end
 	if bCloseRoom ~= 0 or bCloseGame ~= 0 or bCloseLink ~=0 then
 		self:setEnterAntiCheatRoom(false)

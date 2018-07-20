@@ -3,7 +3,7 @@ Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
 Copyright (c) 2013-2014 Chukong Technologies Inc.
- 
+
 http://www.cocos2d-x.org
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -43,7 +43,8 @@ import org.cocos2dx.utils.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import foxuc.qp.Glory.jlzzz.R;
+//import foxuc.qp.Glory.jlzzz.R;
+import com.xc.ggvideo.R;
 
 import android.R.integer;
 import android.app.AlertDialog;
@@ -69,9 +70,9 @@ import android.view.WindowManager;
 public class AppActivity extends Cocos2dxActivity{
 
 	static AppActivity	instance;
-	
+
     static String hostIPAdress = "0.0.0.0";
-    
+
     private Handler m_hHandler = null;
     //lua toast函数
     static final String g_LuaToastFun = "g_NativeToast";
@@ -83,7 +84,7 @@ public class AppActivity extends Cocos2dxActivity{
     private ThirdParty.OnPayListener m_PayListener = null;
     //定位监听
     private ThirdParty.OnLocationListener m_LocationListener = null;
-    
+
     /** Lua函数引用 **/
 	// 选择图片回调
 	private int m_nPickImgCallFunC = -1;
@@ -99,23 +100,23 @@ public class AppActivity extends Cocos2dxActivity{
 	private int m_nLocationFunC = -1;
 	// 通讯录回调
 	private int m_nContactFunC = -1;
-	
+
 	// 音频保存的路径
 	private static MP3Recorder recorder = null;
-	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);     
+        super.onCreate(savedInstanceState);
         com.umeng.socialize.utils.Log.LOG = true;
-        
+
         if(nativeIsLandScape()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-        
+
         //2.Set the format of window
-        
+
         // Check the wifi is opened when the native is debug.
         if(nativeIsDebug())
         {
@@ -128,7 +129,7 @@ public class AppActivity extends Cocos2dxActivity{
                 builder.setPositiveButton(R.string.common_sure, null);
 
                 builder.setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
-                    
+
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     	finish();
@@ -141,7 +142,7 @@ public class AppActivity extends Cocos2dxActivity{
             hostIPAdress = getHostIpAddress();
         }
 		instance = this;
-		
+
         ThirdParty.getInstance().init(AppActivity.this);
         initHandler();
         initLoginListener();
@@ -149,12 +150,12 @@ public class AppActivity extends Cocos2dxActivity{
         initPayListener();
         initLocationListener();
     }
-    
+
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (RESULT_OK == resultCode) 
+		if (RESULT_OK == resultCode)
 		{
-			switch (requestCode) 
+			switch (requestCode)
 			{
 				case ConstDefine.RES_PICKIMG_END:
 				{
@@ -182,63 +183,63 @@ public class AppActivity extends Cocos2dxActivity{
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 		ThirdParty.getInstance().onActivityResult(requestCode, resultCode, data);
-	}   
-    
+	}
+
 	@Override
-	protected void onDestroy() 
+	protected void onDestroy()
 	{
 		ThirdParty.destroy();
 		super.onDestroy();
 	}
 
 	private boolean isNetworkConnected() {
-        return Utils.isNetworkConnected(this); 
-    } 
-     
-    public String getHostIpAddress() 
+        return Utils.isNetworkConnected(this);
+    }
+
+    public String getHostIpAddress()
     {
        return Utils.getHostIpAddress(this);
     }
-    
+
     public static String getLocalIpAddress() {
         return hostIPAdress;
     }
-    
+
     public void sendMessage(int what)
     {
     	Message msgMessage = Message.obtain();
     	msgMessage.what = what;
-    	
+
     	m_hHandler.sendMessage(msgMessage);
     }
-    
+
     public void sendMessageWithObj(int what, Object obj)
     {
     	Message msgMessage = Message.obtain();
     	msgMessage.what = what;
     	msgMessage.obj = obj;
-    	
+
     	m_hHandler.sendMessage(msgMessage);
     }
-    
+
     public void sendMessageWith(Message msg)
     {
     	m_hHandler.sendMessage(msg);
     }
-    
+
     private void initHandler()
     {
     	m_hHandler = new Handler()
     	{
 			@Override
-			public void handleMessage(Message msg) 
+			public void handleMessage(Message msg)
 			{
-				switch (msg.what) 
+				switch (msg.what)
 				{
 					case ConstDefine.MSG_START_PICKIMG:
 					{
 						Intent intent = new Intent(Intent.ACTION_PICK, null);
-				        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");  
+				        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 		                startActivityForResult(intent, ConstDefine.RES_PICKIMG_END);
 					}
 						break;
@@ -251,7 +252,7 @@ public class AppActivity extends Cocos2dxActivity{
 					case ConstDefine.MSG_START_PICKIMG_NOCLIP:
 					{
 						Intent intent = new Intent(Intent.ACTION_PICK, null);
-				        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");  
+				        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 		                startActivityForResult(intent, ConstDefine.RES_PICKIMG_END_NOCLIP);
 					}
 						break;
@@ -266,10 +267,10 @@ public class AppActivity extends Cocos2dxActivity{
 								ThirdParty.getInstance().configThirdParty(plat, configMsg);
 							}
 						}
-						else 
+						else
 						{
-							toLuaToast("配置信息异常");							
-						}						
+							toLuaToast("配置信息异常");
+						}
 					}
 						break;
 					case ConstDefine.MSG_SHARE_CONFIG:
@@ -279,7 +280,7 @@ public class AppActivity extends Cocos2dxActivity{
 						break;
 					case ConstDefine.MSG_THIRD_PAY:
 					{
-						String payparam = (String)msg.obj;						
+						String payparam = (String)msg.obj;
 						ThirdParty.PLATFORM plat = ThirdParty.getInstance().getPlatform(msg.arg1);
 						if (plat != ThirdParty.PLATFORM.INVALIDPLAT)
 						{
@@ -293,15 +294,15 @@ public class AppActivity extends Cocos2dxActivity{
 						if (plat != ThirdParty.PLATFORM.INVALIDPLAT)
 						{
 							ThirdParty.getInstance().thirdPartyLogin(plat, m_LoginListener);
-						}						
+						}
 					}
 						break;
 					case ConstDefine.MSG_SOCIAL_SHARE:
-					{						
+					{
 						ShareParam param = new ShareParam();
 						param.sTitle = ThirdDefine.ShareTitle;
 						param.sContent = ThirdDefine.ShareContent;
-						param.sTargetURL = ThirdDefine.ShareURL; 
+						param.sTargetURL = ThirdDefine.ShareURL;
 						param.sMedia = "";
 						ThirdParty.getInstance().openShare(m_ShareListener, param);
 					}
@@ -358,10 +359,10 @@ public class AppActivity extends Cocos2dxActivity{
 					default:
 						break;
 				}
-			}    		
+			}
     	};
     }
-    
+
     //图片裁剪
     private void photoClip(Uri uri)
     {
@@ -376,50 +377,50 @@ public class AppActivity extends Cocos2dxActivity{
         intent.putExtra("return-data", true);
         startActivityForResult(intent, ConstDefine.RES_CLIPEIMG_END);
     }
-    
+
     private void photoClipEnd(Bundle extras)
     {
     	Log.v("photo", "clip end");
     	if (null != extras)
     	{
     		Bitmap mBitmap = extras.getParcelable("data");
-            try 
+            try
         	{
             	String imgName = "/@ci_" + this.getPackageName() + ".png";
             	String savePath = this.getFilesDir().getPath();
         		String path = savePath + imgName;
-        		
+
     			File myCaptureFile = new File(savePath, imgName);
     			BufferedOutputStream bos = new BufferedOutputStream(
                                                  new FileOutputStream(myCaptureFile));
     			mBitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
     			bos.flush();
     			bos.close();
-    			
+
     			sendMessageWithObj(ConstDefine.MSG_PICKIMG_END, path);
-    		} 
-        	catch (Exception e) 
+    		}
+        	catch (Exception e)
         	{
     			e.printStackTrace();
     			Log.e("Head", "保存头像错误");
     		}
     	}
     }
-    
+
     //图片选择
     private void photoPickEnd(Uri uri)
     {
     	String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(uri, proj, null, null, null); 
+        Cursor cursor = managedQuery(uri, proj, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
-        String path = cursor.getString(column_index);        
+        String path = cursor.getString(column_index);
     	Log.i("path", path);
-    	
+
 		toLuaFunC(m_nPickImgCallFunC, path);
 		m_nPickImgCallFunC = -1;
     }
-    
+
     // 通讯录选择
     private void contactPickEnd(Uri uri)
     {
@@ -439,30 +440,30 @@ public class AppActivity extends Cocos2dxActivity{
 	    	String ContactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
 	    	Cursor phone = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
 	    	ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ContactId, null, null);
-	    	try 
+	    	try
 	    	{
 	    		if(phone != null && phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER) > 0)
 		    	{
 		    		phone.moveToFirst();
 		    		phoneNum = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 		    	}
-			} 
-	    	catch (Exception e) 
+			}
+	    	catch (Exception e)
 			{
 				e.printStackTrace();
-			}	    	
+			}
 	    	phone.close();
 	    	cursor.close();
     	}
     	JSONObject backJson = new JSONObject();
     	String backMsg = "";
-    	try 
+    	try
 		{
 			backJson.put("contactName", phoneNick);
 			backJson.put("contactNumber", phoneNum);
 			backMsg = backJson.toString();
-		} 
-		catch (JSONException e) 
+		}
+		catch (JSONException e)
 		{
 			e.printStackTrace();
 		}
@@ -470,35 +471,35 @@ public class AppActivity extends Cocos2dxActivity{
     	toLuaFunC(m_nContactFunC, backMsg);
     	m_nContactFunC = -1;
     }
-    
+
     private void initLoginListener()
     {
-    	m_LoginListener = new ThirdParty.OnLoginListener() 
-    	{		
+    	m_LoginListener = new ThirdParty.OnLoginListener()
+    	{
     		@Override
-			public void onLoginStart(PLATFORM plat, String msg) 
+			public void onLoginStart(PLATFORM plat, String msg)
 			{
 				toLuaToast("登陆开始" + msg);
 			}
-    		
+
     		@Override
-			public void onLoginCancel(PLATFORM plat, String msg) 
+			public void onLoginCancel(PLATFORM plat, String msg)
 			{
     			toLuaToast("登陆取消 ==> " + msg);
     			toLuaFunC(m_nThirdLoginFunC, "");
     			m_nThirdLoginFunC = -1;
 			}
-    		
+
 			@Override
-			public void onLoginSuccess(PLATFORM plat, String msg) 
+			public void onLoginSuccess(PLATFORM plat, String msg)
 			{
 				//toLuaToast("登陆成功");
 				toLuaFunC(m_nThirdLoginFunC, msg);
 				m_nThirdLoginFunC = -1;
 			}
-			
+
 			@Override
-			public void onLoginFail(PLATFORM plat, String msg) 
+			public void onLoginFail(PLATFORM plat, String msg)
 			{
 				toLuaToast("登陆失败 ==> " + msg);
 				toLuaFunC(m_nThirdLoginFunC, "");
@@ -506,20 +507,20 @@ public class AppActivity extends Cocos2dxActivity{
 			}
 		};
     }
-    
+
     private void initShareListener()
     {
-    	m_ShareListener = new ThirdParty.OnShareListener() 
-    	{				
+    	m_ShareListener = new ThirdParty.OnShareListener()
+    	{
 			@Override
-			public void onComplete(PLATFORM plat, int eCode,String msg) 
+			public void onComplete(PLATFORM plat, int eCode,String msg)
 			{
 				toLuaFunC(m_nShareFunC, "true");
 				m_nShareFunC = -1;
 			}
 
 			@Override
-			public void onError(PLATFORM plat, String msg) 
+			public void onError(PLATFORM plat, String msg)
 			{
 				toLuaToast("分享错误 ==> " + msg);
 				toLuaFunC(m_nShareFunC, "false");
@@ -527,7 +528,7 @@ public class AppActivity extends Cocos2dxActivity{
 			}
 
 			@Override
-			public void onCancel(PLATFORM plat) 
+			public void onCancel(PLATFORM plat)
 			{
 				toLuaToast("分享取消 ==> " + plat);
 				toLuaFunC(m_nShareFunC, "false");
@@ -535,25 +536,25 @@ public class AppActivity extends Cocos2dxActivity{
 			}
 		};
     }
-    
+
     private void initPayListener()
     {
-    	m_PayListener = new ThirdParty.OnPayListener() 
+    	m_PayListener = new ThirdParty.OnPayListener()
     	{
-			
+
 			@Override
-			public void onPaySuccess(PLATFORM plat, String msg) 
+			public void onPaySuccess(PLATFORM plat, String msg)
 			{
 				if ("" != msg)
 				{
 					toLuaToast("支付成功");
-				}				
+				}
 				toLuaFunC(m_nThirdPayCallFunC, "true");
 				m_nThirdLoginFunC = -1;
 			}
-			
+
 			@Override
-			public void onPayFail(PLATFORM plat, String msg) 
+			public void onPayFail(PLATFORM plat, String msg)
 			{
 				toLuaToast("支付失败 ==> " + msg);
 				toLuaFunC(m_nThirdPayCallFunC, "false");
@@ -561,13 +562,13 @@ public class AppActivity extends Cocos2dxActivity{
 			}
 
 			@Override
-			public void onPayNotify(PLATFORM plat, String msg) 
+			public void onPayNotify(PLATFORM plat, String msg)
 			{
 				toLuaToast(msg);
 			}
 
 			@Override
-			public void onGetPayList(boolean bOk, String msg) 
+			public void onGetPayList(boolean bOk, String msg)
 			{
 				String str = msg;
 				if (false == bOk)
@@ -576,20 +577,20 @@ public class AppActivity extends Cocos2dxActivity{
 					toLuaToast(msg);
 				}
 				toLuaFunC(m_nPayListFunC, str);
-				m_nPayListFunC = -1;				
+				m_nPayListFunC = -1;
 			}
 		};
     }
-    
+
     private void initLocationListener()
-    {		
+    {
 		/**
 		 * 定位监听
 		 */
-    	m_LocationListener = new ThirdParty.OnLocationListener() 
-    	{			
+    	m_LocationListener = new ThirdParty.OnLocationListener()
+    	{
 			@Override
-			public void onLocationResult(boolean bSuccess, int errorCode, String backMsg) 
+			public void onLocationResult(boolean bSuccess, int errorCode, String backMsg)
 			{
 				String msg = backMsg;
 				if (false == bSuccess)
@@ -602,7 +603,7 @@ public class AppActivity extends Cocos2dxActivity{
 			}
 		};
     }
-    
+
     //Java to C++
     private static native boolean nativeIsLandScape();
     private static native boolean nativeIsDebug();
@@ -610,10 +611,10 @@ public class AppActivity extends Cocos2dxActivity{
     {
     	if (-1 != funC && null != instance)
 		{
-    		instance.runOnGLThread(new Runnable() 
-			{				
+    		instance.runOnGLThread(new Runnable()
+			{
 				@Override
-				public void run() 
+				public void run()
 				{
 					Cocos2dxLuaJavaBridge.callLuaFunctionWithString(funC,
 							msg);
@@ -622,44 +623,44 @@ public class AppActivity extends Cocos2dxActivity{
 			});
 		}
     }
-    
+
     public void toLuaGlobalFunC(final String funName, final String msg)
     {
-    	instance.runOnGLThread(new Runnable() 
-		{				
+    	instance.runOnGLThread(new Runnable()
+		{
 			@Override
-			public void run() 
+			public void run()
 			{
 				Cocos2dxLuaJavaBridge.callLuaGlobalFunctionWithString(funName, msg);
 			}
 		});
     }
-    
+
     private void toLuaToast(String msg)
     {
     	toLuaGlobalFunC(g_LuaToastFun, msg);
     }
-    
+
     //Lua/C++ to Java
     //////////////////////////////////////////////////////////////////////////////////////
 	/** UUID **/
-	public static String getUUID() 
+	public static String getUUID()
 	{
 		return Utils.getUUID(instance);
 	}
-	
+
 	/** ipadress **/
 	public static String getHostAdress()
 	{
 		return Utils.getHostIpAddress(instance);
 	}
-	
+
 	public static String getSDCardDocPath()
 	{
 		Log.i("tag", Utils.getSDCardDocPath(instance));
 		return Utils.getSDCardDocPath(instance);
 	}
-	
+
 	//选取头像
 	public static void pickImg(final int luaFunc, final boolean needChip)
 	{
@@ -668,12 +669,12 @@ public class AppActivity extends Cocos2dxActivity{
 		{
 			instance.sendMessage(ConstDefine.MSG_START_PICKIMG);
 		}
-		else 
+		else
 		{
 			instance.sendMessage(ConstDefine.MSG_START_PICKIMG_NOCLIP);
-		}		
+		}
 	}
-    
+
     //分享配置
     public static void socialShareConfig(String title, String content, String Url)
     {
@@ -683,51 +684,51 @@ public class AppActivity extends Cocos2dxActivity{
     	ThirdDefine.ShareURL = Url;
     	instance.sendMessage(ConstDefine.MSG_SHARE_CONFIG);
     }
-    
+
     //第三方平台配置
     public static void thirdPartyConfig(final int thridparty, final String configstr)
     {
     	Message msgMessage = Message.obtain();
     	msgMessage.what = ConstDefine.MSG_CONFIG_PARTY;
-    	msgMessage.arg1 = thridparty;    	
+    	msgMessage.arg1 = thridparty;
     	msgMessage.obj = configstr;
-    	
+
     	instance.sendMessageWith(msgMessage);
     }
-    
+
     //第三方支付
     public static void thirdPartyPay(final int thridparty, final String payparam, final int luaFunc)
-    {    	
+    {
     	Message msgMessage = Message.obtain();
     	msgMessage.what = ConstDefine.MSG_THIRD_PAY;
-    	msgMessage.arg1 = thridparty;    	
+    	msgMessage.arg1 = thridparty;
     	msgMessage.obj = payparam;
-    	
-    	instance.m_nThirdPayCallFunC = luaFunc;    	
+
+    	instance.m_nThirdPayCallFunC = luaFunc;
     	instance.sendMessageWith(msgMessage);
     }
-    
+
     //第三方登录
     public static void thirdLogin(final int thridparty,final int luaFunc)
 	{
     	Message msgMessage = Message.obtain();
     	msgMessage.what = ConstDefine.MSG_THIRD_LOGIN;
     	msgMessage.arg1 = thridparty;
-    	
-    	instance.m_nThirdLoginFunC = luaFunc;    	
+
+    	instance.m_nThirdLoginFunC = luaFunc;
     	instance.sendMessageWith(msgMessage);
 	}
-    
+
     //分享
     public static void startShare(final int luaFunc)
     {
     	instance.m_nShareFunC = luaFunc;
     	instance.sendMessage(ConstDefine.MSG_SOCIAL_SHARE);
     }
-    
+
     //自定义分享
     public static void customShare(String title, String content, String url, String mediaPath, String imageOnly,final int luaFunc)
-    {    	
+    {
     	ThirdDefine.ShareParam param = new ThirdDefine.ShareParam();
     	param.sTitle = title;
     	param.sContent = content;
@@ -737,11 +738,11 @@ public class AppActivity extends Cocos2dxActivity{
     	{
     		param.bImageOnly = true;
     	}
-    	
+
     	instance.m_nShareFunC = luaFunc;
     	instance.sendMessageWithObj(ConstDefine.MSG_SOCIAL_CUSCHARE, param);
     }
-    
+
     // 分享到指定平台
     public static void shareToTarget(final int target, String title, String content, String url, String mediaPath, String imageOnly,final int luaFunc)
     {
@@ -755,18 +756,18 @@ public class AppActivity extends Cocos2dxActivity{
     	{
     		param.bImageOnly = true;
     	}
-    	
+
     	instance.m_nShareFunC = luaFunc;
     	instance.sendMessageWithObj(ConstDefine.MSG_SOCIAL_TARGETSHARE, param);
     }
-    
+
     //install apk
     public static void installClient(String apkPath)
-    {    	
+    {
     	if(!"".equals(apkPath))
     	{
     		File apkFile = new File(apkPath);
-    		if (null != apkFile && apkFile.exists()) 
+    		if (null != apkFile && apkFile.exists())
     		{
     			Intent installIntent = new Intent(Intent.ACTION_VIEW);
     			installIntent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
@@ -774,7 +775,7 @@ public class AppActivity extends Cocos2dxActivity{
 			}
     	}
     }
-    
+
     //获取竣付通支付列表
     public static void getPayList(String token, int luaFunc)
     {
@@ -784,33 +785,33 @@ public class AppActivity extends Cocos2dxActivity{
     	msgMessage.obj = token;
     	instance.sendMessageWith(msgMessage);
     }
-    
+
     //获取第三方应用是否安装
     public static boolean isPlatformInstalled(final int thridparty)
     {
     	ThirdParty.PLATFORM plat = ThirdParty.getInstance().getPlatform(thridparty);
     	return ThirdParty.getInstance().isPlatformInstalled(plat);
     }
-    
+
     //保存图片到系统相册
     public static boolean saveImgToSystemGallery(final String path, final String filename)
     {
     	boolean bRes = false;
     	// 文件插入系统图库
-    	try 
+    	try
     	{
             MediaStore.Images.Media.insertImage(instance.getContentResolver(), path, filename, null);
             // 最后通知图库更新
         	instance.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
         	bRes = true;
-        } 
-    	catch (FileNotFoundException e) 
+        }
+    	catch (FileNotFoundException e)
         {
             e.printStackTrace();
         }
     	return bRes;
     }
-    
+
     // 判断是否有录音权限
     public static boolean isHaveRecordPermission()
     {
@@ -818,7 +819,7 @@ public class AppActivity extends Cocos2dxActivity{
     	Log.i("Permission", "pstate ==> " + pManager.checkPermission("android.permission.RECORD_AUDIO", instance.getPackageName()));
     	return PackageManager.PERMISSION_GRANTED == pManager.checkPermission("android.permission.RECORD_AUDIO", instance.getPackageName());
     }
-    
+
     public static void startRecord(String fileName)
     {
     	if(recorder == null)
@@ -826,18 +827,18 @@ public class AppActivity extends Cocos2dxActivity{
     		recorder = new MP3Recorder(fileName, 8000);
     		recorder.init();
     	}
-    		
+
     	recorder.start(instance);
-    }    
-    
+    }
+
     public static void stopRecord()
     {
     	if(recorder != null)
     	{
     		recorder.stop();
-    	}	
+    	}
     }
-    
+
     public static void cancelRecord()
     {
     	if(recorder != null)
@@ -845,7 +846,7 @@ public class AppActivity extends Cocos2dxActivity{
     		recorder.cancel();
     	}
     }
-    
+
     // 请求单次定位
     public static void requestLocation(int luaFunc)
     {
@@ -854,13 +855,13 @@ public class AppActivity extends Cocos2dxActivity{
     	msgMessage.what = ConstDefine.MSG_LOCATION_REQ;
     	instance.sendMessageWith(msgMessage);
     }
-    
+
     // 计算距离
     public static String metersBetweenLocation(String loParam)
     {
     	return ThirdParty.getInstance().metersBetweenLocation(loParam);
     }
-    
+
     // 请求通讯录
     public static void requestContact(int luaFunc)
     {
@@ -869,7 +870,7 @@ public class AppActivity extends Cocos2dxActivity{
     	msgMessage.what = ConstDefine.MSG_CONTACT_REQ;
     	instance.sendMessageWith(msgMessage);
     }
-    
+
     // 启动浏览器
     public static void openBrowser( String url )
     {
@@ -878,7 +879,7 @@ public class AppActivity extends Cocos2dxActivity{
     	msgMessage.obj = url;
     	instance.sendMessageWith(msgMessage);
     }
-    
+
     // 复制到剪贴板
     public static boolean copyToClipboard( String msg )
     {

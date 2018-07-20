@@ -35,7 +35,7 @@ function LogonView:ctor(serverConfig)
 	end
 
 	--帐号提示
-	display.newSprite("Logon/account_text.png")
+	local accountTip = display.newSprite("Logon/account_text.png")
 		:move(366,381)
 		:addTo(self)
 
@@ -53,7 +53,7 @@ function LogonView:ctor(serverConfig)
 	self.edit_Account:registerScriptEditBoxHandler(editHanlder)
 
 	--密码提示
-	display.newSprite("Logon/password_text.png")
+	local pwdTip = display.newSprite("Logon/password_text.png")
 		:move(366,280)
 		:addTo(self)
 
@@ -71,11 +71,11 @@ function LogonView:ctor(serverConfig)
 		:addTo(self)
 
 	-- 忘记密码
-	ccui.Button:create("Logon/btn_login_fgpw.png")
+	local forgetPWD = ccui.Button:create("Logon/btn_login_fgpw.png")
 		:setTag(LogonView.BT_FGPW)
 		:move(1000,280)
 		:addTo(self)
-		:addTouchEventListener(btcallback)
+	forgetPWD:addTouchEventListener(btcallback)
 
 	--记住密码
 	self.cbt_Record = ccui.CheckBox:create("Logon/rem_password_button.png","","Logon/choose_button.png","","")
@@ -92,39 +92,66 @@ function LogonView:ctor(serverConfig)
 	-- 	:addTo(self)
 
 	--账号登录
-	ccui.Button:create("Logon/logon_button_0.png", "Logon/logon_button_1.png", "Logon/logon_button_2.png")
+	local accountLogin = ccui.Button:create("Logon/logon_button_0.png", "Logon/logon_button_1.png", "Logon/logon_button_2.png")
 		:setTag(LogonView.BT_LOGON)
 		:move(cc.p(0,0))
 		:setName("btn_1")
 		:addTo(self)
-		:addTouchEventListener(btcallback)
+	accountLogin:addTouchEventListener(btcallback)
 
 	--注册按钮
-	ccui.Button:create("Logon/regist_button.png","")
+	local registBtn = ccui.Button:create("Logon/regist_button.png","")
 		:setTag(LogonView.BT_REGISTER)
 		:move(766,165)
 		:addTo(self)
-		:addTouchEventListener(btcallback)
+	registBtn:addTouchEventListener(btcallback)
 
 	--游客登录
-	ccui.Button:create("Logon/visitor_button_0.png", "Logon/visitor_button_1.png", "Logon/visitor_button_2.png")
+	local guestLogin = ccui.Button:create("Logon/visitor_button_0.png", "Logon/visitor_button_1.png", "Logon/visitor_button_2.png")
 		:setTag(LogonView.BT_VISITOR)
 		:move(cc.p(0,0))
 		:setEnabled(false)
 		:setVisible(false)
 		:setName("btn_2")
 		:addTo(self)
-		:addTouchEventListener(btcallback)
+	guestLogin:addTouchEventListener(btcallback)
 
 	--微信登陆
-	ccui.Button:create("Logon/thrid_part_wx_0.png", "Logon/thrid_part_wx_1.png", "Logon/thrid_part_wx_2.png")
+	local weChatLogin = ccui.Button:create("Logon/thrid_part_wx_0.png", "Logon/thrid_part_wx_1.png", "Logon/thrid_part_wx_2.png")
 		:setTag(LogonView.BT_WECHAT)
 		:move(cc.p(0,0))
 		:setVisible(false)
 		:setEnabled(false)
 		:setName("btn_3")
 		:addTo(self)
-		:addTouchEventListener(btcallback)
+	weChatLogin:addTouchEventListener(btcallback)
+
+	local targetPlatform = cc.Application:getInstance():getTargetPlatform()
+	if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform) 
+		or (cc.PLATFORM_OS_ANDROID == targetPlatform) then
+
+		-- --帐号提示
+		-- accountTip:setVisible(false)
+		-- --账号输入
+		-- self.edit_Account:setVisible(false)
+		-- --密码提示
+		-- pwdTip:setVisible(false)
+		-- --密码输入	
+		-- self.edit_Password:setVisible(false)
+		-- -- 忘记密码
+		-- forgetPWD:setVisible(false)
+		-- --记住密码
+		-- self.cbt_Record:setVisible(false)
+		-- --账号登录
+		-- accountLogin:setVisible(false)
+		-- --注册按钮
+		-- registBtn:setVisible(false)
+		-- --游客登录
+		-- guestLogin:setVisible(false)
+		-- --微信登陆
+		-- -- weChatLogin:setVisible(false)
+
+	end
 
 	self.m_serverConfig = serverConfig or {}
 	self:refreshBtnList()
@@ -160,6 +187,8 @@ function LogonView:refreshBtnList( )
 	local poslist = btnpos[#btnlist]
 	for k,v in pairs(btnlist) do
 		local tmp = self:getChildByName(v)
+		-- change by Owen, 2018.5.14, 只显示微信登陆
+		-- if nil ~= tmp and k == 3 then
 		if nil ~= tmp then
 			tmp:setEnabled(true)
 			tmp:setVisible(true)

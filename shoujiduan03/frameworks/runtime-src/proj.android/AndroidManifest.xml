@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="foxuc.qp.Glory.jlzzz"
+    package="com.xc.ggvideo"
     android:installLocation="auto"
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="11" 
+    <uses-sdk android:minSdkVersion="11"
         android:targetSdkVersion="19"/>
 
     <uses-feature android:glEsVersion="0x00020000" />
@@ -31,31 +31,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <!-- SINA 辅助完成SSO、Oauth  -->
 	    <activity
 	        android:name="com.egame.webfee.ui.EgameSdkWebFeeActivity"
 	        android:configChanges="orientation|keyboardHidden"
 	        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
 	    </activity>
-	    
+
 	    <!--微信支付-->
 	    <activity
 	        android:name=".wxapi.WXPayEntryActivity"
 	        android:exported="true"
 	        android:launchMode="singleTop">
 	    </activity>
-	    
+
 	    <!-- 微信回调 -->
 	    <activity
 	        android:name=".wxapi.WXEntryActivity"
     		android:configChanges="keyboardHidden|orientation|screenSize"
     		android:exported="true"
     		android:screenOrientation="landscape"
-    		android:theme="@android:style/Theme.Translucent.NoTitleBar" 
-	        >	        
+    		android:theme="@android:style/Theme.Translucent.NoTitleBar"
+	        >
 	    </activity>
-	    
+
 	    <!-- ******************************* 友盟集成分享 ******************************* -->
 	    <!-- ###################注册SDK使用的Activity###################### -->
 	    <!-- 分享编辑页 -->
@@ -72,7 +72,7 @@
 	        android:name="UMENG_APPKEY"
 	        android:value="56e2236a67e58e45210022c3" >
 	    </meta-data>
-	    
+
 	    <!-- 支付宝支付 -->
 	    <activity
 	        android:name="com.alipay.sdk.app.H5PayActivity"
@@ -81,7 +81,7 @@
 	        android:screenOrientation="behind"
 	        android:windowSoftInputMode="adjustResize|stateHidden" >
 	    </activity>
-	    
+
 	    <!-- 竣付通 -->
 	    <activity
             android:name="sdk.pay.PayWebViewActivity"
@@ -94,12 +94,12 @@
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
 	    </activity>
-	    
+
         <!-- 高德 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="534bc0e2935e705e679505c387d1c9fa" />
-        <service 
+        <service
             android:name="com.amap.api.location.APSService" >
         </service>
     </application>
