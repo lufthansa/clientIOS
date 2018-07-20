@@ -8,11 +8,11 @@ yl.KIND_ID								= 122
 yl.STATION_ID							= 1
 
 --测试
-yl.LOGONSERVER							= "222.186.180.41" --@login_ip
+yl.LOGONSERVER							= "www.gameald.com" --@login_ip
 -- 登陆地址列表
 yl.SERVER_LIST = 
 {
-    "222.186.180.41", --@login_ip
+    "www.gameald.com", --@login_ip
     --"120.25.147.47", --@login_ip
 }
 -- 当前地址索引
@@ -35,7 +35,7 @@ yl.VALIDATE 							= "B3D44854-9C2F-4C78-807F-8C08E940166D" --@compilation
 --http请求链接地址
 --yl.HTTP_URL								= "http://ry.webfox.com" --@http_url
 --yl.HTTP_URL								= "http://ry.webfox.com" --@http_url
-yl.HTTP_URL								= "http://222.186.180.41:8082" --@http_url
+yl.HTTP_URL								= "http://www.gameald.com:8082" --@http_url
 
 -- http请求支持(loginScene)
 yl.HTTP_SUPPORT							= true

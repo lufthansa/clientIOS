@@ -12,7 +12,7 @@ local ClientConfig = appdf.req(appdf.BASE_SRC .."app.models.ClientConfig")
 
 --local URL_REQUEST = "http://ry.webfox.com" --@http_url
 --local URL_REQUEST = "http://ry.webfox.com" --@http_url
-local URL_REQUEST = "http://222.186.180.41:8082" --@http_url
+local URL_REQUEST = "http://www.gameald.com:8082" --@http_url
 
 local EXTRA_CMD_KEY = "extra_command_version"
 --全局toast函数(ios/android端调用)
