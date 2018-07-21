@@ -13,8 +13,8 @@ yl.LOGONSERVER                          = "222.186.180.41" --@login_ip
 -- 登陆地址列表
 yl.SERVER_LIST =
 {
-    "www.gameald.com", --@login_ip
-    --"120.25.147.47", --@login_ip
+    "222.186.180.41", --@login_ip
+    --"www.gameald.com" --@login_ip
 }
 -- 当前地址索引
 yl.CURRENT_INDEX = 1
@@ -409,7 +409,8 @@ yl.ShareErrorCode =
 --微信配置定义
 yl.WeChat =
 {
-	AppID 								= "wxc053ec7e155e97a2", --@wechat_appid_wx
+	AppID 								= "wxc053ec7e155e97a2", --@wechat_appid_wx  alading
+    --AppID                               = "wx6ac3f5090a6b99c5", --@wechat_appid_wx  gg
 	AppSecret 							= " ", --@wechat_secret_wx
 	-- 商户id
 	PartnerID 							= " ", --@wechat_partnerid_wx
