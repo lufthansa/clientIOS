@@ -804,7 +804,7 @@ function GameViewLayer:OnUpdateUser(viewId, userItem)
 		else
 			head:updateHead(userItem, self._scene)
 		end
-		head:setVisible(true)
+		-- head:setVisible(true)
 	end
 end
 

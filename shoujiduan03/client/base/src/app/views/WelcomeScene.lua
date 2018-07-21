@@ -10,9 +10,8 @@ local ClientUpdate = appdf.req("base.src.app.controllers.ClientUpdate")
 local QueryDialog = appdf.req("base.src.app.views.layer.other.QueryDialog")
 local ClientConfig = appdf.req(appdf.BASE_SRC .."app.models.ClientConfig")
 
---local URL_REQUEST = "http://ry.webfox.com" --@http_url
---local URL_REQUEST = "http://ry.webfox.com" --@http_url
-local URL_REQUEST = "http://www.gameald.com:8082" --@http_url
+--local URL_REQUEST = "http://www.gameald.com:8082" --@http_url
+local URL_REQUEST = "http://222.186.180.41:8082" --@http_url
 
 local EXTRA_CMD_KEY = "extra_command_version"
 --全局toast函数(ios/android端调用)
@@ -29,7 +28,7 @@ function WelcomeScene:onCreate()
 
 	--背景
 	local newbasepath = cc.FileUtils:getInstance():getWritablePath() .. "/baseupdate/"
-	local bgfile = newbasepath .. "base/res/background.jpg"	
+	local bgfile = newbasepath .. "base/res/background.jpg"
 	local sp = cc.Sprite:create(bgfile)
 	if nil == sp then
 		sp = cc.Sprite:create("background.jpg")
@@ -53,7 +52,7 @@ function WelcomeScene:onCreate()
 		self:addChild(sp)
 		sp:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(2,255),cc.FadeTo:create(2,128))))
 	end
-    
+
 	--slogan
 	local sloganfile = newbasepath .. "base/res/logo_text_00.png"
 	if false == cc.FileUtils:getInstance():isFileExist(sloganfile) then
@@ -86,7 +85,7 @@ function WelcomeScene:onCreate()
 	self.m_progressLayer:addChild(total_bg)
 	total_bg:setPosition(appdf.WIDTH/2, 80)
 	self.m_totalBar = ccui.LoadingBar:create()
-	self.m_totalBar:loadTexture("wait_frame_3.png")	
+	self.m_totalBar:loadTexture("wait_frame_3.png")
 	self.m_progressLayer:addChild(self.m_totalBar)
 	self.m_totalBar:setPosition(appdf.WIDTH/2, 80)
 	self._totalTips = cc.Label:createWithTTF("", "fonts/round_body.ttf", 20)
@@ -135,7 +134,7 @@ function WelcomeScene:onCreate()
 	    --无版本信息或不对应 解压自带ZIP
         local nResversion = tonumber(self:getApp()._version:getResVersion())
 	    if nil == nResversion then
-	 	    self:onUnZipBase()        
+	 	    self:onUnZipBase()
 	    else
 	    	--版本同步
 	        self:httpNewVersion()
@@ -147,15 +146,15 @@ end
 function  WelcomeScene:EnterClient()
 	--重置大厅与游戏
 	for k ,v in pairs(package.loaded) do
-		if k ~= nil then 
+		if k ~= nil then
 			if type(k) == "string" then
 				if string.find(k,"plaza.") ~= nil or string.find(k,"game.") ~= nil then
-					print("package kill:"..k) 
+					print("package kill:"..k)
 					package.loaded[k] = nil
 				end
 			end
 		end
-	end	
+	end
 	--场景切换
 	self:getApp():enterSceneEx(appdf.CLIENT_SRC.."plaza.views.LogonScene","FADE",1)
 end
@@ -191,7 +190,7 @@ function WelcomeScene:onUnZipBase()
 
 		--版本同步
 	    self:httpNewVersion()
-		return	
+		return
 	end
 
 end
@@ -211,7 +210,7 @@ function WelcomeScene:excuteExtraCmd()
     downFileAsync(url, "extra_command.luac", savePath, function(main,sub)
         --下载回调
         if main == appdf.DOWN_PRO_INFO then --进度信息
-            
+
         elseif main == appdf.DOWN_COMPELETED then --下载完毕
         	print("extra_cmd download")
             --执行、下载附加命令脚本
@@ -235,11 +234,11 @@ function WelcomeScene:excuteExtraCmd()
             --跳过执行
             self:onCommandExcuted(localver)
         end
-    end)	
+    end)
 end
 
 --同步版本
-function WelcomeScene:httpNewVersion()	
+function WelcomeScene:httpNewVersion()
 	self._txtTips:setString("获取服务器信息...")
 	local this = self
 
@@ -247,7 +246,7 @@ function WelcomeScene:httpNewVersion()
 	local vcallback = function(datatable)
 	 	local succeed = false
 	 	local msg = "网络获取失败！"
-	 	if type(datatable) == "table" then	 		
+	 	if type(datatable) == "table" then
             local databuffer = datatable["data"]
             if databuffer then
             	--dump(databuffer, "databuffer", 6)
@@ -259,8 +258,8 @@ function WelcomeScene:httpNewVersion()
 	 			    msg = tips
 	 		    end
 	 		    --获取信息
-	 		    if succeed == true then	 
-	 		    	this:getApp()._serverConfig = databuffer		     
+	 		    if succeed == true then
+	 		    	this:getApp()._serverConfig = databuffer
  				    --下载地址
  				    this:getApp()._updateUrl = databuffer["downloadurl"]								--test zhong "http://172.16.4.140/download/"
  				    if true == ClientConfig.APPSTORE_VERSION then
@@ -289,11 +288,11 @@ function WelcomeScene:httpNewVersion()
 							local targetPlatform = cc.Application:getInstance():getTargetPlatform()
 							if cc.PLATFORM_OS_WINDOWS == targetPlatform then
 								updateConfig.dst = device.writablePath .. "download/client/"
-							end					
+							end
 							updateConfig.src = device.writablePath.."client/res/filemd5List.json"
 					 		table.insert(self.m_tabUpdateQueue, updateConfig)
 						end
-					end		 
+					end
 
  				    --游戏列表
  				    local rows = databuffer["gamelist"]
@@ -335,22 +334,22 @@ function WelcomeScene:httpNewVersion()
 							updateConfig2.dst = device.writablePath .. "game/" .. gameInfo._Type .. "/"
 							if cc.PLATFORM_OS_WINDOWS == targetPlatform then
 								updateConfig2.dst = device.writablePath .. "download/game/" .. gameInfo._Type .. "/"
-							end						
+							end
 							updateConfig2.src = device.writablePath.."game/"..gameInfo._Module.."/res/filemd5List.json"
 					 		updateConfig2._ServerResVersion = gameInfo._ServerResVersion
 					 		updateConfig2._KindID = gameInfo._KindID
 					 		table.insert(self.m_tabUpdateQueue, updateConfig2)
- 				    	end 				    	
+ 				    	end
  				    end
 	 		    end
-            end	 		
+            end
 	 	end
 	 	self._txtTips:setString("")
 	 	if succeed then
 	 		self:excuteExtraCmd()
 	 	else
 	 		this:httpNewVersionCallBack(succeed,msg)
-	 	end	 	
+	 	end
 	end
 
 	appdf.onHttpJsionTable(URL_REQUEST .. "/WS/MobileInterface.ashx","get","action=getgamelist",vcallback)
@@ -360,7 +359,7 @@ end
 --服务器版本返回
 function WelcomeScene:httpNewVersionCallBack(result,msg)
     local this = self
-    
+
     --获取失败
     if not result then
 	    self._txtTips:setString("")
@@ -382,7 +381,7 @@ function WelcomeScene:httpNewVersionCallBack(result,msg)
 		else
 			self:getApp()._version:setResVersion(self._newResVersion)
 		end
-		
+
 	    if not bUpdate then
 		    --进入登录界面
 		    self._txtTips:setString("OK")
@@ -401,7 +400,7 @@ end
 function WelcomeScene:updateClient()
 	local newV = self._newVersion
 	local curV = appdf.BASE_C_VERSION
-	if newV and curV then		
+	if newV and curV then
 		--更新APP
 		if newV > curV then
 			if device.platform == "ios" and (type(self._iosUpdateUrl) ~= "string" or self._iosUpdateUrl == "") then
@@ -409,16 +408,16 @@ function WelcomeScene:updateClient()
 			else
 				self._txtTips:setString("")
 				QueryDialog:create("有新的版本，是否现在下载升级？",function(bConfirm)
-	                    if bConfirm == true then                    	
-							self:upDateBaseApp()				    
+	                    if bConfirm == true then
+							self:upDateBaseApp()
 						else
 							os.exit(0)
-	                    end					
+	                    end
 					end)
 					:setCanTouchOutside(false)
-					:addTo(self)	
+					:addTo(self)
 				return true
-			end				
+			end
 		end
 	end
 
@@ -447,13 +446,13 @@ function WelcomeScene:upDateBaseApp()
 
 	if device.platform == "android" then
 		local this = self
-		local argsJson 
+		local argsJson
 		local url = ""
 		print("debug .. => " .. DEBUG)
 		if isDebug() then
-			url = self:getApp()._updateUrl.."/LuaMBClient_LY-debug.apk"	
-		else			
-			url = self:getApp()._updateUrl.."/LuaMBClient_LY.apk"		 
+			url = self:getApp()._updateUrl.."/LuaMBClient_LY-debug.apk"
+		else
+			url = self:getApp()._updateUrl.."/LuaMBClient_LY.apk"
 		end
 
 	    --调用C++下载
@@ -480,7 +479,7 @@ function WelcomeScene:upDateBaseApp()
 						self._txtTips:setString("下载完成")
 						self.m_progressLayer:setVisible(false)
 
-						--安装apk						
+						--安装apk
 						local args = {filepath}
 						sigs = "(Ljava/lang/String;)V"
 		   				ok,ret = luaj.callStaticMethod(className, "installClient",args, sigs)
@@ -501,12 +500,12 @@ function WelcomeScene:upDateBaseApp()
 				end)
 		else
 			os.exit(0)
-   		end	    
+   		end
 	elseif device.platform == "ios" then
 		local luaoc = require "cocos.cocos2d.luaoc"
 		local ok,ret  = luaoc.callStaticMethod("AppController","updateBaseClient",{url = self._iosUpdateUrl})
 	    if not ok then
-	        print("luaoc error:" .. ret)        
+	        print("luaoc error:" .. ret)
 	    end
 	end
 end
@@ -528,7 +527,7 @@ function WelcomeScene:goUpdate( )
 	else
 		ClientUpdate:create(config.newfileurl, config.dst, config.src, config.downurl)
 			:upDateClient(self)
-	end	
+	end
 end
 
 --下载进度
@@ -567,7 +566,7 @@ function WelcomeScene:updateResult(result,msg)
 					cc.CallFunc:create(function()
 						this:EnterClient()
 					end)
-			))	
+			))
 		end
 	else
 		self.m_progressLayer:setVisible(false)
