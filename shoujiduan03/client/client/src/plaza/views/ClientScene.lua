@@ -36,7 +36,9 @@ local OrderRecord = appdf.req(appdf.CLIENT_SRC.."plaza.views.layer.plaza.OrderRe
 
 local Agent = appdf.req(appdf.CLIENT_SRC.."plaza.views.layer.plaza.AgentLayer")
 
-local Shop = appdf.req(appdf.CLIENT_SRC.."plaza.views.layer.plaza.ShopLayer")
+-- change by, 2018.7.20, 不显示商店页面, 显示联系微信
+-- local Shop = appdf.req(appdf.CLIENT_SRC.."plaza.views.layer.plaza.ShopLayer")
+local Shop = appdf.req(appdf.CLIENT_SRC.."plaza.views.layer.plaza.ShopLayerWX")
 
 local ShopDetail = appdf.req(appdf.CLIENT_SRC.."plaza.views.layer.plaza.ShopDetailLayer")
 

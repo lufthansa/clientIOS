@@ -97,8 +97,8 @@ function PriRoomCreateLayer:ctor( scene )
             self.m_tabPlayerNumCheckBox[CBT_PLAYERNUM_BEGIN + i] = checkbx
         end
     end
-   -- 选择的人数，默认为第一个    
-    self.m_nPlayerNumSelectIdx = CBT_PLAYERNUM_BEGIN + 1
+   -- 选择的人数，默认为第3个    
+    self.m_nPlayerNumSelectIdx = CBT_PLAYERNUM_BEGIN + 3
     self.m_tabPlayNumSelect = {2, 3, 4, 5, 0}
     self.m_tabPlayerNumCheckBox[self.m_nPlayerNumSelectIdx]:setSelected(true)
 
@@ -107,7 +107,7 @@ function PriRoomCreateLayer:ctor( scene )
     end
     self.m_tabCheckBox = {}
 
-    -- 玩法选项
+    -- 玩法选项，默认为第3个   
     for i = 1, #PriRoom:getInstance().m_tabFeeConfigList do
         local config = PriRoom:getInstance().m_tabFeeConfigList[i]
         local checkbx = csbNode:getChildByName("check_" .. i .. "_0")
@@ -126,7 +126,7 @@ function PriRoomCreateLayer:ctor( scene )
         end
     end
     -- 选择的玩法    
-    self.m_nSelectIdx = CBT_BEGIN + 1
+    self.m_nSelectIdx = CBT_BEGIN + 3
     self.m_tabSelectConfig = PriRoom:getInstance().m_tabFeeConfigList[self.m_nSelectIdx - CBT_BEGIN]
     self.m_tabCheckBox[self.m_nSelectIdx]:setSelected(true)
 
@@ -408,5 +408,7 @@ function PriRoomCreateLayer:onSelectedWangEvent(tag, sender)
         self._puTongCheckBx:setSelected(false)
     end
 end
+
+
 
 return PriRoomCreateLayer

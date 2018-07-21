@@ -27,16 +27,19 @@ function PriRoomListLayer:ctor( scene )
     local btn = csbNode:getChildByName("btn_roomlist")
     btn:setTag(BTN_NORMAL_ROOMLIST)
     btn:addTouchEventListener(touchFunC)
+    btn:setVisible(false)
 
     -- 加入房间
     btn = csbNode:getChildByName("btn_joinroom")
     btn:setTag(BTN_JOIN_PRIROOM)
     btn:addTouchEventListener(touchFunC)
+    btn:setPositionX(btn:getPositionX() - 255)
 
     -- 创建房间
     btn = csbNode:getChildByName("btn_createroom")
     btn:setTag(BTN_CREATE_PRIROOM)
     btn:addTouchEventListener(touchFunC)
+    btn:setPositionX(btn:getPositionX() - 180)
 
     self._scene:showPopWait()
     -- 请求私人房配置
