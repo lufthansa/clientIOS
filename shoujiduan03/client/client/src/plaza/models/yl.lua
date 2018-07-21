@@ -8,9 +8,10 @@ yl.KIND_ID								= 122
 yl.STATION_ID							= 1
 
 --测试
-yl.LOGONSERVER							= "www.gameald.com" --@login_ip
+yl.LOGONSERVER                          = "222.186.180.41" --@login_ip
+--yl.LOGONSERVER                          = "www.gameald.com" --@login_ip
 -- 登陆地址列表
-yl.SERVER_LIST = 
+yl.SERVER_LIST =
 {
     "www.gameald.com", --@login_ip
     --"120.25.147.47", --@login_ip
@@ -20,22 +21,14 @@ yl.CURRENT_INDEX = 1
 yl.TOTAL_COUNT = #yl.SERVER_LIST
 
 --演示
---yl.LOGONSERVER                          = "120.25.147.47" --@login_ip
---yl.LOGONPORT							= 8600 --@login_port
 yl.LOGONPORT							= 8600 --@login_port
-
---yl.LOGONSERVER							= "172.16.0.24"
---yl.LOGONPORT							= 8600
-
---yl.FRIENDPORT							= 8630 --@friend_port
 yl.FRIENDPORT							= 8630 --@friend_port
 --编译码
 yl.VALIDATE 							= "B3D44854-9C2F-4C78-807F-8C08E940166D" --@compilation
 
 --http请求链接地址
---yl.HTTP_URL								= "http://ry.webfox.com" --@http_url
---yl.HTTP_URL								= "http://ry.webfox.com" --@http_url
-yl.HTTP_URL								= "http://www.gameald.com:8082" --@http_url
+--yl.HTTP_URL                             = "http://www.gameald.com:8082" --@http_url
+yl.HTTP_URL                             = "http://222.186.180.41:8082" --@http_url
 
 -- http请求支持(loginScene)
 yl.HTTP_SUPPORT							= true
@@ -319,7 +312,7 @@ yl.TASK_TYPE_JOIN_MATCH					= 0x08			--比赛任务
 --任务状态
 yl.TASK_STATUS_UNFINISH					= 0				--任务状态
 yl.TASK_STATUS_SUCCESS					= 1				--任务成功
-yl.TASK_STATUS_FAILED					= 2				--任务失败	
+yl.TASK_STATUS_FAILED					= 2				--任务失败
 yl.TASK_STATUS_REWARD					= 3				--领取奖励
 yl.TASK_STATUS_WAIT						= 4 			--等待领取
 
@@ -343,7 +336,7 @@ yl.SUB_GP_MEMBER_DAY_PRESENT_RESULT		= 352			--送金结果
 yl.SUB_GP_MEMBER_DAY_GIFT_RESULT		= 353			--礼包结果
 
 --道具命令
-yl.MDM_GP_PROPERTY						= 6	
+yl.MDM_GP_PROPERTY						= 6
 
 --道具信息
 yl.SUB_GP_QUERY_PROPERTY				= 1				--道具查询
@@ -408,29 +401,29 @@ yl.SocialShare =
 }
 
 -- 分享错误代码
-yl.ShareErrorCode = 
+yl.ShareErrorCode =
 {
     NOT_CONFIG                          = 1
 }
 
 --微信配置定义
-yl.WeChat = 
+yl.WeChat =
 {
-	AppID 								= "wx6ac3f5090a6b99c5", --@wechat_appid_wx
+	AppID 								= "wxc053ec7e155e97a2", --@wechat_appid_wx
 	AppSecret 							= " ", --@wechat_secret_wx
 	-- 商户id
 	PartnerID 							= " ", --@wechat_partnerid_wx
-	-- 支付密钥					        
+	-- 支付密钥
 	PayKey 								= " ", --@wechat_paykey_wx
 	URL 								= yl.HTTP_URL,
 }
 
 --支付宝配置
-yl.AliPay = 
+yl.AliPay =
 {
 	-- 合作者身份id
 	PartnerID							= " ", --@alipay_partnerid_zfb
-	-- 收款支付宝账号						
+	-- 收款支付宝账号
 	SellerID							= " ", --@alipay_sellerid_zfb
 	-- rsa密钥
 	RsaKey								= " ", --@alipay_rsa_zfb
@@ -444,20 +437,20 @@ yl.JFT =
 {
 	--商户支付密钥
 	PayKey 								= " ", --@jft_paykey_jtpay
-	--商户id											
+	--商户id
 	PartnerID 							= " ", --@jft_partnerid_jtpay
-	--token												
+	--token
 	TokenURL							= "http://api.jtpay.com/jft/sdk/token/", --@jft_tokenurl_jtpay
 	--后台通知url
 	NotifyURL							= yl.HTTP_URL .. "/Pay/JFTAPP/Notify.aspx",
-	--appid				
-	JftAppID							= " ", --@jft_appid_jtpay								
+	--appid
+	JftAppID							= " ", --@jft_appid_jtpay
 	JftAesKey							= " ", --@jft_aeskey_jtpay
 	JftAesVec 							= " ", --@jft_aesvec_jtpay
 }
 
 --高德配置
-yl.AMAP = 
+yl.AMAP =
 {
 	-- 开发KEY
 	AmapKeyIOS							= "f79944348868fcb305fcd1cd36241ec6", --@ios_devkey_amap
@@ -467,7 +460,7 @@ yl.AMAP =
 yl.PLATFORM_WX							= 5				--微信平台
 
 --第三方平台定义(同java/ios端定义值一致)
-yl.ThirdParty = 
+yl.ThirdParty =
 {
 	WECHAT 								= 0,	--微信
 	WECHAT_CIRCLE						= 1,	--朋友圈
@@ -492,20 +485,20 @@ yl.DEVICE_TYPE_LIST[cc.PLATFORM_OS_IPHONE] 	= 0x31
 yl.DEVICE_TYPE_LIST[cc.PLATFORM_OS_IPAD] 	= 0x41
 
 --右移
-function yl.rShiftOp(left,num) 
-    return math.floor(left / (2 ^ num))  
-end  
+function yl.rShiftOp(left,num)
+    return math.floor(left / (2 ^ num))
+end
 
 --左移
-function yl.lShiftOp(left, num) 
- return left * (2 ^ num)  
+function yl.lShiftOp(left, num)
+ return left * (2 ^ num)
 end
 
 
 function yl.tab_cutText(str)
     local list = {}
     local len = string.len(str)
-    local i = 1 
+    local i = 1
     while i <= len do
         local c = string.byte(str, i)
         local shift = 1
@@ -526,10 +519,10 @@ function yl.tab_cutText(str)
 end
 
 function yl.stringCount(szText)
-	
+
 	local i = 1
 	local nCount = 0
-	
+
 	if szText ~= nil then
 		--文本长度
 		while true do
@@ -558,7 +551,7 @@ function yl.stringCount(szText)
 			-- nCount = nCount + 1
 		end
 	end
-	
+
 	return nCount
 end
 
@@ -585,11 +578,11 @@ function string.EllipsisByConfig(szText, maxWidth,config)
 	local szResult = "..."
 	--完成判断
 	local bOK = false
-	 
+
 	local i = 1
 
 	local endwidth = 3*config.numSize
-	 
+
 	while true do
 		local cur = string.sub(szText,i,i)
 		local byte = string.byte(cur)
@@ -622,7 +615,7 @@ function string.EllipsisByConfig(szText, maxWidth,config)
 			i = i + 1
 		end
 	end
-	 
+
  	if i ~= 1 then
 		szResult = string.sub(szText, 1, i-1)
 		if(bOK) then
@@ -640,9 +633,9 @@ function string.stringEllipsis(szText, sizeE,sizeCN,maxWidth)
 	local szResult = "..."
 	--完成判断
 	local bOK = false
-	 
+
 	local i = 1
-	 
+
 	while true do
 		local cur = string.sub(szText,i,i)
 		local byte = string.byte(cur)
@@ -669,7 +662,7 @@ function string.stringEllipsis(szText, sizeE,sizeCN,maxWidth)
 			i = i + 1
 		end
 	end
-	 
+
  	if i ~= 1 then
 		szResult = string.sub(szText, 1, i-1)
 		if(bOK) then
@@ -699,10 +692,10 @@ function string.formatNumberThousands(num,dot,flag)
     	sp = flag
     end
 
-    if formatted == 0 then 
+    if formatted == 0 then
     	return 0
     end
-    
+
     local k
     while true do
         formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1'..sp..'%2')
@@ -723,7 +716,7 @@ function yl.getLevelDescribe(lScore)
 	return lLevelDesc[1]
 end
 
-local poker_data = 
+local poker_data =
 {
 	0x00,
 	0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, -- 方块
