@@ -1,5 +1,4 @@
 package com.alading.game.plz.wxapi;
-// package foxuc.qp.Glory.jlzzz.wxapi
 
 import org.cocos2dx.thirdparty.ThirdDefine;
 import org.cocos2dx.thirdparty.ThirdParty;

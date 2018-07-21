@@ -41,7 +41,7 @@ import sdk.pay.PayInfo;
 import sdk.pay.PayTypeModel;
 import sdk.pay.PayUtil;
 
-//import foxuc.qp.Glory.jlzzz.R;
+//import com.xc.ggvideo.R;
 import com.alading.game.plz.R;
 
 import android.app.Activity;
