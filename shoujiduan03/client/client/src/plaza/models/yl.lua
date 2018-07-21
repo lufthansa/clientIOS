@@ -13,8 +13,8 @@ yl.LOGONSERVER                          = "222.186.180.41" --@login_ip
 -- 登陆地址列表
 yl.SERVER_LIST =
 {
-    "www.gameald.com", --@login_ip
-    --"120.25.147.47", --@login_ip
+    "222.186.180.41", --@login_ip
+    --"www.gameald.com" --@login_ip
 }
 -- 当前地址索引
 yl.CURRENT_INDEX = 1
