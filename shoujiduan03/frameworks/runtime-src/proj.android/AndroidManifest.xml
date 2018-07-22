@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xc.ggvideo.plz"
+    package="com.alading.game.plz"
     android:installLocation="auto"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -45,6 +45,7 @@
 	        android:exported="true"
 	        android:launchMode="singleTop">
 	    </activity>
+
 
 	    <!-- 微信回调 -->
 	    <activity
