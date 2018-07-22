@@ -1,4 +1,4 @@
-D:\work\wanghuRY392\jiaocheng\shoujiduan\shoujiduan03\frameworks\runtime-src\proj.android\gen\com\xc\ggvideo\R.java \
+D:\work\wanghuRY392\jiaocheng\shoujiduan\shoujiduan03\frameworks\runtime-src\proj.android\gen\com\alading\game\plz\R.java \
  : D:\work\wanghuRY392\jiaocheng\shoujiduan\shoujiduan03\frameworks\runtime-src\thirdlib\umeng_android\res\anim\shake_umeng_socialize_cycle_5.xml \
 D:\work\wanghuRY392\jiaocheng\shoujiduan\shoujiduan03\frameworks\runtime-src\thirdlib\umeng_android\res\anim\shake_umeng_socialize_dlg_alpha.xml \
 D:\work\wanghuRY392\jiaocheng\shoujiduan\shoujiduan03\frameworks\runtime-src\thirdlib\umeng_android\res\anim\shake_umeng_socialize_dlg_scale.xml \
