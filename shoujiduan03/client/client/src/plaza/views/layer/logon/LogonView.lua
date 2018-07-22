@@ -126,9 +126,9 @@ function LogonView:ctor(serverConfig)
 		:addTo(self)
 	weChatLogin:addTouchEventListener(btcallback)
 
-	local targetPlatform = cc.Application:getInstance():getTargetPlatform()
-	if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform)
-		or (cc.PLATFORM_OS_ANDROID == targetPlatform) then
+	-- local targetPlatform = cc.Application:getInstance():getTargetPlatform()
+	-- if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform)
+	-- 	or (cc.PLATFORM_OS_ANDROID == targetPlatform) then
 
 		-- --帐号提示
 		-- accountTip:setVisible(false)
@@ -148,10 +148,8 @@ function LogonView:ctor(serverConfig)
 		-- registBtn:setVisible(false)
 		-- --游客登录
 		-- guestLogin:setVisible(false)
-		-- --微信登陆
-		-- -- weChatLogin:setVisible(false)
 
-	end
+	-- end
 
 	self.m_serverConfig = serverConfig or {}
 	self:refreshBtnList()
@@ -171,7 +169,7 @@ function LogonView:refreshBtnList( )
 	{
 		{cc.p(667, 70), cc.p(0, 0), cc.p(0, 0)},
 		{cc.p(463, 70), cc.p(868, 70), cc.p(0, 0)},
-		{cc.p(222, 70), cc.p(667, 70), cc.p(1112, 70)}
+		{cc.p(222, 70), cc.p(667, 70), cc.p(640, 270)}
 	}
 	-- 1:帐号 2:游客 3:微信
 	local btnlist = {"btn_1"}
@@ -188,8 +186,8 @@ function LogonView:refreshBtnList( )
 	for k,v in pairs(btnlist) do
 		local tmp = self:getChildByName(v)
 		-- change by Owen, 2018.5.14, 只显示微信登陆
-		-- if nil ~= tmp and k == 3 then
-		if nil ~= tmp then
+		if nil ~= tmp and k == 3 then
+		-- if nil ~= tmp then
 			tmp:setEnabled(true)
 			tmp:setVisible(true)
 

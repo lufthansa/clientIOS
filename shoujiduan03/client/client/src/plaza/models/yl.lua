@@ -411,7 +411,7 @@ yl.WeChat =
 {
 	AppID 								= "wxc053ec7e155e97a2", --@wechat_appid_wx  alading
     --AppID                               = "wx6ac3f5090a6b99c5", --@wechat_appid_wx  gg
-	AppSecret 							= " ", --@wechat_secret_wx
+	AppSecret 							= "439bf1b3915ec98130a96d4a27e827a1", --@wechat_secret_wx
 	-- 商户id
 	PartnerID 							= " ", --@wechat_partnerid_wx
 	-- 支付密钥
