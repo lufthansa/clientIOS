@@ -454,6 +454,7 @@ function WelcomeScene:upDateBaseApp()
 		else
 			url = self:getApp()._updateUrl.."/LuaMBClient_LY.apk"
 		end
+		print("_updateUrl .. => " .. url)
 
 	    --调用C++下载
 	    local luaj = require "cocos.cocos2d.luaj"

@@ -24,10 +24,10 @@ appdf.DOWN_ERROR_CREATEURL					= 6 									--创建连接失败
 appdf.DOWN_ERROR_NET		 				= 7 									--下载失败
 
 --程序版本
-appdf.BASE_C_VERSION = 2 --@app_version
+appdf.BASE_C_VERSION = 3 --@app_version
 --资源版本
 appdf.BASE_C_RESVERSION = 0 --@client_version
-appdf.BASE_GAME = 
+appdf.BASE_GAME =
 {
 	--{kind = 6,version = "0"}
 }
@@ -38,7 +38,7 @@ function appdf.req(path)
     else
         print("require paht unknow")
     end
-    
+
 end
 -- 字符分割
 function appdf.split(str, flag)
@@ -47,8 +47,8 @@ function appdf.split(str, flag)
 
 		local n = string.find(str, flag)
 		if n then
-			local first = string.sub(str, 1, n-1) 
-			str = string.sub(str, n+1, #str) 
+			local first = string.sub(str, 1, n-1)
+			str = string.sub(str, n+1, #str)
 			table.insert(tab, first)
 		else
 			table.insert(tab, str)
@@ -68,9 +68,9 @@ function appdf.stringEllipsis(szText, sizeE,sizeCN,maxWidth)
 	local szResult = "..."
 	--完成判断
 	local bOK = false
-	 
+
 	local i = 1
-	 
+
 	while true do
 		local cur = string.sub(szText,i,i)
 		local byte = string.byte(cur)
@@ -100,7 +100,7 @@ function appdf.stringEllipsis(szText, sizeE,sizeCN,maxWidth)
 			lastpos = i
 		end
 	end
-	 
+
 	 	if lastpos ~= 0 then
 			szResult = string.sub(szText, 1, lastpos)
 			if(bOK) then
@@ -121,7 +121,7 @@ function appdf.printTable(dataBuffer)
 		return
 	end
 	for k ,v in pairs(dataBuffer) do
-		local typeinfo = type(v) 
+		local typeinfo = type(v)
 		if typeinfo == "table" then
 			appdf.printTable(v)
 		elseif typeinfo == "userdata" then
@@ -154,7 +154,7 @@ function appdf.onHttpJsionTable(url,methon,params,callback)
 	end
 	--HTTP回调函数
 	local function onJsionTable()
-		local datatable 
+		local datatable
 		local response
 		local ok
 	    if xhr.readyState == 4 and (xhr.status >= 200 and xhr.status < 207) then
@@ -173,7 +173,7 @@ function appdf.onHttpJsionTable(url,methon,params,callback)
 	    end
 	    if type(callback) == "function" then
 	    	callback(datatable,response)
-	    end	    
+	    end
 	end
 	xhr:registerScriptHandler(onJsionTable)
 	if not bPost then
@@ -189,7 +189,7 @@ function appdf.ValuetoVersion(value)
 	if not value then
 		return {p=0,m=0,s=0,b=0}
 	end
-	local tmp 
+	local tmp
 	if type(value) ~= "number" then
 		tmp = tonumber(value)
 	else
@@ -255,12 +255,12 @@ function appdf.getNodeByName(node,name)
 		return curNode
 	else
 		local  nodeTab = node:getChildren()
-		if #nodeTab>0 then		
+		if #nodeTab>0 then
 			for i=1,#nodeTab do
 				local  result = appdf.getNodeByName(nodeTab[i],name)
-				if result then					
+				if result then
 					return result
-				end 
+				end
 			end
 		end
 
