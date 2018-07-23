@@ -150,10 +150,10 @@ function LogonScene:onCreate()
         :addTo(self._backLayer)
  
  	--平台logo
-	display.newSprite("Logon/logon_logo.png")
-		:move(yl.WIDTH/2,yl.HEIGHT-150)
-		:addTo(self._backLayer)
-		:runAction(cc.MoveTo:create(0.3,cc.p(yl.WIDTH/2,yl.HEIGHT-150)))
+	-- display.newSprite("Logon/logon_logo.png")
+	-- 	:move(yl.WIDTH/2,yl.HEIGHT-150)
+	-- 	:addTo(self._backLayer)
+	-- 	:runAction(cc.MoveTo:create(0.3,cc.p(yl.WIDTH/2,yl.HEIGHT-150)))
 
 	--返回
 	if  device.platform ~= "mac" and device.platform ~= "ios" then
