@@ -169,8 +169,19 @@ function PriGameLayer:onPriGameEnd( cmd_table )
     local chairCount = PriRoom:getInstance():getChairCount()
     -- 玩家成绩
     local scoreList = cmd_table.lScore[1]
+    
+    -- add by, 2018.7.24, 玩家数量>3的话, 要clone出bg并修改位置
+    local allCellbgs = {}
     for i = 1, chairCount do
         local cellbg = image_bg:getChildByName("im_score_cell_" .. i)
+
+        if not cellbg then
+            cellbg = allCellbgs[1]:clone()
+            allCellbgs[1]:getParent():addChild(cellbg)
+            cellbg:setPosition(allCellbgs[1]:getPositionX(), allCellbgs[1]:getPositionY())
+        end
+        allCellbgs[#allCellbgs + 1] = cellbg
+
         if nil ~= cellbg then
             cellbg:setVisible(true)
             local cellsize = cellbg:getContentSize()            
@@ -217,6 +228,15 @@ function PriGameLayer:onPriGameEnd( cmd_table )
                 cellbg:setVisible(false)
             end
         end        
+    end
+
+    -- add by, 2018.7.24, 玩家数量>3的话, 要修改位置
+    if chairCount > 3 then
+        local beginY = allCellbgs[1]:getPositionY() + 20
+        local endY   = allCellbgs[#allCellbgs]:getPositionY()
+        for i,v in ipairs(allCellbgs) do
+            v:setPositionY(beginY - (i-1)*(beginY-endY)/(#allCellbgs))
+        end
     end
 
     -- 分享按钮
