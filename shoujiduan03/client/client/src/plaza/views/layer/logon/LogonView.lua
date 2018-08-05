@@ -48,7 +48,7 @@ function LogonView:ctor(serverConfig)
 		:setFontSize(24)
 		:setPlaceholderFontSize(24)
 		:setMaxLength(31)
-		:setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE)		
+		:setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE)
 		:addTo(self)
 	self.edit_Account:registerScriptEditBoxHandler(editHanlder)
 
@@ -57,7 +57,7 @@ function LogonView:ctor(serverConfig)
 		:move(366,280)
 		:addTo(self)
 
-	--密码输入	
+	--密码输入
 	self.edit_Password = ccui.EditBox:create(cc.size(490,67), ccui.Scale9Sprite:create("Logon/text_field_frame.png"))
 		:move(yl.WIDTH/2,280)
 		:setAnchorPoint(cc.p(0.5,0.5))
@@ -67,7 +67,7 @@ function LogonView:ctor(serverConfig)
 		:setPlaceholderFontSize(24)
 		:setMaxLength(26)
 		:setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD)
-		:setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE)		
+		:setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE)
 		:addTo(self)
 
 	-- 忘记密码
@@ -127,27 +127,27 @@ function LogonView:ctor(serverConfig)
 	weChatLogin:addTouchEventListener(btcallback)
 
 	-- local targetPlatform = cc.Application:getInstance():getTargetPlatform()
-	-- if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform) 
+	-- if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform)
 	-- 	or (cc.PLATFORM_OS_ANDROID == targetPlatform) then
 
 		--帐号提示
 		accountTip:setVisible(false)
 		--账号输入
-		self.edit_Account:setVisible(false)
+		--self.edit_Account:setVisible(false)
 		--密码提示
 		pwdTip:setVisible(false)
-		--密码输入	
-		self.edit_Password:setVisible(false)
+		--密码输入
+		--self.edit_Password:setVisible(false)
 		-- 忘记密码
 		forgetPWD:setVisible(false)
 		--记住密码
 		self.cbt_Record:setVisible(false)
 		--账号登录
-		accountLogin:setVisible(false)
+		--accountLogin:setVisible(false)
 		--注册按钮
 		registBtn:setVisible(false)
 		--游客登录
-		guestLogin:setVisible(false)
+		--guestLogin:setVisible(false)
 
 	-- end
 
@@ -163,14 +163,14 @@ function LogonView:refreshBtnList( )
 			btn:setEnabled(false)
 		end
 	end
-	
+
 	local btncount = 1
-	local btnpos = 
+	local btnpos =
 	{
 		{cc.p(667, 70), cc.p(0, 0), cc.p(0, 0)},
 		{cc.p(463, 70), cc.p(868, 70), cc.p(0, 0)},
 		{cc.p(222, 70), cc.p(667, 70), cc.p(display.cx, 270)}
-	}	
+	}
 	-- 1:帐号 2:游客 3:微信
 	local btnlist = {"btn_1"}
 	if false == GlobalUserItem.getBindingAccount() then
@@ -204,7 +204,7 @@ function LogonView:onEditEvent(name, editbox)
 	if "changed" == name then
 		if editbox:getText() ~= GlobalUserItem.szAccount then
 			self.edit_Password:setText("")
-		end		
+		end
 	end
 end
 
