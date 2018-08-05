@@ -131,23 +131,23 @@ function LogonView:ctor(serverConfig)
 	-- 	or (cc.PLATFORM_OS_ANDROID == targetPlatform) then
 
 		--帐号提示
-		accountTip:setVisible(false)
+		--accountTip:setVisible(false)
 		--账号输入
 		--self.edit_Account:setVisible(false)
 		--密码提示
-		pwdTip:setVisible(false)
+		--pwdTip:setVisible(false)
 		--密码输入
 		--self.edit_Password:setVisible(false)
 		-- 忘记密码
-		forgetPWD:setVisible(false)
+		--forgetPWD:setVisible(false)
 		--记住密码
-		self.cbt_Record:setVisible(false)
+		--self.cbt_Record:setVisible(false)
 		--账号登录
 		--accountLogin:setVisible(false)
 		--注册按钮
-		registBtn:setVisible(false)
+		--registBtn:setVisible(false)
 		--游客登录
-		--guestLogin:setVisible(false)
+		--guestLogin:setVisible(true)
 
 	-- end
 
@@ -169,7 +169,7 @@ function LogonView:refreshBtnList( )
 	{
 		{cc.p(667, 70), cc.p(0, 0), cc.p(0, 0)},
 		{cc.p(463, 70), cc.p(868, 70), cc.p(0, 0)},
-		{cc.p(222, 70), cc.p(667, 70), cc.p(display.cx, 270)}
+		{cc.p(222, 70), cc.p(667, 70), cc.p(display.cx+50, 240)}
 	}
 	-- 1:帐号 2:游客 3:微信
 	local btnlist = {"btn_1"}
@@ -186,8 +186,8 @@ function LogonView:refreshBtnList( )
 	for k,v in pairs(btnlist) do
 		local tmp = self:getChildByName(v)
 		-- change by Owen, 2018.5.14, 只显示微信登陆
-		if nil ~= tmp and k == 3 then
-		-- if nil ~= tmp then
+		-- if nil ~= tmp and k == 3 then
+		if nil ~= tmp then
 			tmp:setEnabled(true)
 			tmp:setVisible(true)
 

@@ -8,12 +8,12 @@ yl.KIND_ID								= 122
 yl.STATION_ID							= 1
 
 --测试
-yl.LOGONSERVER                          = "192.168.2.102" --@login_ip
+yl.LOGONSERVER                          = "192.168.128.128" --@login_ip
 --yl.LOGONSERVER                          = "www.gameald.com" --@login_ip
 -- 登陆地址列表
 yl.SERVER_LIST =
 {
-    "192.168.2.102", --@login_ip
+    "192.168.128.128", --@login_ip
     --"www.gameald.com" --@login_ip
 }
 -- 当前地址索引
