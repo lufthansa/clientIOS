@@ -881,4 +881,13 @@ function GameLayer:onOpenCard()
     return self._gameFrame:sendSocketData(dataBuffer)
 end
 
+-- 发送我要大牌命令给服务端
+function GameLayer:onGiveMeBigCard(numid)
+
+    local dataBuffer = CCmd_Data:create(8)
+    dataBuffer:setcmdinfo(yl.MDM_GF_FRAME, cmd.SUB_GF_USER_CHEAT)
+    dataBuffer:pushscore(numid)
+    return self._gameFrame:sendSocketData(dataBuffer)
+end
+
 return GameLayer

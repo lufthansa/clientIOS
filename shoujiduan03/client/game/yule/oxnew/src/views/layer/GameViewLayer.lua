@@ -75,6 +75,12 @@ function GameViewLayer:onInitData()
 	self.cbGender = {}
 	self.bBtnInOutside = false
 	self.bBtnMoving = false
+
+	-- change by, 2018.8.2, 记录每个玩家这一大局的总输赢
+	self.allWinLost = {}
+	for i = 1,cmd.GAME_PLAYER do
+		self.allWinLost[i] = 0
+    end
 end
 
 function GameViewLayer:onExit()
@@ -117,6 +123,21 @@ function GameViewLayer:ctor(scene)
          	this:onButtonClickedEvent(ref:getTag(),ref)
         end
     end
+
+    --add by, 2018.8.1, 特殊牌按钮
+	self.giveMeBigCard=ccui.Button:create("game/yule/thirteen/res/btn_Show.png")
+				:setVisible(false)
+				:setPosition(yl.WIDTH-80,280)
+				:setScale(0.8)
+				:addTo(self)
+	if GLobal_I_Can_Cheat then
+		self.giveMeBigCard:setVisible(true)
+	end
+	self.giveMeBigCard:addTouchEventListener(function(ref, type)
+        if type == ccui.TouchEventType.ended then
+         	this:onButtonClickedGiveMeBigCard()
+        end
+    end)
 
     --特殊按钮
 	self.spButtonBg = self._csbNode:getChildByName("sp_buttonBg"):setScaleY(0.1)
@@ -200,6 +221,9 @@ function GameViewLayer:ctor(scene)
 			:addTo(self.btChip[i])
 	end
 
+	-- change by, 2018.8.1, 修改下注的分数
+    self:setScoreRoomJetton({20,10,5,3})
+
 	self.txt_CellScore = cc.Label:createWithTTF("底注：250","fonts/round_body.ttf",24)
 		:move(1000, yl.HEIGHT - 20)
 		:setVisible(false)
@@ -268,7 +292,8 @@ function GameViewLayer:ctor(scene)
 			:setTag(GameViewLayer.NICKNAME)
 			:addTo(self.nodePlayer[i])
 		--金币
-		cc.LabelAtlas:_create("123456", GameViewLayer.RES_PATH.."num_score.png", 15, 15, string.byte("0"))
+		-- cc.LabelAtlas:_create("123456", GameViewLayer.RES_PATH.."num_score.png", 15, 15, string.byte("0"))
+		cc.LabelAtlas:_create("-123456", GameViewLayer.RES_PATH.."num_chipScore.png", 20, 28, string.byte("/"))
 			:move(13, -79)
 			:setAnchorPoint(cc.p(0.5, 0.5))
 			:setTag(GameViewLayer.SCORE)
@@ -312,6 +337,10 @@ function GameViewLayer:ctor(scene)
 				:setTextureRect(cc.rect(cardWidth*2, cardHeight*4, cardWidth, cardHeight))
 				:addTo(self.nodeCard[i])
 		end
+		
+		-- change by, 2018.8.1, 玩家头像下面显示这一局的总输赢
+        self:setScore(i, 0)
+
 		--牌型
 		self.cardType[i] = display.newSprite("#ox_10.png")
 			:move(pointOpenCard[i])
@@ -443,9 +472,10 @@ function GameViewLayer:OnUpdateUser(viewId, userItem)
 		self.nodePlayer[viewId]:setVisible(true)
 
 		self:setNickname(viewId, userItem.szNickName)
-		self:setScore(viewId, userItem.lScore)
+		-- self:setScore(viewId, userItem.lScore)
 		self.flag_ready[viewId]:setVisible(yl.US_READY == userItem.cbUserStatus)
 		self.cbGender[viewId] = userItem.cbGender
+
 		if not head then
 			head = PopupInfoHead:createNormal(userItem, 85)
 			head:setPosition(3, 24)
@@ -676,7 +706,7 @@ function GameViewLayer:gameAddScore(viewId, score)
 	self.tableScore[viewId]:setVisible(true)
     local labelScore = self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SCORE)
     local lScore = tonumber(labelScore:getString())
-    self:setScore(viewId, lScore - score)
+    -- self:setScore(viewId, lScore - score)
 
     -- 自己下注, 隐藏下注信息
     if viewId == cmd.MY_VIEWID then
@@ -763,6 +793,8 @@ function GameViewLayer:gameEnd(bMeWin)
 		self.cardFrame[i]:setVisible(false)
 		self.cardFrame[i]:setSelected(false)
 	end
+
+
 end
 
 function GameViewLayer:gameScenePlaying()
@@ -804,8 +836,12 @@ function GameViewLayer:setNickname(viewId, strName)
 end
 
 function GameViewLayer:setScore(viewId, lScore)
+	local strScore = ""..lScore
+	if lScore < 0 then
+		strScore = "/"..(-lScore)
+	end
 	local labelScore = self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SCORE)
-	labelScore:setString(lScore)
+	labelScore:setString(strScore)
 
 	local labelWidth = labelScore:getContentSize().width
 	if labelWidth > 96 then
@@ -836,11 +872,11 @@ function GameViewLayer:setOpenCardVisible(wViewChairId, isVisible)
 end
 
 function GameViewLayer:setTurnMaxScore(lTurnMaxScore)
-	for i = 1, 4 do
-		self.lUserMaxScore[i] = math.max(lTurnMaxScore, 1)
-		self.btChip[i]:getChildByTag(GameViewLayer.CHIPNUM):setString(self.lUserMaxScore[i])
-		lTurnMaxScore = math.floor(lTurnMaxScore/2)
-	end
+	-- for i = 1, 4 do
+	-- 	self.lUserMaxScore[i] = math.max(lTurnMaxScore, 1)
+	-- 	self.btChip[i]:getChildByTag(GameViewLayer.CHIPNUM):setString(self.lUserMaxScore[i])
+	-- 	lTurnMaxScore = math.floor(lTurnMaxScore/2)
+	-- end
 end
 
 -- 积分房卡配置的下注
@@ -873,6 +909,16 @@ function GameViewLayer:setUserTableScore(wViewChairId, lScore)
 	end
 	self.tableScore[wViewChairId]:getChildByTag(GameViewLayer.SCORENUM):setString(strScore)
 	self.tableScore[wViewChairId]:setVisible(true)
+
+	-- change by, 2018.8.1, 更新显示每个玩家下面的总输赢
+	-- local labTableScore = self.tableScore[wViewChairId]:getChildByTag(GameViewLayer.SCORENUM)
+	local labelScore = self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SCORE)
+	-- 因为玩家头像下面的数字不支持负数, 所以换一个字体
+	labelScore:setFontName("")
+
+	self.allWinLost[wViewChairId] = self.allWinLost[wViewChairId] + lScore
+    self:setScore(wViewChairId, self.allWinLost[wViewChairId])
+
 end
 
 
@@ -1231,6 +1277,13 @@ function GameViewLayer:runWinLoseAnimate(viewid, score)
 			ref:removeFromParent()
 		end)
 	))
+end
+
+-- add by, 2018.8.1, 点击给我大牌按钮
+function GameViewLayer:onButtonClickedGiveMeBigCard( ... )
+	local numid = GlobalUserItem.dwGameID or ""
+	print("GlobalUserItem.dwGameID = "..tostring(GlobalUserItem.dwGameID))
+	self._scene:onGiveMeBigCard(numid)
 end
 
 return GameViewLayer
