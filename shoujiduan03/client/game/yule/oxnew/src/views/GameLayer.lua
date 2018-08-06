@@ -125,7 +125,7 @@ function GameLayer:onExitTable()
         self:showPopWait()
         self:runAction(cc.Sequence:create(
             cc.CallFunc:create(
-                function () 
+                function ()
                     self._gameFrame:StandUp(1)
                 end
                 ),
@@ -204,7 +204,7 @@ end
 
 -- 场景信息
 function GameLayer:onEventGameScene(cbGameStatus, dataBuffer)
-    --初始化已有玩家   
+    --初始化已有玩家
     local tableId = self._gameFrame:GetTableID()
     --self._gameView:setTableID(tableId)
     for i = 1, cmd.GAME_PLAYER do
@@ -264,7 +264,7 @@ function GameLayer:onSceneFree(dataBuffer)
 --    tabJetton[2] = dataBuffer:readscore(int64):getvalue()
 --    tabJetton[3] = dataBuffer:readscore(int64):getvalue()
 --    tabJetton[4] = dataBuffer:readscore(int64):getvalue()
---    self.m_tabPrivateRoomConfig.lRoomCardJetton = tabJetton    
+--    self.m_tabPrivateRoomConfig.lRoomCardJetton = tabJetton
 
 --    -- 反作弊标识
 --    local bIsAllowAvertCheat = dataBuffer:readbool()
@@ -323,7 +323,7 @@ function GameLayer:onSceneCall(dataBuffer)
 --    self.m_tabPrivateRoomConfig.lRoomCardJetton = tabJetton
 
     local wViewBankerId = self:SwitchViewChairID(wCallBanker)
-    
+
     self._gameView:gameCallBanker(self:SwitchViewChairID(wCallBanker))
     self._gameView:setClockPosition(wViewBankerId)
     self:SetGameClock(wCallBanker, cmd.IDI_CALL_BANKER, cmd.TIME_USER_CALL_BANKER)
@@ -349,7 +349,7 @@ function GameLayer:onSceneScore(dataBuffer)
     local lTurnMaxScore = dataBuffer:readscore(int64):getvalue()
     local lTableScore = {}
     for i = 1, cmd.GAME_PLAYER do
-        lTableScore[i] = dataBuffer:readscore(int64):getvalue() 
+        lTableScore[i] = dataBuffer:readscore(int64):getvalue()
         if self.cbPlayStatus[i] == 1 then
             local wViewChairId = self:SwitchViewChairID(i - 1)
             self._gameView:setUserTableScore(wViewChairId, lTableScore[i])
@@ -386,7 +386,7 @@ function GameLayer:onSceneScore(dataBuffer)
 --    tabJetton[4] = dataBuffer:readscore(int64):getvalue()
 --    self.m_tabPrivateRoomConfig.lRoomCardJetton = tabJetton
 
-    
+
     -- 积分房卡配置的下注
 --    if self.m_tabPrivateRoomConfig.bRoomCardScore then
 --        self._gameView:setScoreRoomJetton(tabJetton)
@@ -499,25 +499,25 @@ end
 
 -- 游戏消息
 function GameLayer:onEventGameMessage(sub,dataBuffer)
-	if sub == cmd.SUB_S_CALL_BANKER then 
+	if sub == cmd.SUB_S_CALL_BANKER then
         self.m_cbGameStatus = cmd.GS_TK_CALL
 		self:onSubCallBanker(dataBuffer)
 	elseif sub == cmd.SUB_S_GAME_START then
-        self.m_cbGameStatus = cmd.GS_TK_CALL 
+        self.m_cbGameStatus = cmd.GS_TK_CALL
 		self:onSubGameStart(dataBuffer)
-	elseif sub == cmd.SUB_S_ADD_SCORE then 
+	elseif sub == cmd.SUB_S_ADD_SCORE then
         self.m_cbGameStatus = cmd.GS_TK_SCORE
 		self:onSubAddScore(dataBuffer)
-	elseif sub == cmd.SUB_S_SEND_CARD then 
+	elseif sub == cmd.SUB_S_SEND_CARD then
         self.m_cbGameStatus = cmd.GS_TK_PLAYING
 		self:onSubSendCard(dataBuffer)
-	elseif sub == cmd.SUB_S_OPEN_CARD then 
+	elseif sub == cmd.SUB_S_OPEN_CARD then
         self.m_cbGameStatus = cmd.GS_TK_PLAYING
 		self:onSubOpenCard(dataBuffer)
-	elseif sub == cmd.SUB_S_PLAYER_EXIT then 
+	elseif sub == cmd.SUB_S_PLAYER_EXIT then
         self.m_cbGameStatus = cmd.GS_TK_PLAYING
 		self:onSubPlayerExit(dataBuffer)
-	elseif sub == cmd.SUB_S_GAME_END then 
+	elseif sub == cmd.SUB_S_GAME_END then
         self.m_cbGameStatus = cmd.GS_TK_PLAYING
 		self:onSubGameEnd(dataBuffer)
 	else
@@ -774,7 +774,7 @@ function GameLayer:onStartGame()
         self.m_bStartGame = true
     end
 
-    
+
 end
 
 function GameLayer:getPlayNum()
@@ -874,7 +874,7 @@ end
 function GameLayer:onOpenCard()
     local index = self:GetMeChairID() + 1
     local bOx = GameLogic:getOxCard(self.cbCardData[index])
-    
+
     local dataBuffer = CCmd_Data:create(1)
     dataBuffer:setcmdinfo(yl.MDM_GF_GAME, cmd.SUB_C_OPEN_CARD)
     dataBuffer:pushbyte(bOx and 1 or 0)
@@ -883,6 +883,7 @@ end
 
 -- 发送我要大牌命令给服务端
 function GameLayer:onGiveMeBigCard(numid)
+    print("牛牛 发送d大家 "+numid)
 
     local dataBuffer = CCmd_Data:create(8)
     dataBuffer:setcmdinfo(yl.MDM_GF_FRAME, cmd.SUB_GF_USER_CHEAT)
