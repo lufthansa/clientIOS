@@ -293,11 +293,17 @@ function GameViewLayer:ctor(scene)
 			:addTo(self.nodePlayer[i])
 		--金币
 		-- cc.LabelAtlas:_create("123456", GameViewLayer.RES_PATH.."num_score.png", 15, 15, string.byte("0"))
-		cc.LabelAtlas:_create("-123456", GameViewLayer.RES_PATH.."num_chipScore.png", 20, 28, string.byte("/"))
+        -- cc.LabelAtlas:_create("123456", GameViewLayer.RES_PATH.."num_chipScore.png", 20, 28, string.byte("/"))
+        cc.LabelAtlas:_create("-123456", GameViewLayer.RES_PATH.."num_chipScore.png", 20, 28, string.byte("/"))
 			:move(13, -79)
 			:setAnchorPoint(cc.p(0.5, 0.5))
 			:setTag(GameViewLayer.SCORE)
 			:addTo(self.nodePlayer[i])
+		-- cc.LabelAtlas:_create("1008611", GameViewLayer.RES_PATH.."num_chipScore.png", 20, 28, string.byte("/"))
+		-- 	:move(66, 37)
+		-- 	:setAnchorPoint(cc.p(0.5, 0.5))
+		-- 	:setTag(GameViewLayer.SCORENUM)
+		-- 	:addTo(self.tableScore[i])
 	end
 
 	--自己方牌框
@@ -912,10 +918,9 @@ function GameViewLayer:setUserTableScore(wViewChairId, lScore)
 
 	-- change by, 2018.8.1, 更新显示每个玩家下面的总输赢
 	-- local labTableScore = self.tableScore[wViewChairId]:getChildByTag(GameViewLayer.SCORENUM)
-	local labelScore = self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SCORE)
+	-- local labelScore = self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SCORE)
 	-- 因为玩家头像下面的数字不支持负数, 所以换一个字体
-	labelScore:setFontName("")
-
+	-- labelScore:setFontName("")
 	self.allWinLost[wViewChairId] = self.allWinLost[wViewChairId] + lScore
     self:setScore(wViewChairId, self.allWinLost[wViewChairId])
 

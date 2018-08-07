@@ -28,7 +28,7 @@ function PopupInfoHead:createNormal( useritem ,headSize)
 	sf.m_head = head
 	if nil ~= head then
 		sf:addChild(head)
-	end	
+	end
 	return sf, head
 end
 
@@ -39,7 +39,7 @@ function PopupInfoHead:createClipHead( useritem, headSize, clippingfile )
 	sf.m_head = head
 	if nil ~= head then
 		sf:addChild(head)
-	end	
+	end
 	return sf, head
 end
 
@@ -57,8 +57,9 @@ function PopupInfoHead:updateHead(useritem, scene)
 	self.m_useritem = useritem
 	if nil ~= self.m_head then
 		self.m_head:updateHead(useritem)
-	end	
-	self._scene = scene	
+	end
+	print("PopupInfoHead:updateHead self._scene = scene	")
+	self._scene = scene
 end
 
 --[[
@@ -79,7 +80,7 @@ function PopupInfoHead:enableInfoPop( bEnable, popPos, anr)
 	end
 
 	if bEnable then
-		
+
 	else
 		local infoLayer = nil
 		if self.m_bIsGamePop then
@@ -113,7 +114,7 @@ function PopupInfoHead:onTouchHead(  )
 	else
 		name = POP_LAYERNAME
 		infoLayer = cc.Director:getInstance():getRunningScene():getChildByName(POP_LAYERNAME)
-	end 
+	end
 	if nil == infoLayer then
 		infoLayer = PopupInfoLayer:create(self, self.m_bIsGamePop)
 		local runningScene = cc.Director:getInstance():getRunningScene()
@@ -151,9 +152,9 @@ function PopupInfoHead:onTouchHead(  )
 		    giveMeBigCard:setPosition(self.m_popPos.x + 220, self.m_popPos.y + 90)
 		end
 
-		
-		
-		
+
+
+
 	end
 end
 
