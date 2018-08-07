@@ -44,6 +44,8 @@ cmd.SUB_C_CALL_BANKER			= 1
 cmd.SUB_C_ADD_SCORE				= 2
 --用户摊牌
 cmd.SUB_C_OPEN_CARD				= 3
+--给我大牌
+cmd.SUB_GF_USER_CHEAT           = 4
 --更新库存
 cmd.SUB_C_STORAGE				= 6
 --设置上限

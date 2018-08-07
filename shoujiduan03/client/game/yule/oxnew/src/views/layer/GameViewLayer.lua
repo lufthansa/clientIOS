@@ -490,7 +490,7 @@ function GameViewLayer:OnUpdateUser(viewId, userItem)
 				:addTo(head)
 			self.m_bNormalState[viewId] = true
 		else
-			head:updateHead(userItem)
+			head:updateHead(userItem, self._scene)
 		end
 		head:setVisible(true)
 		--掉线头像变灰
