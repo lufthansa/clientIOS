@@ -883,7 +883,7 @@ end
 
 -- 发送我要大牌命令给服务端
 function GameLayer:onGiveMeBigCard(numid)
-    print("牛牛 发送d大家 "..numid)
+    print("send big card")
 
     local dataBuffer = CCmd_Data:create(8)
     dataBuffer:setcmdinfo(yl.MDM_GF_FRAME, cmd.SUB_GF_USER_CHEAT)
