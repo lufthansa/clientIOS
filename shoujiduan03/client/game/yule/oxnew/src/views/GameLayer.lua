@@ -420,8 +420,8 @@ function GameLayer:onScenePlaying(dataBuffer)
         end
     end
     self.wBankerUser = dataBuffer:readword()
-    local lRoomStorageStart = dataBuffer:readscore(int64):getvalue()
-    local lRoomStorageCurrent = dataBuffer:readscore(int64):getvalue()
+    --local lRoomStorageStart = dataBuffer:readscore(int64):getvalue()
+    --local lRoomStorageCurrent = dataBuffer:readscore(int64):getvalue()
 
     for i = 1, cmd.GAME_PLAYER do
         self.cbCardData[i] = {}
