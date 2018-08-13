@@ -138,7 +138,7 @@ function PriGameLayer:onButtonClickedEvent( tag, sender )
         GlobalUserItem.bWaitQuit = false
         self._gameLayer:onExitRoom()
     elseif BTN_ZANLI == tag then
-        PriRoom:getInstance():tempLeaveGame()
+        -- PriRoom:getInstance():tempLeaveGame()
         self._gameLayer:onExitRoom()
     end
 end
