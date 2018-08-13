@@ -92,12 +92,12 @@ function LogonView:ctor(serverConfig)
 	-- 	:addTo(self)
 
 	--账号登录
-	local accountLogin = ccui.Button:create("Logon/logon_button_0.png", "Logon/logon_button_1.png", "Logon/logon_button_2.png")
-		:setTag(LogonView.BT_LOGON)
-		:move(cc.p(0,0))
-		:setName("btn_1")
-		:addTo(self)
-	accountLogin:addTouchEventListener(btcallback)
+--	local accountLogin = ccui.Button:create("Logon/logon_button_0.png", "Logon/logon_button_1.png", "Logon/logon_button_2.png")
+--		:setTag(LogonView.BT_LOGON)
+--		:move(cc.p(0,0))
+--		:setName("btn_1")
+--		:addTo(self)
+--	accountLogin:addTouchEventListener(btcallback)
 
 	--注册按钮
 	local registBtn = ccui.Button:create("Logon/regist_button.png","")
@@ -107,14 +107,14 @@ function LogonView:ctor(serverConfig)
 	registBtn:addTouchEventListener(btcallback)
 
 	--游客登录
-	local guestLogin = ccui.Button:create("Logon/visitor_button_0.png", "Logon/visitor_button_1.png", "Logon/visitor_button_2.png")
-		:setTag(LogonView.BT_VISITOR)
-		:move(cc.p(0,0))
-		:setEnabled(false)
-		:setVisible(false)
-		:setName("btn_2")
-		:addTo(self)
-	guestLogin:addTouchEventListener(btcallback)
+--	local guestLogin = ccui.Button:create("Logon/visitor_button_0.png", "Logon/visitor_button_1.png", "Logon/visitor_button_2.png")
+--		:setTag(LogonView.BT_VISITOR)
+--		:move(cc.p(0,0))
+--		:setEnabled(false)
+--		:setVisible(false)
+--		:setName("btn_2")
+--		:addTo(self)
+--	guestLogin:addTouchEventListener(btcallback)
 
 	--微信登陆
 	local weChatLogin = ccui.Button:create("Logon/thrid_part_wx_0.png", "Logon/thrid_part_wx_1.png", "Logon/thrid_part_wx_2.png")
@@ -131,21 +131,21 @@ function LogonView:ctor(serverConfig)
 	-- 	or (cc.PLATFORM_OS_ANDROID == targetPlatform) then
 
 		--帐号提示
-		--accountTip:setVisible(false)
+		accountTip:setVisible(false)
 		--账号输入
-		--self.edit_Account:setVisible(false)
+		self.edit_Account:setVisible(false)
 		--密码提示
-		--pwdTip:setVisible(false)
+		pwdTip:setVisible(false)
 		--密码输入
-		--self.edit_Password:setVisible(false)
+		self.edit_Password:setVisible(false)
 		-- 忘记密码
-		--forgetPWD:setVisible(false)
+		forgetPWD:setVisible(false)
 		--记住密码
-		--self.cbt_Record:setVisible(false)
+		self.cbt_Record:setVisible(false)
 		--账号登录
 		--accountLogin:setVisible(false)
 		--注册按钮
-		--registBtn:setVisible(false)
+		registBtn:setVisible(false)
 		--游客登录
 		--guestLogin:setVisible(true)
 
