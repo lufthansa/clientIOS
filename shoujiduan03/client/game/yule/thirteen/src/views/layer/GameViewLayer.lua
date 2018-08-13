@@ -1356,20 +1356,20 @@ function GameViewLayer:gameStartStart(cbCardData,specialType)
 	    end
 	end
 	-- if not bHasJoker then
-		self.handCard[1] = 6
-	    self.handCard[2] = 1
-	    self.handCard[3] = 23
-	    self.handCard[4] = 33
-	    self.handCard[5] = 4
-	    self.handCard[6] = 5
+		-- self.handCard[1] = 6
+	 --    self.handCard[2] = 1
+	 --    self.handCard[3] = 23
+	 --    self.handCard[4] = 33
+	 --    self.handCard[5] = 4
+	 --    self.handCard[6] = 5
 
-	    self.handCard[7] = 7
-	    self.handCard[8] = 28
-	    self.handCard[9] = 9
-	    self.handCard[10] = 10
-	    self.handCard[11] = 11
-	    self.handCard[12] = 12
-	    self.handCard[13] = 13
+	 --    self.handCard[7] = 7
+	 --    self.handCard[8] = 28
+	 --    self.handCard[9] = 9
+	 --    self.handCard[10] = 10
+	 --    self.handCard[11] = 11
+	 --    self.handCard[12] = 12
+	 --    self.handCard[13] = 13
 
 	-- end
 
