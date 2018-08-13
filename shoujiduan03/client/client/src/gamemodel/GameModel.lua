@@ -269,7 +269,8 @@ function GameModel:onEventUserStatus(useritem,newstatus,oldstatus)
     if oldstatus.wTableID == MyTable then
         local viewid = self:SwitchViewChairID(oldstatus.wChairID)
         if viewid and viewid ~= yl.INVALID_CHAIR then
-            self._gameView:OnUpdateUser(viewid, nil, useritem.cbUserStatus == yl.US_FREE)
+            -- change by, 2018.8.13, 第二个参数要改成useritem
+            self._gameView:OnUpdateUser(viewid, useritem, useritem.cbUserStatus == yl.US_FREE)
             if PriRoom then
                 PriRoom:getInstance():onEventUserState(viewid, useritem, true)
             end
