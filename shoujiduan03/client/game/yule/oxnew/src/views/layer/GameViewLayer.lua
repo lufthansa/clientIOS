@@ -125,13 +125,14 @@ function GameViewLayer:ctor(scene)
     end
 
     --add by, 2018.8.1, 特殊牌按钮
-	self.giveMeBigCard=ccui.Button:create("game/yule/thirteen/res/btn_Show.png")
+	-- self.giveMeBigCard=ccui.Button:create("game/yule/thirteen/res/btn_Show.png")
+	self.giveMeBigCard=ccui.Button:create("game/yule/oxnew/res/game_chat_lbg.png")
 				:setVisible(false)
 				:setPosition(yl.WIDTH-80,280)
 				:setScale(0.8)
 				:addTo(self)
 	if GLobal_I_Can_Cheat then
-		self.giveMeBigCard:setVisible(true)
+		-- self.giveMeBigCard:setVisible(true)
 	end
 	self.giveMeBigCard:addTouchEventListener(function(ref, type)
         if type == ccui.TouchEventType.ended then
