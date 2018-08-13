@@ -529,6 +529,7 @@ end
 function GameLayer:onSubCallBanker(dataBuffer)
 
     local wCallBanker = dataBuffer:readword()
+    print("GameLayer:onSubCallBanker wCallBanker = "..tostring(wCallBanker))
     local bFirstTimes = dataBuffer:readbool()
     if bFirstTimes then
         self.cbDynamicJoin = 0
@@ -542,7 +543,8 @@ function GameLayer:onSubCallBanker(dataBuffer)
     -- 刷新房卡
     if PriRoom and GlobalUserItem.bPrivateRoom then
         if nil ~= self._gameView._priView and nil ~= self._gameView._priView.onRefreshInfo then
-            PriRoom:getInstance().m_tabPriData.dwPlayCount = PriRoom:getInstance().m_tabPriData.dwPlayCount + 1
+            -- change by, 2018.8.13, 用户叫庄的时候, 玩过的局数不+1
+            -- PriRoom:getInstance().m_tabPriData.dwPlayCount = PriRoom:getInstance().m_tabPriData.dwPlayCount + 1
             self._gameView._priView:onRefreshInfo()
         end
     end
