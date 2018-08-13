@@ -112,7 +112,7 @@ local pointAnimalCard = {cc.p(1070, 630), cc.p(320, 405), cc.p(700, 250), cc.p(1
 local pointdaqiangAni_Dangkong = {cc.p(35, 90), cc.p(-10, -10), cc.p(15, 20)} -- 枪孔位置1
 
 
-local AnimationRes = 
+local AnimationRes =
 {
 	{name = "banker", file = GameViewLayer.RES_PATH.."animation_banker/banker_", nCount = 11, fInterval = 0.2, nLoops = 1},
 	{name = "faceFlash", file = GameViewLayer.RES_PATH.."animation_faceFlash/faceFlash_", nCount = 2, fInterval = 0.6, nLoops = 3},
@@ -144,9 +144,9 @@ function GameViewLayer:onInitData()
 	self.cbStraightCount = 0
 	self.cbKingLeftCount = 0
 	self.bSetShunZiBegin = false
-	
+
 	self.daqian_Node={{},{},{}}
-	
+
 	self._daqian_sp=nil
     ---牌坐标
     self._playCardPoin={{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}}
@@ -187,7 +187,7 @@ function GameViewLayer:ctor(scene)
 	self._scene = scene
 	self:onInitData()
 	self:preloadUI()
-    
+
 	print("进入游戏 打印自己的id GameViewLayer:ctor GlobalUserItem.dwUserID = "..tostring(GlobalUserItem.dwUserID))
 
 	--节点事件
@@ -251,20 +251,20 @@ function GameViewLayer:ctor(scene)
 	if GlobalUserItem.bVoiceAble then
 		AudioEngine.playMusic(GameViewLayer.RES_PATH.."sound/backMusic.mp3", true)
 	end
-	
+
 	MenuBg = display.newSprite(GameViewLayer.RES_PATH.."bg.png")
 	                :setVisible(false)
 		            :setAnchorPoint(0.5,1)
 		            :move(yl.WIDTH - 100, yl.HEIGHT - 60)
 		            :setScaleY(0.8)
 		            :addTo(self)
-	self.btSound = ccui.CheckBox:create(GameViewLayer.RES_PATH.."bt_sound_0.png", 
+	self.btSound = ccui.CheckBox:create(GameViewLayer.RES_PATH.."bt_sound_0.png",
                                         GameViewLayer.RES_PATH.."bt_sound_0.png",
                                         GameViewLayer.RES_PATH.."bt_sound_1.png",
                                         GameViewLayer.RES_PATH.."bt_sound_1.png",
                                         GameViewLayer.RES_PATH.."bt_sound_1.png")
-                                      --"bt_sound_0.png", "bt_sound_1.png", 
-                                       --"bt_soundOff_0.png", "bt_soundOff_1.png", 
+                                      --"bt_sound_0.png", "bt_sound_1.png",
+                                       --"bt_soundOff_0.png", "bt_soundOff_1.png",
                                        --"bt_soundOff_1.png", ccui.TextureResType.plistType)
 		:move(90, 120)
 		:setTag(GameViewLayer.BT_SOUND)
@@ -272,8 +272,8 @@ function GameViewLayer:ctor(scene)
 		:setSelected(not bAble)
 		:addTo(MenuBg)
 	self.btSound:addTouchEventListener(btcallback)
-	
-	self.btSoundEffect =ccui.CheckBox:create(GameViewLayer.RES_PATH.."bt_sound_effect.png", 
+
+	self.btSoundEffect =ccui.CheckBox:create(GameViewLayer.RES_PATH.."bt_sound_effect.png",
                                              GameViewLayer.RES_PATH.."bt_sound_effect.png",
                                              GameViewLayer.RES_PATH.."bt_sound_effect_off.png",
                                              GameViewLayer.RES_PATH.."bt_sound_effect_off.png",
@@ -306,7 +306,7 @@ function GameViewLayer:ctor(scene)
 		:setVisible(true)
 		:addTo(self)
 	self.btSwitch:addTouchEventListener(btcallback)
-	
+
 	--特殊牌按钮
 	self.btnShow=ccui.Button:create("game/yule/thirteen/res/btn_Show.png")
 				:setVisible(false)
@@ -337,9 +337,9 @@ function GameViewLayer:ctor(scene)
 		:setTag(GameViewLayer.BT_START)
 		:addTo(self)
 	self.btStart:addTouchEventListener(btcallback)
-	
-	
-	
+
+
+
 	self.btShowEnd = ccui.Button:create(GameViewLayer.RES_PATH.."show.png")
 		:move(239.13, 103.68)
 		:setVisible(false)
@@ -363,7 +363,7 @@ function GameViewLayer:ctor(scene)
 	self.btCancel:addTouchEventListener(btcallback)
 
     -- 语音按钮
-    self:getParentNode():getParentNode():createVoiceBtn(cc.p(1270, 200), 0, top)	
+    self:getParentNode():getParentNode():createVoiceBtn(cc.p(1270, 200), 0, top)
 
 	--四个下注的筹码按钮
 	self.btChip = {}
@@ -389,7 +389,7 @@ function GameViewLayer:ctor(scene)
 		:move(333, yl.HEIGHT-20)
 		:setVisible(false)
 		:addTo(self)
-		
+
 	--牌提示背景
 	self.spritePrompt = display.newSprite("#prompt.png")
 		:move(display.cx, display.cy - 108)
@@ -447,7 +447,7 @@ function GameViewLayer:ctor(scene)
 		--昵称
 		--self.nicknameConfig = string.getConfig("fonts/round_body.ttf", 18)
 		--cc.Label:createWithTTF("小白狼大白兔", "fonts/round_body.ttf", 18)
-		local nickName = cc.Label:createWithSystemFont("nickName","Arial", 25) 
+		local nickName = cc.Label:createWithSystemFont("nickName","Arial", 25)
 			:move(3, -35)
 			:setScaleX(0.8)
 			:setColor(cc.c3b(255,255,0))
@@ -455,14 +455,14 @@ function GameViewLayer:ctor(scene)
 			:addTo(self.nodePlayer[i])
 		--金币
 		--cc.LabelAtlas:_create("123456", GameViewLayer.RES_PATH.."num_room.png", 35, 37, string.byte("0"))
-		local labelNum = cc.Label:createWithSystemFont("123456789", "Arial", 20) 
-			:setColor(cc.c3b(255, 255, 255))  
+		local labelNum = cc.Label:createWithSystemFont("123456789", "Arial", 20)
+			:setColor(cc.c3b(255, 255, 255))
 			:move(3, -64)
 			:setAnchorPoint(cc.p(0.5, 0.5))
 			:setTag(GameViewLayer.SCORE)
 			--:setScale(1.5)
 			:addTo(self.nodePlayer[i])
-			
+
 		local labelSign = cc.Label:createWithSystemFont("-", "Arial", 20)
 			:setColor(cc.c3b(255, 255, 255))
 			:move(-15,-63)
@@ -470,7 +470,7 @@ function GameViewLayer:ctor(scene)
 			:setAnchorPoint(cc.p(1,0.5))
 			:setTag(GameViewLayer.SIGN_MINUS)
             :addTo(self.nodePlayer[i])
-			
+
 		--[[local sign = display.newSprite(GameViewLayer.RES_PATH.."sign_minus.png")
 		   :move(-15,-63)
             :setVisible(false)
@@ -508,8 +508,8 @@ function GameViewLayer:ctor(scene)
 			self.BgCard[i]:setAnchorPoint(0,0.5)
 			self.BgCard[i]:move(pointCard[i].x-100,pointCard[i].y)
 		end
-			
-		
+
+
 	end
 
 	--自己方牌框
@@ -581,7 +581,7 @@ function GameViewLayer:ctor(scene)
 			:move(pointOpenCard[i])
 			:setVisible(false)
 			:addTo(self)
-		
+
 	end
 
 	self.nodeLeaveCard = cc.Node:create():addTo(self)
@@ -610,8 +610,8 @@ function GameViewLayer:ctor(scene)
 				:setVisible(false)
 				:addTo(self, 2)
 		end
-		
-		
+
+
 	end
 
     self:createCardButton(btcallback)
@@ -626,12 +626,12 @@ function GameViewLayer:ctor(scene)
 	-- 用户信息
     self.m_tabUserItem = {}
 	self:createSpecialCard()
-	
+
 	--播放声音用的
 	self.m_sound = cc.Label:createWithTTF("","fonts/round_body.ttf",24)
 	self.m_sound:setVisible(false)
 	self.m_sound:addTo(self)
-	
+
 	--播放特殊牌声音
 	self.m_specialSound = {}
 	for i = 1,cmd.GAME_PLAYER do
@@ -639,10 +639,10 @@ function GameViewLayer:ctor(scene)
 		self.m_specialSound[i]:setVisible(false)
 		self.m_specialSound[i]:addTo(self)
 	end
-	
+
 	--特殊牌界面
 	self.m_specialCardLayer = nil
-	
+
 	--拉牌功能
 	self.m_bRunClick = false
 	--当前牌move到的索引
@@ -659,7 +659,7 @@ function GameViewLayer:ctor(scene)
     self:newSpriteTeshupai()
 end
 
-    
+
 function GameViewLayer:onResetView()
 	self.nodeLeaveCard:removeAllChildren()
 	self.spriteBankerFlag:setVisible(false)
@@ -735,13 +735,13 @@ function GameViewLayer:OnUpdateUser(viewId, userItem)
 		return
 	end
 
-    
-    
+
+
 	local head = self.nodePlayer[viewId]:getChildByTag(GameViewLayer.FACE)
 	if not userItem then
 		self.nodePlayer[viewId]:setVisible(false)
 		self.flag_ready[viewId]:setVisible(false)
-		
+
 		if head then
 			head:setVisible(false)
 		end
@@ -766,10 +766,10 @@ function GameViewLayer:OnUpdateUser(viewId, userItem)
 
 		self.flag_ready[viewId]:setVisible(yl.US_READY == userItem.cbUserStatus)
 		self.OffLine[viewId]:setVisible(userItem.cbUserStatus == yl.US_OFFLINE)
-		
-		
-		
-		
+
+
+
+
 		if userItem.cbUserStatus == yl.US_OFFLINE then
 		    self.PlaceCard[viewId]:setVisible(false)
 		    self.BgCard[viewId]:setVisible(false)
@@ -778,7 +778,7 @@ function GameViewLayer:OnUpdateUser(viewId, userItem)
 			    if self.aniCardBack[viewId][i]:isVisible() or self.btStart:isVisible() then --and  self.playAniEnd_bool == true then
 			       self.PlaceCard[viewId]:setVisible(false)
 		           self.BgCard[viewId]:setVisible(false)
-				else	
+				else
 					if  viewId ~= 3 then
 				        self.PlaceCard[viewId]:setVisible(true)
 		                self.BgCard[viewId]:setVisible(true)
@@ -786,7 +786,7 @@ function GameViewLayer:OnUpdateUser(viewId, userItem)
 				end
 			end
 		end
-     
+
 		if not head then
 
 			head = PopupInfoHead:createNormal(userItem, 85)
@@ -832,8 +832,8 @@ end
 local num = 0
 function GameViewLayer:onEventTouchCallback(eventType, x, y)
 	if m_bGameEnd == false then
-		
-		if eventType == "began" then 
+
+		if eventType == "began" then
 	num = 1
 	if self.bBtnInOutside then
 		self:onButtonSwitchAnimate(true)
@@ -872,7 +872,7 @@ function GameViewLayer:onEventTouchCallback(eventType, x, y)
 		return false
 	end
 elseif eventType == "ended" then
-	
+
 	--bMoveUp = true
 	--用于触发手牌
 	if self.bCanMoveCard ~= true then
@@ -898,11 +898,11 @@ elseif eventType == "ended" then
 		end
 		self.bCardOut[upIndex] = not self.bCardOut[upIndex]
 		return true
-		
+
 	end
 
-	
-	
+
+
 	--三墩牌的区域点击响应
 	--print("x = "..x..",y = "..y)
 	for i = 1, 3 do
@@ -926,9 +926,9 @@ elseif eventType == "ended" then
 end
 
 return true
-		
+
 	end
-	
+
 
 end
 local m_nNum=0
@@ -944,7 +944,7 @@ function GameViewLayer:onButtonClickedEvent(tag,ref)
        --     return
        --   end
      --  end
-       
+
 		self._scene:onQueryExitGame()
 	elseif tag == GameViewLayer.BT_OutCard then
 		--判断是否倒水
@@ -986,13 +986,13 @@ function GameViewLayer:onButtonClickedEvent(tag,ref)
 		--self:promptOx()
 	elseif tag == GameViewLayer.BT_START then
 		self.btStart:setVisible(false)
-		
+
 		self._scene:onStartGame()
 
 		--local cescard={0x31, 0x1D, 0x0D, 0x2B, 0x1A, 0x28, 0x26, 0x25, 0x27, 0x15, 0x14, 0x23, 0x24}
         --self:gameStartStart(cescard,13)
-		
-		
+
+
         --local cescard={0x07,0x0B,0x0B,0x0C,0x0C, 0x16,0x19,0x19,0x1C,0x1C, 0x22, 0x23, 0x24}
 
         --self:gameStartStart(cescard,0)
@@ -1008,10 +1008,10 @@ function GameViewLayer:onButtonClickedEvent(tag,ref)
 		--测试打枪
 		--self:addDaqian_Animation(self,1,5)
 		--self:hideAllQiangKong(false)
-		--self:ShowPlayQiangKong(5)		
-		
-		
-		
+		--self:ShowPlayQiangKong(5)
+
+
+
         --[[display.newSprite()
 			:move(display.center)
 			:addTo(self)
@@ -1080,7 +1080,7 @@ function GameViewLayer:onButtonClickedEvent(tag,ref)
 		local index = tag - GameViewLayer.BT_CHIP
 		self._scene:onAddScore(self.lUserMaxScore[index])
 	elseif tag == GameViewLayer.BT_CHAT then
-		if m_bTach then 
+		if m_bTach then
 			self._chatLayer:showGameChat(true)
 		end
 	elseif tag == GameViewLayer.BT_SWITCH then
@@ -1106,7 +1106,7 @@ function GameViewLayer:onButtonClickedEvent(tag,ref)
 			--GlobalUserItem.nSound = cc.UserDefault:getInstance():getIntegerForKey("soundvalue",0)
 			AudioEngine.setEffectsVolume(0)
 			AudioEngine.stopAllEffects()--暂停所有音效
-		else 
+		else
 			AudioEngine.resumeAllEffects()
 		end
 	elseif tag == GameViewLayer.BT_TAKEBACK then
@@ -1155,7 +1155,7 @@ function GameViewLayer:onButtonClickedEvent(tag,ref)
 		local cbSingleCount = self:Hulu(self.handCard , #self.handCard,cbOutIndex);
 		self:resetCardOut()
 		self:setMyCardArrayUp(cbOutIndex)
-		self:playCardSound(GameViewLayer.moveCard)	
+		self:playCardSound(GameViewLayer.moveCard)
 	elseif tag == GameViewLayer.BT_Junko then
 		local cbOutCardData = {}
 		local count = self:ShunZi(self.handCard , #self.handCard,cbOutCardData)
@@ -1183,7 +1183,7 @@ function GameViewLayer:onButtonClickedEvent(tag,ref)
 			if #cbOutCardData > 0 then
 				self:resetCardOut()
 				self:setMyCardArrayUp(cbOutIndex)
-				self:playCardSound(GameViewLayer.moveCard)	
+				self:playCardSound(GameViewLayer.moveCard)
 			end
 		end
 	elseif tag == GameViewLayer.BT_Flush1 then
@@ -1191,7 +1191,7 @@ function GameViewLayer:onButtonClickedEvent(tag,ref)
 		GameLogic:SortCardList(self.handCard, #self.handCard , GameLogic.enDescend)
 		local cbSingleCount = self:TongHua(self.handCard , #self.handCard,cbOutIndex);
 		self:resetCardOut()
-		self:setMyCardArrayUp(cbOutIndex)	
+		self:setMyCardArrayUp(cbOutIndex)
 		self:playCardSound(GameViewLayer.moveCard)
 	elseif tag == GameViewLayer.BT_Flush01 then
 		local cbOutCardData = {}
@@ -1219,7 +1219,7 @@ function GameViewLayer:onButtonClickedEvent(tag,ref)
 			end
 			if #cbOutCardData > 0 then
 				self:resetCardOut()
-				self:setMyCardArrayUp(cbOutIndex)	
+				self:setMyCardArrayUp(cbOutIndex)
 				self:playCardSound(GameViewLayer.moveCard)
 			end
 		end
@@ -1315,9 +1315,9 @@ function GameViewLayer:gameStartStart(cbCardData,specialType)
 		if self.m_head[i]  then
 			self.m_head[i]:setshowHead(false)
 		end
-	
+
 	end
-	
+
 
 	m_bGameEnd = false
 
@@ -1337,10 +1337,10 @@ function GameViewLayer:gameStartStart(cbCardData,specialType)
 			self.m_specialCardLayer:setVisible(true)
 		end
 	end
-	
-	
-	
-	
+
+
+
+
 	GameLogic:SortCardList(cbCardData,#cbCardData,GameLogic.enDescend);
     self:setEnableCardButton(false)
     self:setVisbileCardButton(true)
@@ -1356,20 +1356,21 @@ function GameViewLayer:gameStartStart(cbCardData,specialType)
 	    end
 	end
 	-- if not bHasJoker then
-		-- self.handCard[1] = 6
-	 --    self.handCard[2] = 1
-	 --    self.handCard[3] = 23
-	 --    self.handCard[4] = 33
-	 --    self.handCard[5] = 4
-	 --    self.handCard[6] = 5
 
-	 --    self.handCard[7] = 7
-	 --    self.handCard[8] = 28
-	 --    self.handCard[9] = 9
-	 --    self.handCard[10] = 10
-	 --    self.handCard[11] = 11
-	 --    self.handCard[12] = 12
-	 --    self.handCard[13] = 13
+	--	self.handCard[1] = 6
+	--    self.handCard[2] = 1
+	--    self.handCard[3] = 23
+	--    self.handCard[4] = 33
+	--    self.handCard[5] = 4
+	--    self.handCard[6] = 5
+
+	--    self.handCard[7] = 7
+	--    self.handCard[8] = 28
+	--    self.handCard[9] = 9
+	--    self.handCard[10] = 10
+	--    self.handCard[11] = 11
+	--    self.handCard[12] = 12
+	--    self.handCard[13] = 13
 
 	-- end
 
@@ -1386,7 +1387,7 @@ function GameViewLayer:gameStartStart(cbCardData,specialType)
 	self.btOutCard:setVisible(false)
 	self.btRecover:setVisible(false)
 
-    
+
 	--隐藏枪孔
 	self:hideAllQiangKong(false)
     ---清除特殊牌显示
@@ -1399,7 +1400,7 @@ function GameViewLayer:gameStart()
     self.bCanMoveCard = true
     local index = self._scene:GetMeChairID() + 1
 	--特殊牌型的值在13-15之间
-	
+
     for i = 1,cmd.GAME_PLAYER do
         local wViewChairId = self._scene:SwitchViewChairID(i - 1)
 	    if self.nodePlayer[wViewChairId]:isVisible() then
@@ -1412,8 +1413,8 @@ function GameViewLayer:gameStart()
 		    end
 		end
 	end
-			
-	assert(self._scene.cbSpecialCard[index] == 0 or 
+
+	assert(self._scene.cbSpecialCard[index] == 0 or
 	(self._scene.cbSpecialCard[index] >= 13 and self._scene.cbSpecialCard[index] <= 25) )
 	local specialType = nil
 	if self._scene.cbSpecialCard[index] ~= 0 then
@@ -1431,13 +1432,13 @@ function GameViewLayer:gameAddScore(viewId, score)
 	local mScore = (lScore - score)
 	if mScore >= 0 then
 		mScore = mScore
-		self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SIGN_MINUS):setVisible(false)	
-    else 
+		self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SIGN_MINUS):setVisible(false)
+    else
 		mScore = 0-mScore
-		self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SIGN_MINUS):setVisible(true)	
+		self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SIGN_MINUS):setVisible(true)
 	end
     self:setScore(viewId, mScore)
-	
+
 end
 
 function GameViewLayer:gameSendCard()
@@ -1451,7 +1452,7 @@ function GameViewLayer:gameOpenCard(wViewChairId,cbCardData,cbSpecial)
 	--设置13墩牌背可见
     --assert(#cbCardData == cmd.HAND_CARD_COUNT and wViewChairId >= 1 and wViewChairId <= cmd.GAME_PLAYER)
 	self:setAniCardBackVisible(wViewChairId,true)
-	
+
 	if cbCardData == nil then
 		return
 	end
@@ -1465,7 +1466,7 @@ function GameViewLayer:gameOpenCard(wViewChairId,cbCardData,cbSpecial)
 			rectCard.y = rectCard.height*color
 			card:setTextureRect(rectCard)
 	end
-	
+
 end
 
 ---比牌
@@ -1521,15 +1522,15 @@ function GameViewLayer:gameEnd(cbArrangeCard,everyDunAmount,final,gunUser,bSpeci
 	else
 		self:showGameEndLayer()
 	end
-	
+
     if self.m_layerEnd == nil then
 		self.m_layerEnd = GameEndLayer:create(self)
 		self.m_layerEnd:setBtnVisible(false)
 		self.m_layerEnd:addTo(self,65)
         self.m_layerEnd:setVisible(false)
     end
-    
-	
+
+
 end
 function GameViewLayer:gameScenePlaying()
 	if self._scene.cbDynamicJoin == 0 then
@@ -1555,7 +1556,7 @@ function GameViewLayer:setCardTextureRect(viewId, tag, cardValue, cardColor,spW)
 		print("card texture rect error!")
 		return
 	end
-	
+
 	local card = self.nodeCard[viewId]:getChildByTag(tag)
 	local rectCard = card:getTextureRect()
 	rectCard.x = rectCard.width*(cardValue - 1)
@@ -1584,7 +1585,7 @@ function GameViewLayer:setScore(viewId, lScore)
 		local minus = self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SIGN_MINUS)
 		minus:setVisible(false)
 		labelScore:setString(lScore)
-		
+
 	else
 		local minus = self.nodePlayer[viewId]:getChildByTag(GameViewLayer.SIGN_MINUS)
 		minus:setVisible(true)
@@ -1598,7 +1599,7 @@ function GameViewLayer:setScore(viewId, lScore)
 		local posX = x1 - width/2
 		minus:setPosition(posX,y)
 	end
-	
+
 
 	local labelWidth = labelScore:getContentSize().width
 	if labelWidth > 96 then
@@ -1618,7 +1619,7 @@ end
 
 function GameViewLayer:setUserScore(wViewChairId, lScore)
 	self.nodePlayer[wViewChairId]:getChildByTag(GameViewLayer.SCORE):setString(lScore)
-	                             
+
 end
 
 function GameViewLayer:setReadyVisible(wViewChairId, isVisible)
@@ -1719,7 +1720,7 @@ end
 --检查牌类型
 function GameViewLayer:updateCardPrompt()
 	--弹出牌显示，统计和
-	
+
 end
 
 function GameViewLayer:preloadUI()
@@ -1814,7 +1815,7 @@ function GameViewLayer:userChat(wViewChairId, chatString)
 
 		--创建label
 		local limWidth = 24*12
-		local labCountLength = cc.Label:createWithSystemFont(chatString,"Arial", 24)  
+		local labCountLength = cc.Label:createWithSystemFont(chatString,"Arial", 24)
 		if labCountLength:getContentSize().width > limWidth then
 			self.chatDetails[wViewChairId] = cc.Label:createWithSystemFont(chatString,"Arial", 24, cc.size(limWidth, 0))
 		else
@@ -1951,7 +1952,7 @@ function GameViewLayer:runWinLoseAnimate(viewid, score)
 
 	node:runAction(cc.Sequence:create(
 		cc.Spawn:create(
-			cc.MoveBy:create(nTime, cc.p(0, 200)), 
+			cc.MoveBy:create(nTime, cc.p(0, 200)),
 			cc.FadeIn:create(nTime)
 		),
 		cc.DelayTime:create(2),
@@ -2066,7 +2067,7 @@ function GameViewLayer:createCardButton(btcallback)
 	self.btFiveWith:addTo(self)
 	self.btFiveWith:addTouchEventListener(btcallback)
 
-    
+
 
 end
 ---显示按钮
@@ -2139,7 +2140,7 @@ function GameViewLayer:EnableShunZilButton(cbInCardData)
 	-- change by Owen, 2018.5.1, 有王的时候要存5个
     for i = 1, 5 do
         evColorList[i] = {};
-    end 
+    end
 	local bCardArray = {}; --size = 13
 	local bNeedCCount = 5;
 	local bMaxCardData = {};--5
@@ -2186,7 +2187,7 @@ function GameViewLayer:EnableShunZilButton(cbInCardData)
             local temp11 = 0;
             if i == 6 then
                 temp11 = #evCardList[15];
-            else    
+            else
                 temp11 = #evCardList[i-4];
             end
             bHaveCard[5] = (temp11 > 0);
@@ -2284,11 +2285,11 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
             --没王暂时不处理
 			--evCardList[1].AddTail(bCardArray[i]);
 			--continue;
-			
+
 			-- change by Owen, 2018.5.2, 把王牌的插入移到这里
         	table.insert(evCardList[1],bCardArray[i]);
         else
-			
+
 
 			--保存其他
 			local bLogicNum = GameLogic:GetCardLogicValue(bCardArray[i]);
@@ -2341,9 +2342,9 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 							return;
 						end
 					end
-				
+
 					if (GameLogic:GetCardValue(evColorList[i][1]) == 1 and						--检查A2345顺
-						GameLogic:GetCardValue(evColorList[i][#evColorList[i]-4]) == 5) then	
+						GameLogic:GetCardValue(evColorList[i][#evColorList[i]-4]) == 5) then
 						bMaxCardData[1] = evColorList[i][1];
 						for k = 2,5 do
 							bMaxCardData[k] = evColorList[i][#evColorList[i]-k];
@@ -2361,7 +2362,7 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 						local bFstCard = evColorList[i][j];
 						local bLstCard = evColorList[i][j+3];
 
-						if ( (GameLogic:GetCardLogicValue(bFstCard) -  GameLogic:GetCardLogicValue(bLstCard) == 3) or 
+						if ( (GameLogic:GetCardLogicValue(bFstCard) -  GameLogic:GetCardLogicValue(bLstCard) == 3) or
 							(GameLogic:GetCardLogicValue(bFstCard) -  GameLogic:GetCardLogicValue(bLstCard) == 4) ) then
 							bMaxCardData[1] = evCardList[1][1];
 							for k = 1,4 do
@@ -2372,7 +2373,7 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 							--m_btTongHuaShun.EnableWindow(true);
 							return ;
 						end
-					end 
+					end
 
 					if (GameLogic:GetCardValue(evColorList[i][1]) == 1 and						--检查A2345顺
 						GameLogic:GetCardValue(evColorList[i][(#evColorList[i]-3)]) <= 5)	then
@@ -2393,14 +2394,14 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 						local bLstCard = evColorList[i][j+2];
 
 						if ( (GameLogic:GetCardLogicValue(bFstCard) -  GameLogic:GetCardLogicValue(bLstCard) == 2) or
-							(GameLogic:GetCardLogicValue(bFstCard) -  GameLogic:GetCardLogicValue(bLstCard) == 3) or 
+							(GameLogic:GetCardLogicValue(bFstCard) -  GameLogic:GetCardLogicValue(bLstCard) == 3) or
 							(GameLogic:GetCardLogicValue(bFstCard) -  GameLogic:GetCardLogicValue(bLstCard) == 4)) then
 							bMaxCardData[1] = evCardList[1][1];
 							bMaxCardData[2] = evCardList[1][(#evCardList[1])];
 							for k = 1,3 do
 								bMaxCardData[k+2] = evColorList[i][(j+k)];
 							end
-								
+
 							bMaxCardCount = 5;
                             self.btFlush01:setEnabled(true)
 							--m_btTongHuaShun.EnableWindow(true);
@@ -2408,7 +2409,7 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 						end
 					end
 					if (GameLogic:GetCardValue(evColorList[i][1]) == 1 and						--检查A2345顺
-						GameLogic:GetCardValue(evColorList[i][(#evColorList[i]-2)]) <= 5) then	
+						GameLogic:GetCardValue(evColorList[i][(#evColorList[i]-2)]) <= 5) then
 						bMaxCardData[1] = evCardList[1][1];
 						bMaxCardData[2] = evCardList[1][(#evCardList[1])];
 						bMaxCardData[3] = evColorList[i][1];
@@ -2423,7 +2424,7 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 				end
 			end
         end
-		
+
 	end
 end
 ]]
@@ -2506,7 +2507,7 @@ function  GameViewLayer:createArrangeCardFrame()
 	self.spriteArrange:setScaleY(1.3)
 	self.spriteArrange:setScaleX(1.5)
     self.spriteArrange:setVisible(false)
-	
+
 	--self.spriteArrange:setLocalZOrder(50)
 	self.spriteArrange:addTo(self,50)
 	--创建显示的大墩牌精灵
@@ -2565,7 +2566,7 @@ end
 --一些相关按钮创建
 function GameViewLayer:createOtherButton(btcallback)
 	-- body
-    local x = pointArrangeCardFrame.x + self.spriteArrange:getContentSize().width/2 - 60  
+    local x = pointArrangeCardFrame.x + self.spriteArrange:getContentSize().width/2 - 60
     local y = pointArrangeCardFrame.y;
 	self.btX1 = ccui.Button:create(GameViewLayer.RES_PATH.."cardArrange/XButton1.png",
 	    GameViewLayer.RES_PATH.."cardArrange/XButton2.png")
@@ -2611,7 +2612,7 @@ function GameViewLayer:createOtherButton(btcallback)
     self.btRecover:move(pointArrangeCardFrame.x - 100,y - 450 )
 	self.btRecover:addTo(self)
 	self.btRecover:addTouchEventListener(btcallback)
-	
+
 end
 --点击墩牌区域回调
 function GameViewLayer:clickArrangeRow(rowIndex)
@@ -2653,7 +2654,7 @@ function GameViewLayer:clickArrangeRow(rowIndex)
             for i = count,1,-1 do
                 table.remove(self.handCard,arrayIndex[i])
             end
-            
+
      	elseif tempCount + #self.arrangeCard[rowIndex] > count then -- 选择的牌的数量与已经选择的牌的数量会大于显示的数量
      		--要把数据插回到下方的牌的数组里
 	      	for i = 1,#self.arrangeCard[rowIndex] do
@@ -2698,7 +2699,7 @@ function GameViewLayer:clickArrangeRow(rowIndex)
                 for i = hcardnum,1,-1 do
                     table.remove(self.handCard,i)
                 end
-                --显示墩牌	    
+                --显示墩牌
                 self:showAnrrageRow(1)
             end
            elseif hcardnum ==5 then
@@ -2711,7 +2712,7 @@ function GameViewLayer:clickArrangeRow(rowIndex)
                     for i = hcardnum,1,-1 do
                         table.remove(self.handCard,i)
                     end
-                    --显示墩牌	    
+                    --显示墩牌
                     self:showAnrrageRow(2)
                elseif d3==3 and m5 ==5 then
                     self.arrangeCard[3] = {}
@@ -2722,7 +2723,7 @@ function GameViewLayer:clickArrangeRow(rowIndex)
                     for i = hcardnum,1,-1 do
                         table.remove(self.handCard,i)
                     end
-                    --显示墩牌	    
+                    --显示墩牌
                     self:showAnrrageRow(3)
                 end
 
@@ -2736,9 +2737,9 @@ function GameViewLayer:clickArrangeRow(rowIndex)
 	    self:hideAllMyCard(cmd.MY_VIEWID)
 	    self:showMyCard(self.handCard)
 	    self:setCardButtonEnable()
-        --显示墩牌	    
+        --显示墩牌
         self:showAnrrageRow(rowIndex)
-        
+
 end
 --显示墩牌
 function GameViewLayer:showAnrrageRow(rowIndex)
@@ -2750,7 +2751,7 @@ function GameViewLayer:showAnrrageRow(rowIndex)
 	else
 		count = 5
 	end
-	
+
 	for i = 1,count do
 		self.nodeRowCard[rowIndex][i]:setVisible(false)
 	end
@@ -2767,7 +2768,7 @@ function GameViewLayer:showAnrrageRow(rowIndex)
 			card:setTextureRect(rectCard)
 			card:setVisible(true)
 	end
-	
+
 end
 --撤回墩上的牌
 function GameViewLayer:clickXButton(index)
@@ -2810,7 +2811,7 @@ function GameViewLayer:clickRecoverButton()
             self.arrangeCard[index] = {}
 		end
 	end
-    
+
     self:resetCardOut()
 	self:setEnableCardButton(false)
 	self:hideAllMyCard(cmd.MY_VIEWID)
@@ -2845,8 +2846,8 @@ function GameViewLayer:createOpenCardAniamal()
 			--self.aniCardBack[j][i]:setLocalZOrder(20)
 		    self.aniCardBack[j][i]:addTo(self,20)
 	    end
-   		
-		
+
+
         count = 5
         for i = 1, count do
             self.aniCardBack[j][i + 3] = display.newSprite(GameViewLayer.RES_PATH.."cardArrange/SmallCard.png")
@@ -2869,12 +2870,12 @@ function GameViewLayer:createOpenCardAniamal()
 	    for i=1 , 3 do  --打枪图片
 		  self.daqian_Node[j][i] = display.newSprite(GameViewLayer.RES_PATH.."BulletHoles.png")
 		  self.daqian_Node[j][i]:move(pointAnimalCard[j].x-pointdaqiangAni_Dangkong[i].x,pointAnimalCard[j].y-pointdaqiangAni_Dangkong[i].y)
-		  self.daqian_Node[j][i]:setVisible(false) --隐藏 
+		  self.daqian_Node[j][i]:setVisible(false) --隐藏
 		  self.daqian_Node[j][i]:addTo(self,35)
-		
-		end			
-		
-		
+
+		end
+
+
     end
     --牌前花色
     self.aniCardFont = {}
@@ -2919,7 +2920,7 @@ function GameViewLayer:createOpenCardAniamal()
 		    self.aniCardFont[j][i + 8]:addTo(self,32)
         end
     end
-	
+
 end
 function GameViewLayer:setAniCardFontVisible( viewID,bVisible )
 	-- body
@@ -2933,7 +2934,7 @@ function GameViewLayer:setAniCardBackVisible( viewID,bVisible )
 
 	   --self.PlaceCard[viewID]:setVisible(false)
 	   --self.BgCard[viewID]:setVisible(false)
-	
+
 	assert(viewID >= 1 and viewID <= cmd.GAME_PLAYER)
 	for i = 1,#self.aniCardBack[viewID] do
 		self.aniCardBack[viewID][i]:setVisible(bVisible)
@@ -2947,7 +2948,7 @@ function GameViewLayer:setNodeRowCard(bVisible)
         self.nodeRowCard[2][i]:setVisible(bVisible)
         self.nodeRowCard[3][i]:setVisible(bVisible)
     end
-    
+
 end
 --创建输赢分数
 function GameViewLayer:createWinLostScore()
@@ -3000,7 +3001,7 @@ function GameViewLayer:createWinLostScore()
 		self.nodeNumJn[i][j]:addTo(self)
        end
     end
-    
+
 end
 --点击出牌
 function GameViewLayer:onBtOutCard(cbCardData,special)
@@ -3140,7 +3141,7 @@ function GameViewLayer:TwoDouble(cbInCardData,bCardCount,cbOutCardIndex)
 		end
 		self.m_cbIndexHelp = next1
 	end
-	return 4;	
+	return 4;
 end
 function GameViewLayer:ThreeSame(cbInCardData,bCardCount,cbOutCardIndex)
 	if (self.m_cbCardType ~= GameLogic.CT_THREE) then
@@ -3182,10 +3183,10 @@ function GameViewLayer:TieZi(cbInCardData,bCardCount,cbOutCardIndex)
 	GameLogic:AnalyseCardWithoutKing(cbInCardData,bCardCount,AnalyseData)
 
 	-- change by Owen, 2018.5.6, 修复有王的铁支
-	if ( AnalyseData.bFourCount >= 1) 
+	if ( AnalyseData.bFourCount >= 1)
 		or (AnalyseData.bThreeCount >= 1 and AnalyseData.bWangCount >= 1)
 		or (AnalyseData.bTwoCount >= 1 and AnalyseData.bWangCount == 2) then
-		
+
 	else
 		return 0;
 	end
@@ -3204,7 +3205,7 @@ function GameViewLayer:TieZi(cbInCardData,bCardCount,cbOutCardIndex)
 			end
 		end
 	end
-	
+
 	-- 插入3同张和1张王
 	if (AnalyseData.bThreeCount >= 1 and AnalyseData.bWangCount >= 1) then
 		for j = 1, AnalyseData.bThreeCount do
@@ -3264,10 +3265,10 @@ function GameViewLayer:WuTong(cbInCardData,bCardCount,cbOutCardIndex)
 	GameLogic:AnalyseCardWithoutKing(cbInCardData,bCardCount,AnalyseData)
 
 
-	if ((AnalyseData.bFourCount > 0 and AnalyseData.bWangCount >=1) 
-		or AnalyseData.bFiveCount > 0 
+	if ((AnalyseData.bFourCount > 0 and AnalyseData.bWangCount >=1)
+		or AnalyseData.bFiveCount > 0
 		or (AnalyseData.bThreeCount > 0 and AnalyseData.bWangCount == 2)) then
-    
+
     else
     	return 0;
 	end
@@ -3567,7 +3568,7 @@ function GameViewLayer:TongHua(cbInCardData,bCardCount,cbOutCardIndex)
 		table.insert(cbOutCardIndex,AllZuHe[self.m_cbIndex][i])
 	end
 	self.m_cbIndex = self.m_cbIndex + 1
-	
+
 	return 0
 end
 -- function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
@@ -3586,7 +3587,7 @@ end
 -- 	local bFound = false;
 -- 	self.bSetShunZiBegin = false;
 -- 	local temppp = self.Distributing
-	
+
 -- 	for i = self.cbShunZiBegin, 14 do
 -- 		if self.Distributing.cbCardCount[i] > 0 and not self.bSetShunZiBegin then
 -- 			self.cbShunZiBegin = i;
@@ -3687,7 +3688,7 @@ end
 -- 								cbOutCardData[j] = 0
 -- 							end
 -- 							for j = 1,self.cbStraightCount - 1 do
--- 								cbOutCardData[j + 1] =cbTemp[j] 
+-- 								cbOutCardData[j + 1] =cbTemp[j]
 -- 							end
 -- 							--CopyMemory(cbTemp,cbOutCardData,cbStraightCount - 1);
 -- 							--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
@@ -3747,7 +3748,7 @@ end
 -- 							i = i - (self.cbStraightCount - 1);
 -- 							--CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 1);
 -- 							for j = 1,self.cbStraightCount - 1 do
--- 								cbOutCardData[j] =cbTemp[j] 
+-- 								cbOutCardData[j] =cbTemp[j]
 -- 							end
 -- 							self.cbStraightCount = 0;
 -- 							self.cbShnuZiEnd = 1;
@@ -3766,11 +3767,11 @@ end
 -- 							cbOutCardData[j] = 0
 -- 						end
 -- 					end
--- 				end				
-				
+-- 				end
+
 -- 			end
 -- 		else
--- 			print("--------")	
+-- 			print("--------")
 -- 		end
 -- 	end
 --     local n1=0
@@ -3813,7 +3814,7 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 		GameLogic:AnalysebCardDataDistributing(cbInCardData,bCardCount,self.Distributing)
 	end
 
-	--[[ 
+	--[[
 	    表示自己手里有两个A, 一个K
 	    self.Distributing = {
 	        cbCardCount =    {2,0,..,{1}}
@@ -3837,7 +3838,7 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 			end
 		end
 
-		
+
 		if haveCount == 5 then
 			-- 有五张不需要王的顺子
 			for j = 0,4 do
@@ -3900,7 +3901,7 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 		local bFound = false;
 		self.bSetShunZiBegin = false;
 		local temppp = self.Distributing
-		
+
 		for i = self.cbShunZiBegin, 14 do
 			if self.Distributing.cbCardCount[i] > 0 and not self.bSetShunZiBegin then
 				self.cbShunZiBegin = i;
@@ -4001,7 +4002,7 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 									cbOutCardData[j] = 0
 								end
 								for j = 1,self.cbStraightCount - 1 do
-									cbOutCardData[j + 1] =cbTemp[j] 
+									cbOutCardData[j + 1] =cbTemp[j]
 								end
 								--CopyMemory(cbTemp,cbOutCardData,cbStraightCount - 1);
 								--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
@@ -4061,7 +4062,7 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 								i = i - (self.cbStraightCount - 1);
 								--CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 1);
 								for j = 1,self.cbStraightCount - 1 do
-									cbOutCardData[j] =cbTemp[j] 
+									cbOutCardData[j] =cbTemp[j]
 								end
 								self.cbStraightCount = 0;
 								self.cbShnuZiEnd = 1;
@@ -4080,11 +4081,11 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 								cbOutCardData[j] = 0
 							end
 						end
-					end				
-					
+					end
+
 				end
 			else
-				print("--------")	
+				print("--------")
 			end
 		end
 	    local n1=0
@@ -4125,7 +4126,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	-- change by Owen, 2018.5.4, 添加王的处理
 	local AnalyseResult = {cbCardCount = {},cbDistributing = {}, cbKingData = {}}
 	AnalyseResult.cbKingCount = 0
-	
+
 	for i =1 ,4 do
 		AnalyseResult.cbCardCount[i] = 0
 		AnalyseResult.cbDistributing[i] = {}
@@ -4155,7 +4156,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	-- end
 	local AllCardData = {}
 
-	
+
 	for i = 1,4 do
 		if #cardData[i] >= 5 then
 			-- 处理没有王的时候, 获得5张同花顺
@@ -4263,7 +4264,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 		end
 	end
 
-		
+
 	local count = #AllCardData / 5 --有多少种可能
 	local index = self.m_cbIndex
 	if index > count then
@@ -4272,7 +4273,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	for j = 1,5 do
 		cbOutCardData[j] = AllCardData[(index - 1) * 5 + j]
 	end
-		
+
 	self.m_cbIndex = self.m_cbIndex + 1
 	if self.m_cbIndex > count then
 		self.m_cbIndex = 1
@@ -4292,7 +4293,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	-- change by Owen, 2018.5.4, 添加王的处理
 	local AnalyseResult = {cbCardCount = {},cbDistributing = {}, cbKingData = {}}
 	AnalyseResult.cbKingCount = 0
-	
+
 	for i =1 ,4 do
 		AnalyseResult.cbCardCount[i] = 0
 		AnalyseResult.cbDistributing[i] = {}
@@ -4342,7 +4343,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	    			-- 这个花色里面有这张牌
 	    			foundCrads = {}
 	    			foundCrads[#foundCrads + 1] = v1
-	    			-- 拿出从i开始往后的5个数的组合, 如A2345这五张牌, 
+	    			-- 拿出从i开始往后的5个数的组合, 如A2345这五张牌,
 	    			-- 这个花色的牌数组里面有几张
 					local haveCount = 0
 					for i2 = 1,4 do
@@ -4400,7 +4401,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	    --     cbCardCount =    {2,0,..,{1}}
 	    --     cbDistributing = {{1,17},{},..,{13}}
 	    -- }
-	
+
 
 	-- 找到的所有顺子存到这个表里面
 	local allShunZi = {}
@@ -4419,7 +4420,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 			end
 		end
 
-		
+
 		if haveCount == 5 then
 			-- 有五张不需要王的顺子
 			for j = 0,4 do
@@ -4462,7 +4463,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	end
 
 
-		
+
 	local count = #AllCardData / 5 --有多少种可能
 	local index = self.m_cbIndex
 	if index > count then
@@ -4471,7 +4472,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	for j = 1,5 do
 		cbOutCardData[j] = AllCardData[(index - 1) * 5 + j]
 	end
-		
+
 	self.m_cbIndex = self.m_cbIndex + 1
 	if self.m_cbIndex > count then
 		self.m_cbIndex = 1
@@ -4591,7 +4592,7 @@ function GameViewLayer:showCompareAnimation(cbArrangeCard,everyDunAmount,final,g
             --------------------
         	playCount = playCount + 1
         end
-        
+
     end
     local playerCount = playCount
     --播放分数显示
@@ -4622,12 +4623,12 @@ function GameViewLayer:showCompareAnimation(cbArrangeCard,everyDunAmount,final,g
 								AudioEngine.playEffect(GameViewLayer.RES_PATH.."sound/"..path)
 							end
 						local actionsound1 = cc.Sequence:create(cc.DelayTime:create(0.2),cc.CallFunc:create(function(ref)
-							
+
 						end))
 						--self.m_sound:stopAllActions()
 						--self.m_sound:runAction(actionsound1)
 						self:showSpecailAnimal(cbArrangeCard,bSpecialCardType,gunUser,wAllKillChairId)
-                        
+
                     end))
 				else  ------5张牌墩
 					action = cc.Sequence:create(cc.DelayTime:create(AllPlayerCount*time*(j - 1) + ctime*time),cc.Show:create(),
@@ -4651,7 +4652,7 @@ function GameViewLayer:showCompareAnimation(cbArrangeCard,everyDunAmount,final,g
 						if path ~= "" then
 							AudioEngine.playEffect(GameViewLayer.RES_PATH.."sound/"..path)
 						end
-						
+
 					end
 							)
 					)
@@ -4680,8 +4681,8 @@ function GameViewLayer:getSoundByCardType(CardType)
 		return "LiangDui_Nan.mp3"
 	elseif CardType == GameLogic.CT_THREE then
 		return "SanTiao_Nan.mp3"
-	elseif CardType == GameLogic.CT_FIVE_MIXED_FLUSH_NO_A or 
-		CardType == GameLogic.CT_FIVE_MIXED_FLUSH_FIRST_A or 
+	elseif CardType == GameLogic.CT_FIVE_MIXED_FLUSH_NO_A or
+		CardType == GameLogic.CT_FIVE_MIXED_FLUSH_FIRST_A or
 		CardType == GameLogic.CT_FIVE_MIXED_FLUSH_BACK_A then
 		return "ShunZi_Nan.mp3"
 	elseif CardType == GameLogic.CT_FIVE_FLUSH then
@@ -4704,9 +4705,9 @@ function GameViewLayer:getSpecialSoundByCardType(CardType)
 	if CardType == GameLogic.CT_THREE_FLUSH then
 		return "SanTongHua_Nan.mp3"
 	elseif CardType == GameLogic.CT_THREE_STRAIGHT then
-		return "SanShunZi_Nan.mp3"	
+		return "SanShunZi_Nan.mp3"
 	elseif CardType == GameLogic.CT_SIXPAIR then
-		return "LiuDuiBan_Nan.mp3"	
+		return "LiuDuiBan_Nan.mp3"
 	elseif CardType == GameLogic.CT_FIVEPAIR_THREE then
 		return "WuDuiSanTiao_Nan.mp3"
 	elseif CardType == GameLogic.CT_FOUR_THREESAME then
@@ -4714,19 +4715,19 @@ function GameViewLayer:getSpecialSoundByCardType(CardType)
 	elseif CardType == GameLogic.CT_SAME_COLOR then
 		return "CouYiSe_Nan.mp3"
 	elseif CardType == GameLogic.CT_ALL_SMALL then
-		return "QuanXiao_Nan.mp3"		
+		return "QuanXiao_Nan.mp3"
 	elseif CardType == GameLogic.CT_ALL_BIG then
-		return "QuanDa_Nan.mp3"	
+		return "QuanDa_Nan.mp3"
 	elseif CardType == GameLogic.CT_THREE_BOMB then
-		return "SanFenTianXia_Nan.mp3"	
+		return "SanFenTianXia_Nan.mp3"
 	elseif CardType == GameLogic.CT_THREE_STRAIGHTFLUSH then
-		return "SanTongHuaShun_Nan.mp3"	
+		return "SanTongHuaShun_Nan.mp3"
 	elseif CardType == GameLogic.CT_TWELVE_KING then
 		return "ShiErHuangZu_Nan.mp3"
 	elseif CardType == GameLogic.CT_D_JXH then
-		return "YiTiaoLong_Nan.mp3"	
+		return "YiTiaoLong_Nan.mp3"
 	elseif CardType == GameLogic.CT_D_JXH_FLUSH then
-		return "ZhiZunQingLong_Nan.mp3"	
+		return "ZhiZunQingLong_Nan.mp3"
 	end
 	return ""
 end
@@ -4759,7 +4760,7 @@ function GameViewLayer:showSpecailAnimal(cbArrangeCard,bSpecialCardType,gunUser,
 							end
                             --特殊牌显示
                             self:showTeshupai(wViewChairId,bSpecialCardType[i])
-							self:showGunAnimation(gunUser,bSpecialCardType,wAllKillChairId)	
+							self:showGunAnimation(gunUser,bSpecialCardType,wAllKillChairId)
 						end))
 			else
 				action = cc.Sequence:create(cc.DelayTime:create(time*(curCount + 1)),cc.CallFunc:create(function(ref)
@@ -4769,7 +4770,7 @@ function GameViewLayer:showSpecailAnimal(cbArrangeCard,bSpecialCardType,gunUser,
 							local path = self:getSpecialSoundByCardType(bSpecialCardType[i])
 							if path ~= "" then
 								AudioEngine.playEffect(GameViewLayer.RES_PATH.."sound/"..path)
-							end	
+							end
                              --特殊牌显示
                             self:showTeshupai(wViewChairId,bSpecialCardType[i])
 						end))
@@ -4781,12 +4782,12 @@ function GameViewLayer:showSpecailAnimal(cbArrangeCard,bSpecialCardType,gunUser,
 	if allPlayer == 0 then
 		self:showGunAnimation(gunUser,bSpecialCardType,wAllKillChairId)
 	end
-	
-	
+
+
 end
 --打枪动画
 function GameViewLayer:showGunAnimation(gunUser,bSpecialCardType,wAllKillChairId)
-	
+
 	local actionend = cc.Sequence:create(cc.DelayTime:create(0.7),cc.CallFunc:create(function(ref)
 						self:showDaqianAnimation(gunUser,bSpecialCardType,wAllKillChairId)
                end))
@@ -4799,31 +4800,31 @@ function GameViewLayer:showDaqianAnimation(gunUser,bSpecialCardType,wAllKillChai
 	 --先清除弹孔
 	self:hideAllQiangKong(false)
 	local isDaQiang=false
-	 for i = 1,cmd.GAME_PLAYER do	
+	 for i = 1,cmd.GAME_PLAYER do
 		 -- 打枪的人
-		local wViewChairId = self._scene:SwitchViewChairID(i - 1)		
+		local wViewChairId = self._scene:SwitchViewChairID(i - 1)
         for j=1,cmd.GAME_PLAYER do
 		  local bdaqiang = gunUser[i][j]
-		
+
 		    --发现有打枪
 		    if bdaqiang == 1  then
 				gunUser[i][j] = 0
-				local bdaqianViewChairId = self._scene:SwitchViewChairID(j - 1)	
+				local bdaqianViewChairId = self._scene:SwitchViewChairID(j - 1)
           		self:addDaqian_Animation(self,wViewChairId,bdaqianViewChairId)
 				self:ShowPlayQiangKong(bdaqianViewChairId)
 				    isDaQiang=true
 					local actionend = cc.Sequence:create(cc.DelayTime:create(1.5),cc.CallFunc:create(function(ref)
 						self:showDaqianAnimation(gunUser,bSpecialCardType,wAllKillChairId)
-                    end))				
+                    end))
 					self.m_sound:stopAllActions()
 					self.m_sound:runAction(actionend)
 				return
 			end
-		end		
-		
-					
+		end
+
+
 	end
-	
+
 	--没有打枪 结算界面
 	if isDaQiang ==false then
 
@@ -4832,13 +4833,13 @@ function GameViewLayer:showDaqianAnimation(gunUser,bSpecialCardType,wAllKillChai
  			 local actionend = cc.Sequence:create(cc.DelayTime:create(0.7),cc.CallFunc:create(function(ref)
 						    --self:showGameEndLayer()
                             self:Qainleida_plist(wAllKillChairId)
-                        end))		
+                        end))
 		    self.m_sound:stopAllActions()
 		    self.m_sound:runAction(actionend)
           else  --结束显示结算
 			    local actionend = cc.Sequence:create(cc.DelayTime:create(0.7),cc.CallFunc:create(function(ref)
 						    self:showGameEndLayer()
-                        end))		
+                        end))
 		    self.m_sound:stopAllActions()
 		    self.m_sound:runAction(actionend)
         end
@@ -4900,7 +4901,7 @@ end
 
 function GameViewLayer:ImportDaqian_plist()
 	--初始化 打枪plsit  加载
-    local daqianplstName={"daqian_l","daqian_r","daqian_up","daqian_up"}	
+    local daqianplstName={"daqian_l","daqian_r","daqian_up","daqian_up"}
 	local allframe={10,10,10,6,7,7,7,6,22,15}
 	for k=1,10 do
 		display.loadSpriteFrames(GameViewLayer.RES_PATH.."Animation/Plist"..k..".plist",
@@ -4920,22 +4921,22 @@ end
 
 --添加打枪动画  addNode 添加到节点   dir 开枪方向  actionType 动作
 function GameViewLayer:addDaqian_Animation(addNode,dir,TodaqiangIndex)
-	
+
 	if not addNode  then
 		return
-	end	
-	
+	end
+
 	---打枪人   1  右上  2  左下  3 中   4  右下  5  左上
-	
+
 	local point = pointAnimalCard[dir];
 	local b_point = pointAnimalCard[TodaqiangIndex];
-	
+
 	--GameViewLayer.R_Up		 =1
 	--GameViewLayer.L_Down 	=2
 	--GameViewLayer.C_C 		=3
 	--GameViewLayer.R_Down	 =4
-	--GameViewLayer.L_Up		 =5	
-	
+	--GameViewLayer.L_Up		 =5
+
 -------------播放 方向
 --GameViewLayer.play_L_Up		 =7  --需要翻转
 --GameViewLayer.play_L_Down 	 =5  --需要翻转
@@ -4945,24 +4946,24 @@ function GameViewLayer:addDaqian_Animation(addNode,dir,TodaqiangIndex)
 --GameViewLayer.play_Up		 =1
 ---GameViewLayer.play_Down		 =3
 --GameViewLayer.play_L	 	 =1 --需要翻转
---GameViewLayer.play_R	 	 =2	
-	
-	
-	
-	
+--GameViewLayer.play_R	 	 =2
+
+
+
+
 	local play_index = GameViewLayer.play_Down
 	local playdir = false
-	
+
 	if dir == GameViewLayer.R_Up  then   -----右上角
-			
+
 		if 	TodaqiangIndex ==	GameViewLayer.L_Down then
 			playdir = true
 			play_index = GameViewLayer.play_L_Down
-			
+
 		elseif TodaqiangIndex == GameViewLayer.C_C   then
 			playdir = true
 			play_index = GameViewLayer.play_L_Down
-			
+
 		elseif TodaqiangIndex == GameViewLayer.R_Down  then
 
 			play_index = GameViewLayer.play_Down
@@ -4970,43 +4971,43 @@ function GameViewLayer:addDaqian_Animation(addNode,dir,TodaqiangIndex)
 			playdir = true
 			play_index = GameViewLayer.play_R
 		end
-		
+
 	elseif dir == GameViewLayer.L_Down  then  ----左上角
-		
+
 		if 	TodaqiangIndex ==	GameViewLayer.R_Up then
 
 			play_index = GameViewLayer.play_R
 		elseif TodaqiangIndex == GameViewLayer.C_C   then
 
 			play_index = GameViewLayer.play_R
-			
+
 		elseif TodaqiangIndex == GameViewLayer.R_Down  then
 
 			play_index = GameViewLayer.play_R
 		elseif TodaqiangIndex == GameViewLayer.L_Up  then
 
-			play_index = GameViewLayer.play_Up	
+			play_index = GameViewLayer.play_Up
 		end
 	elseif dir == GameViewLayer.C_C   then
-				
+
 		if 	TodaqiangIndex ==	GameViewLayer.R_Up then
 
-			play_index = GameViewLayer.play_Up	
+			play_index = GameViewLayer.play_Up
 		elseif TodaqiangIndex == GameViewLayer.L_Down   then
 
-			play_index = GameViewLayer.play_Up	
+			play_index = GameViewLayer.play_Up
 		elseif TodaqiangIndex == GameViewLayer.R_Down  then
 
-			play_index = GameViewLayer.play_Up	
+			play_index = GameViewLayer.play_Up
 		elseif TodaqiangIndex == GameViewLayer.L_Up  then
 
-			play_index = GameViewLayer.play_Up	
+			play_index = GameViewLayer.play_Up
 		end
 	elseif dir == GameViewLayer.R_Down  then
-		
+
 		if 	TodaqiangIndex ==	GameViewLayer.R_Up then
 
-			play_index = GameViewLayer.play_Up	
+			play_index = GameViewLayer.play_Up
 		elseif TodaqiangIndex == GameViewLayer.L_Down   then
 			playdir = true
 			play_index = GameViewLayer.play_R
@@ -5018,7 +5019,7 @@ function GameViewLayer:addDaqian_Animation(addNode,dir,TodaqiangIndex)
 			play_index = GameViewLayer.play_R
 		end
 	elseif dir == GameViewLayer.L_Up  then
-		
+
 		if 	TodaqiangIndex ==	GameViewLayer.R_Up then
 			play_index = GameViewLayer.play_R
 		elseif TodaqiangIndex == GameViewLayer.L_Down   then
@@ -5044,20 +5045,20 @@ function GameViewLayer:hideAllQiangKong(qk_bool)
 	for j = 1,cmd.GAME_PLAYER do
 		for i=1 , 3 do  --打枪图片
 			self.daqian_Node[j][i]:setVisible(qk_bool)
-		end	
+		end
 	end
-end	
+end
 
 
 ---单孔 效果
 function GameViewLayer:ShowPlayQiangKong(playindex)
-	
+
 	 if (not playindex) or (playindex <0 or playindex >cmd.GAME_PLAYER) then
 		return
 	end
-	
+
 	local daqoangNode = self.daqian_Node[playindex]
-	
+
 	daqoangNode[1]:runAction(cc.Sequence:create(cc.DelayTime:create(0.2),cc.CallFunc:create(
                 function(ref)
 					ref:setVisible(true)
@@ -5077,13 +5078,13 @@ function GameViewLayer:ShowPlayQiangKong(playindex)
 					AudioEngine.playEffect(GameViewLayer.RES_PATH.."sound/GAME_GUN.mp3")
                 end
     )))
-	
+
 end
 
 
 --清除打枪资源
 function GameViewLayer:deleteDaqian_plist()
-	
+
 	for i=1,10 do
 		cc.SpriteFrameCache:getInstance():removeSpriteFramesFromFile(GameViewLayer.RES_PATH.."Animation/Plist"..i..".plist")
 		cc.Director:getInstance():getTextureCache():removeTextureForKey(GameViewLayer.RES_PATH.."Animation/Plist"..i..".png")
@@ -5128,8 +5129,8 @@ function GameViewLayer:Qainleida_plist(wAllKillChairId)
                     self.spritePrompt:stopAllActions()
                     self.spritePrompt:runAction(action_play2)
                 end)
-                
-                
+
+
                 )
 
         self.m_sound:stopAllActions()
@@ -5139,10 +5140,10 @@ end
 
 --播放全垒打 爆炸
 function GameViewLayer:Qainleida_baozha_plist(quanleidaChairId)
-    
-        if not quanleidaChairId then 
 
-            return 
+        if not quanleidaChairId then
+
+            return
         end
          local wViewChairId2 = self._scene:SwitchViewChairID(quanleidaChairId)
          local time =0.1
@@ -5171,7 +5172,7 @@ function GameViewLayer:Qainleida_baozha_plist(quanleidaChairId)
                        self.nodePlayer[wViewChairId]:runAction(action_play)
 
                        time= time + 1.2
-              
+
                  end
 
         end
@@ -5181,12 +5182,12 @@ end
 function GameViewLayer:PlaceCardOff(viewID)
 	self.PlaceCard[viewID]:setVisible(false)
 	self.BgCard[viewID]:setVisible(false)
-	
+
 end
 
 --初始化
 function GameViewLayer:GameEngine()
-	
+
 	self:hideAllQiangKong(false)
 end
 
@@ -5216,8 +5217,8 @@ end
 
 --特殊牌创建显示
 function GameViewLayer:newSpriteTeshupai()
-		
-		
+
+
         self.TeshupaiNode = {}
         for i = 1 , cmd.GAME_PLAYER do
 			 local wViewChairId = self._scene:SwitchViewChairID(i - 1)
@@ -5226,14 +5227,14 @@ function GameViewLayer:newSpriteTeshupai()
 			:move(point)
 			:setAnchorPoint(0.7,1)
 			:setVisible(false)
-			:addTo(self,60)    
+			:addTo(self,60)
 
             local width = self.TeshupaiNode[wViewChairId]:getContentSize().width
             local height = self.TeshupaiNode[wViewChairId]:getContentSize().height / 13
 
             self.TeshupaiNode[wViewChairId]:setTextureRect(cc.rect(0,height,width,height))
         end
-        
+
 end
 
 --特殊牌创建显示
