@@ -134,7 +134,7 @@ function PopupInfoHead:onTouchHead(  )
 			if giveMeBigCard then
 				giveMeBigCard:removeFromParent()
 			end
-			giveMeBigCard = ccui.Button:create("game/btn_Show.png")
+			giveMeBigCard = ccui.Button:create("Room/bg_table.png")
 						:setVisible(true)
 						:setScale(0.8)
 						:addTo(infoLayer)
