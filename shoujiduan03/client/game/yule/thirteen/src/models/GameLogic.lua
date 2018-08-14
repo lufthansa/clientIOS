@@ -632,7 +632,7 @@ function GameLogic:TransformCard(cbNkCardData,bCardCount,bKCount,bCardType,tad,b
                             --bCardColor<<4
 				    transCard = (bCardColor * 16) + bLogicHeadCard + i;
 			    else
-					transCard = 0x30 + bLogicHeadCard + i;
+					transCard = 0x30 + bLogicHeadCard + i - 1;
                 end
                 -- change by Owen, 2018.5.4, end 要移动到上面去
                 table.insert(cardList,transCard);
