@@ -630,7 +630,7 @@ function GameLogic:TransformCard(cbNkCardData,bCardCount,bKCount,bCardType,tad,b
 						    bCardType == GameLogic.CT_FIVE_STRAIGHT_FLUSH or 
 						    bCardType == GameLogic.CT_FIVE_STRAIGHT_FLUSH_BACK_A) then
                             --bCardColor<<4
-				    transCard = (bCardColor * 16) + bLogicHeadCard + i;
+				    transCard = (bCardColor * 16) + bLogicHeadCard + i - 1;
 			    else
 					transCard = 0x30 + bLogicHeadCard + i - 1;
                 end
