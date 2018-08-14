@@ -660,19 +660,19 @@ function ClientScene:onBackgroundCallBack(bEnter)
 			end]]
 		end
 		if curScene == yl.SCENE_ROOM then
-			self:onKeyBack()
+			-- self:onKeyBack()
 		end
 
 		if nil ~= self._gameFrame and self._gameFrame:isSocketServer() and GlobalUserItem.bAutoConnect then			
-			self._gameFrame:onCloseSocket()
+			-- self._gameFrame:onCloseSocket()
 		end
 
-		self:disconnectFrame()
+		-- self:disconnectFrame()
 
 		--关闭好友服务器
-		FriendMgr:getInstance():reSetAndDisconnect()
+		-- FriendMgr:getInstance():reSetAndDisconnect()
 
-		self:dismissPopWait()
+		-- self:dismissPopWait()
 
 		-- 关闭介绍
 		if self:getChildByName(HELP_LAYER_NAME) then
