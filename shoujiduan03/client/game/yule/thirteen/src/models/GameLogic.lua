@@ -873,6 +873,7 @@ function GameLogic:AnalyseCardWithoutKing(bCardDataList,bCardCount,AnalyseData)
     for i = 2,bCardCount do
         --获取扑克
         if (bCardData[i] ~= 0) then
+
             bCardValueTemp=self:GetCardLogicValue(bCardData[i]);
             if (bCardValueTemp==bLogicValue) then
                 bSameCount = bSameCount + 1;
@@ -930,6 +931,24 @@ function GameLogic:AnalyseCardWithoutKing(bCardDataList,bCardCount,AnalyseData)
                 bSameColorCount = 1 ;
             else         
                 bSameColorCount = bSameColorCount + 1 ;
+            end
+        elseif i == bCardCount then
+            --保存结果
+            if(bSameCount == 1) then --一张
+            elseif(bSameCount == 2) then --两张
+                AnalyseData.bTwoFirst[AnalyseData.bTwoCount + 1]     = bFirstCardIndex ;
+                AnalyseData.bTwoCount = AnalyseData.bTwoCount + 1;
+            elseif(bSameCount == 3) then --三张
+                AnalyseData.bThreeFirst[AnalyseData.bThreeCount + 1] = bFirstCardIndex ;
+                AnalyseData.bThreeCount = AnalyseData.bThreeCount + 1 ;
+            elseif(bSameCount == 4) then --四张
+                AnalyseData.bFourFirst[AnalyseData.bFourCount + 1]   = bFirstCardIndex ;
+                AnalyseData.bFourCount =  AnalyseData.bFourCount + 1;
+            elseif(bSameCount == 5) then --五相
+                AnalyseData.bFiveFirst[AnalyseData.bFiveCount + 1]   = bFirstCardIndex ;
+                AnalyseData.bFiveCount = AnalyseData.bFiveCount + 1 ;
+            else
+                --MyMsgBox(_T("AnalyseCard：错误扑克！: %d") , bSameCount) ;
             end
         end
     end
