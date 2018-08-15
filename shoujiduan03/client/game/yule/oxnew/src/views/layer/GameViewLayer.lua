@@ -526,7 +526,9 @@ function GameViewLayer:OnUpdataClockView(viewId, time)
 end
 
 function GameViewLayer:setClockPosition(viewId)
-	if viewId then
+	print("viewId = "..tostring(viewId))
+	dump(pointClock[viewId], "Dump pointClock[viewId]")
+	if viewId and viewId ~= yl.INVALID_CHAIR then
 		self.spriteClock:move(pointClock[viewId])
 	else
 		self.spriteClock:move(display.cx, display.cy + 50)
