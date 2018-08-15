@@ -160,6 +160,7 @@ end
 
 --发送数据
 function BaseFrame:sendSocketData(pData)
+	print("BaseFrame:sendSocketData 1")
 	if self._socket == nil then
 		self._callBack(-1)
 		return false
@@ -169,14 +170,19 @@ function BaseFrame:sendSocketData(pData)
 	tabCache["sub"] = pData:getsub()
 	tabCache["len"] = pData:getlen()
 	tabCache["kindid"] = GlobalUserItem.nCurGameKind
+	dump(tabCache, "dump tabCache")
+	print("BaseFrame:sendSocketData 2")
 	table.insert( self.m_tabCacheMsg, tabCache )
 	if #self.m_tabCacheMsg > 5 then
 		table.remove(self.m_tabCacheMsg, 1)
 	end
+	print("BaseFrame:sendSocketData 3")
 	if not self._socket:sendData(pData) then
+		print("BaseFrame:sendSocketData self._socket:sendData(pData) false 发送数据失败！")
 		self:onSocketError("发送数据失败！")
 		return false
 	end
+	print("BaseFrame:sendSocketData self._socket:sendData(pData) true")
 	return true
 end
 

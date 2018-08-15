@@ -761,7 +761,9 @@ end
 
 --开始游戏
 function GameLayer:onStartGame()
+    print("GameLayer:onStartGame() 1")
     if true == self.m_bPriScoreLow then
+        print("GameLayer:onStartGame() self.m_bPriScoreLow == true")
         local msg = self.m_szScoreMsg or ""
         self.m_querydialog = QueryDialog:create(msg,function()
             self:onExitTable()
@@ -769,10 +771,15 @@ function GameLayer:onStartGame()
         self.m_querydialog:setCanTouchOutside(false)
         self.m_querydialog:addTo(self)
     else
+        print("GameLayer:onStartGame() self.m_bPriScoreLow ~= true")
+        print("GameLayer:onStartGame() KillGameClock")
         -- body
         self:KillGameClock()
+        print("GameLayer:onStartGame() self._gameView:onResetView()")
         self._gameView:onResetView()
+        print("GameLayer:onStartGame() self._gameView:SendUserReady()")
         self._gameFrame:SendUserReady()
+        print("GameLayer:onStartGame() self._gameView:SendUserReady() end")
         self.m_bStartGame = true
     end
 
