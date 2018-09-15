@@ -652,6 +652,7 @@ function GameLayer:onSubGameConclude(dataBuffer)
     for i = 1, 3 do
         local chair = i - 1
         local viewId = self:SwitchViewChairID(chair)
+        res.viewid[i] = viewId
 
         -- 结算
         local score = scorelist[i]

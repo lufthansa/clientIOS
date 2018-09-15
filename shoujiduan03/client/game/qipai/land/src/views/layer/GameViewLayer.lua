@@ -121,6 +121,10 @@ function GameViewLayer:paramInit()
 
     -- 炸弹
     self.m_actBomb = nil
+
+
+    -- change by, 2018.9.15, 记录自己这一大局的总输赢
+    self.allWinLost = 0
 end
 
 function GameViewLayer:getParentNode()
@@ -540,7 +544,10 @@ end
 
 -- 重置用户信息
 function GameViewLayer:reSetUserInfo()
-    local score = self:getParentNode():GetMeUserItem().lScore or 0
+    -- local score = self:getParentNode():GetMeUserItem().lScore or 0
+    -- change by, 2018.7.8, 更新显示每个玩家下面的总输赢
+    local score = self.allWinLost or 0
+
     local str = ""
     if score < 0 then
         str = "." .. score
@@ -1363,6 +1370,14 @@ function GameViewLayer:onGetGameConclude( rs )
 
     self.m_spInfoTip:setSpriteFrame("blank.png")
     self.m_spInfoTip:setPosition(yl.WIDTH * 0.5, 375)
+
+    -- change by, 2018.9.15, 每局结算更新显示的玩家输赢
+    for i = 1, 3 do
+        if rs.viewid[i] == cmd.MY_VIEWID then
+            self.allWinLost = self.allWinLost +  rs.settles[i].m_settleCoin
+        end
+    end
+
 
     -- 结算
     if nil == self.m_resultLayer then

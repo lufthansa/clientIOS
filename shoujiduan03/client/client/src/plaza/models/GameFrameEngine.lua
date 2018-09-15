@@ -919,11 +919,14 @@ end
 
 --发送准备
 function GameFrameEngine:SendUserReady(dataBuffer)
+	print("GameFrameEngine:SendUserReady 1")
 	local userReady = dataBuffer
 	if not userReady then
 		userReady = CCmd_Data:create(0)
 	end
+	print("GameFrameEngine:SendUserReady 2")
 	userReady:setcmdinfo(yl.MDM_GF_FRAME,yl.SUB_GF_USER_READY)
+	print("GameFrameEngine:SendUserReady 3")
 	return self:sendSocketData(userReady)
 end
 

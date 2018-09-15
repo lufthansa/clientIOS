@@ -357,7 +357,7 @@ function PopupInfoLayer:refresh( useritem, popPos ,anr)
 	if string.len(str) > 11 then
 		str = string.sub(str, 1, 11) .. "..."
 	end
-	self.m_textBean:setString(str)
+	-- self.m_textBean:setString(str)
 
 	-- ip
 	self.m_textIp:setString(ipAdress)

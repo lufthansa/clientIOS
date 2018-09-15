@@ -229,9 +229,11 @@ function GameModel:KillGameClock(notView)
         cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self._ClockFun) 
         self._ClockFun = nil
     end
+    print("KillGameClock 1")
     if not notView then
         self:OnUpdataClockView()
     end
+    print("KillGameClock 2")
 end
 
 --计时器更新
