@@ -30,15 +30,23 @@ function PriRoomCreateLayer:ctor( scene )
     local btn = csbNode:getChildByName("btn_help")
     btn:setTag(BTN_HELP)
     btn:addTouchEventListener(btncallback)
+btn:setVisible(false)
+
+    numbg = csbNode:getChildByName("pri_sp_numbg")
+    numbg:setVisible(false)
+    cardbg_3 = csbNode:getChildByName("pri_sp_cardbg_3")
+    cardbg_3:setVisible(false)
 
     -- 充值按钮
     btn = csbNode:getChildByName("btn_cardcharge")
     btn:setTag(BTN_CHARGE)
-    btn:addTouchEventListener(btncallback)    
+    btn:addTouchEventListener(btncallback) 
+    btn:setVisible(false)   
 
     -- 房卡数
     self.m_txtCardNum = csbNode:getChildByName("txt_cardnum")
     self.m_txtCardNum:setString(GlobalUserItem.lRoomCard .. "")
+    self.m_txtCardNum:setVisible(false)
 
     -- 我的房间
     btn = csbNode:getChildByName("btn_myroom")
