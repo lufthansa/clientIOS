@@ -35,6 +35,7 @@ function GameResultLayer.getTagGameResult()
     {
         -- 结果
         enResult = cmd.kDefault,
+        viewid   = {},
         -- 结算
         settles = 
         {
