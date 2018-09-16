@@ -149,20 +149,21 @@ function PriRoomCreateLayer:ctor( scene )
         self.m_txtFee:setString(self.m_tabSelectConfig.lFeeScore .. feeType)
     end
 
-    -- 提示
+    -- 提示, 显示房卡不足
     self.m_spTips = csbNode:getChildByName("priland_sp_card_tips")
     self.m_spTips:setVisible(self.m_bLow)
-    if PriRoom:getInstance().m_tabRoomOption.cbCardOrBean == 0 then
+    -- if PriRoom:getInstance().m_tabRoomOption.cbCardOrBean == 0 then
 
         -- change by Owen, 2018.6.23, 豆子不足的提示往下移动
-        self.m_spTips:setPosition(self.m_spTips:getPositionX() - 240,
-        self.m_spTips:getPositionY() - 50)
+        self.m_spTips:setPosition(self.m_spTips:getPositionX() - 300,
+        self.m_spTips:getPositionY() - 75)
 
-        local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame("priland_sp_card_tips_bean.png")
-        if nil ~= frame then
-            self.m_spTips:setSpriteFrame(frame)
-        end
-    end
+        -- 显示游戏豆不足
+        -- local frame = cc.SpriteFrameCache:getInstance():getSpriteFrame("priland_sp_card_tips_bean.png")
+        -- if nil ~= frame then
+        --     self.m_spTips:setSpriteFrame(frame)
+        -- end
+    -- end
 
     
 
