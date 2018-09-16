@@ -1607,7 +1607,9 @@ function ClientScene:updateInfomation(  )
 		str = string.sub(str, 1, 11) .. "..."
 	end
 	self._gold:setString(str)
-	str = string.formatNumberThousands(GlobalUserItem.dUserBeans,true,"/")
+	-- change by, 2018.9.16, 大厅的游戏豆数量改成房卡数量
+	-- str = string.formatNumberThousands(GlobalUserItem.dUserBeans,true,"/")
+	str = string.formatNumberThousands(GlobalUserItem.lRoomCard,true,"/")
 	if string.len(str) > 11 then
 		str = string.sub(str, 1, 11) .. "..."
 	end
