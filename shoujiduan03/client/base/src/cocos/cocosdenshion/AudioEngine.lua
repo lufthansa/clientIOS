@@ -71,6 +71,7 @@ function M.playMusic(filename, isLoop)
     if nil ~= isLoop then
         loopValue = isLoop
     end
+    AudioEngine.setMusicVolume(1)
     if targetPlatform == cc.PLATFORM_OS_IPHONE or targetPlatform == cc.PLATFORM_OS_IPAD then
         ccexp.AudioEngine:stop(backgroudId)
         backgroudId = ccexp.AudioEngine:play2d(filename, isLoop)
