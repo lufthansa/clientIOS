@@ -209,9 +209,9 @@ function GameViewLayer:ctor(scene)
         end
     end
 
-    --特殊牌按钮
-	self.giveMeBigCard=ccui.Button:create("game/yule/thirteen/res/btn_Show.png")
-				:setVisible(false)
+    -- 刷新按钮, 走断线重连逻辑
+	self.giveMeBigCard=ccui.Button:create("Room/refresh.png")
+				:setVisible(true)
 				:setTag(GameViewLayer.BT_SHOW)
 				:setPosition(yl.WIDTH-80,280)
 				:setScale(0.8)
@@ -221,7 +221,8 @@ function GameViewLayer:ctor(scene)
 	end
 	self.giveMeBigCard:addTouchEventListener(function(ref, type)
         if type == ccui.TouchEventType.ended then
-         	this:onButtonClickedGiveMeBigCard()
+         	-- this:onButtonClickedGiveMeBigCard()
+         	GlobalRelinkFunc(true, true)
         end
     end)
 
@@ -4185,6 +4186,22 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 					end
 				end
 			end
+
+			-- 插入 12345
+			local temp1 = cardData[i][1]
+			local temp2 = GameLogic:GetCardLogicValue(cardData[i][#cardData[i] - 3])
+			local temp3 = GameLogic:GetCardLogicValue(cardData[i][#cardData[i] - 2])
+			local temp4 = GameLogic:GetCardLogicValue(cardData[i][#cardData[i] - 1])
+			local temp5 = GameLogic:GetCardLogicValue(cardData[i][#cardData[i]])
+
+            if (temp1 == 14 or temp1 == 1) 
+            	and temp2 == 5 and temp3 == 4 and temp4 == 3 and temp5 == 2 then
+                table.insert(AllCardData,cardData[i][1])
+                table.insert(AllCardData,cardData[i][#cardData[i] - 3])
+                table.insert(AllCardData,cardData[i][#cardData[i] - 2])
+                table.insert(AllCardData,cardData[i][#cardData[i] - 1])
+                table.insert(AllCardData,cardData[i][#cardData[i]])
+            end
 		end
 
 		if #cardData[i] + AnalyseResult.cbKingCount >= 5 then

@@ -124,10 +124,9 @@ function GameViewLayer:ctor(scene)
         end
     end
 
-    --add by, 2018.8.1, 特殊牌按钮
-	-- self.giveMeBigCard=ccui.Button:create("game/yule/thirteen/res/btn_Show.png")
-	self.giveMeBigCard=ccui.Button:create("game/yule/oxnew/res/game_chat_lbg.png")
-				:setVisible(false)
+    --add by, 2018.8.1, 刷新按钮, 走断线重连逻辑
+	self.giveMeBigCard=ccui.Button:create("Room/refresh.png")
+				:setVisible(true)
 				:setPosition(yl.WIDTH-80,280)
 				:setScale(0.8)
 				:addTo(self)
@@ -136,7 +135,8 @@ function GameViewLayer:ctor(scene)
 	end
 	self.giveMeBigCard:addTouchEventListener(function(ref, type)
         if type == ccui.TouchEventType.ended then
-         	this:onButtonClickedGiveMeBigCard()
+         	-- this:onButtonClickedGiveMeBigCard()
+         	GlobalRelinkFunc(true, true)
         end
     end)
 
