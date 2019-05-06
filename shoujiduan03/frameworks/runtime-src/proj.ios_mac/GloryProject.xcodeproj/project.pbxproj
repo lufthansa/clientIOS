@@ -1230,7 +1230,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../prebuilt";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios",
 					"$(SRCROOT)/../prebuilt/ios",
@@ -1260,7 +1260,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../prebuilt";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios",
 					"$(SRCROOT)/../prebuilt/ios",
@@ -1313,7 +1313,7 @@
 					"$(SRCROOT)/../proj.ios_mac/ios/thirdparty/AliPaySDK",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios",
 					"$(SRCROOT)/../prebuilt/ios",
@@ -1336,7 +1336,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../prebuilt $(SRCROOT)/../proj.ios_mac/ios/thirdparty/AliPaySDK $(SRCROOT)/../proj.ios_mac/ios/thirdparty/JftPaySDK $(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "armv7 arm64";
 			};
@@ -1378,7 +1378,7 @@
 					"$(SRCROOT)/../proj.ios_mac/ios/thirdparty/AliPaySDK",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios",
 					"$(SRCROOT)/../prebuilt/ios",
@@ -1401,7 +1401,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../prebuilt $(SRCROOT)/../proj.ios_mac/ios/thirdparty/AliPaySDK $(SRCROOT)/../proj.ios_mac/ios/thirdparty/JftPaySDK $(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "armv7 arm64";
 			};

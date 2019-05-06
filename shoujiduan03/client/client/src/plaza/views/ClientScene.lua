@@ -551,6 +551,12 @@ function ClientScene:onCreate()
 		end
 	end)
 
+	GlobalRelinkFunc = function (bEnter, bManual)
+		if type(self.onBackgroundCallBack) == "function" then
+			self:onBackgroundCallBack(bEnter, bManual)
+		end
+	end
+
 	self:initListener()
 
 	--快速开始
@@ -648,7 +654,31 @@ function ClientScene:unregisterNotify()
 	NotifyMgr:getInstance():unregisterNotify(yl.MDM_GP_USER_SERVICE, yl.SUB_GP_TASK_INFO, "client_task_info")
 end
 
-function ClientScene:onBackgroundCallBack(bEnter)
+function ClientScene:onBackgroundCallBack(bEnter, bManual)
+	if bManual then
+		local curScene = self._sceneRecord[#self._sceneRecord]
+		if curScene == yl.SCENE_GAME then
+			--离开游戏
+			local gamelayer = self._sceneLayer:getChildByTag(curScene)
+			if gamelayer and gamelayer.standUpAndQuit then
+				gamelayer:standUpAndQuit()
+			end
+		end
+		if nil ~= self._gameFrame and self._gameFrame:isSocketServer() and GlobalUserItem.bAutoConnect then			
+			self._gameFrame:onCloseSocket()
+		end
+		self:disconnectFrame()
+
+		--关闭好友服务器
+		FriendMgr:getInstance():reSetAndDisconnect()
+
+		self:dismissPopWait()
+
+		-- 关闭介绍
+		if self:getChildByName(HELP_LAYER_NAME) then
+			self:removeChildByName(HELP_LAYER_NAME)
+		end
+	end
 	if not bEnter then
 		print("onBackgroundCallBack not bEnter")
 		local curScene = self._sceneRecord[#self._sceneRecord]
