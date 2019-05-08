@@ -24,7 +24,7 @@ appdf.DOWN_ERROR_CREATEURL					= 6 									--创建连接失败
 appdf.DOWN_ERROR_NET		 				= 7 									--下载失败
 
 --程序版本zzzzzzzzzzzzzzzzzzzz
-appdf.BASE_C_VERSION = 5 --@app_version
+appdf.BASE_C_VERSION = 6 --@app_version
 --资源版本
 appdf.BASE_C_RESVERSION = 9 --@client_version
 
