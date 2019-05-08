@@ -23,10 +23,10 @@ appdf.DOWN_ERROR_CREATEFILE					= 5 									--文件创建出错
 appdf.DOWN_ERROR_CREATEURL					= 6 									--创建连接失败
 appdf.DOWN_ERROR_NET		 				= 7 									--下载失败
 
---程序版本
-appdf.BASE_C_VERSION = 4 --@app_version
+--程序版本zzzzzzzzzzzzzzzzzzzz
+appdf.BASE_C_VERSION = 5 --@app_version
 --资源版本
-appdf.BASE_C_RESVERSION = 7 --@client_version
+appdf.BASE_C_RESVERSION = 8 --@client_version
 
 appdf.BASE_GAME =
 {
