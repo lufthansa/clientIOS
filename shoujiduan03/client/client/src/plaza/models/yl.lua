@@ -409,7 +409,7 @@ yl.ShareErrorCode =
 --微信配置定义
 yl.WeChat =
 {
-	AppID 								= "wx47216a58ec66e851", --@wechat_appid_wx  alading
+	AppID 								= "wx47216a58ec66e851", --@wechat_appid_wx  alading 
     --AppID                               = "wx6ac3f5090a6b99c5", --@wechat_appid_wx  gg
 	AppSecret 							= "3d3ad801d3adb0f0933464e7c0780e27", --@wechat_secret_wx
 	-- 商户id
