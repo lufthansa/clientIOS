@@ -1357,23 +1357,7 @@ function GameViewLayer:gameStartStart(cbCardData,specialType)
 	    end
 	end
 	-- if not bHasJoker then
-<<<<<<< HEAD
 
-	--	self.handCard[1] = 6
-	--    self.handCard[2] = 1
-	--    self.handCard[3] = 23
-	--    self.handCard[4] = 33
-	--    self.handCard[5] = 4
-	--    self.handCard[6] = 5
-
-	--    self.handCard[7] = 7
-	--    self.handCard[8] = 28
-	--    self.handCard[9] = 9
-	--    self.handCard[10] = 10
-	--    self.handCard[11] = 11
-	--    self.handCard[12] = 12
-	--    self.handCard[13] = 13
-=======
 		-- self.handCard[1] = 65
 	 --    self.handCard[2] = 1
 	 --    self.handCard[3] = 2
@@ -1388,7 +1372,6 @@ function GameViewLayer:gameStartStart(cbCardData,specialType)
 	 --    self.handCard[11] = 11
 	 --    self.handCard[12] = 12
 	 --    self.handCard[13] = 13
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 
 	-- end
 
@@ -2456,9 +2439,6 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 		self.btFlush01:setEnabled(false)
 	end
 end
-<<<<<<< HEAD
-=======
-]]
 
 -- --同花顺
 function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
@@ -2469,7 +2449,6 @@ function GameViewLayer:EnableTonghuaShunButton(cbInCardData)
 		self.btFlush01:setEnabled(false)
 	end
 end
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 
 
 function GameViewLayer:hideAllMyCard(viewID)
@@ -3619,11 +3598,8 @@ end
 -- 	local bFound = false;
 -- 	self.bSetShunZiBegin = false;
 -- 	local temppp = self.Distributing
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
+
 -- 	for i = self.cbShunZiBegin, 14 do
 -- 		if self.Distributing.cbCardCount[i] > 0 and not self.bSetShunZiBegin then
 -- 			self.cbShunZiBegin = i;
@@ -3724,11 +3700,8 @@ end
 -- 								cbOutCardData[j] = 0
 -- 							end
 -- 							for j = 1,self.cbStraightCount - 1 do
-<<<<<<< HEAD
+
 -- 								cbOutCardData[j + 1] =cbTemp[j]
-=======
--- 								cbOutCardData[j + 1] =cbTemp[j] 
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 -- 							end
 -- 							--CopyMemory(cbTemp,cbOutCardData,cbStraightCount - 1);
 -- 							--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
@@ -3788,11 +3761,8 @@ end
 -- 							i = i - (self.cbStraightCount - 1);
 -- 							--CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 1);
 -- 							for j = 1,self.cbStraightCount - 1 do
-<<<<<<< HEAD
+
 -- 								cbOutCardData[j] =cbTemp[j]
-=======
--- 								cbOutCardData[j] =cbTemp[j] 
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 -- 							end
 -- 							self.cbStraightCount = 0;
 -- 							self.cbShnuZiEnd = 1;
@@ -3811,19 +3781,12 @@ end
 -- 							cbOutCardData[j] = 0
 -- 						end
 -- 					end
-<<<<<<< HEAD
+
 -- 				end
 
 -- 			end
 -- 		else
 -- 			print("--------")
-=======
--- 				end				
-				
--- 			end
--- 		else
--- 			print("--------")	
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 -- 		end
 -- 	end
 --     local n1=0
@@ -3866,11 +3829,8 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 		GameLogic:AnalysebCardDataDistributing(cbInCardData,bCardCount,self.Distributing)
 	end
 
-<<<<<<< HEAD
+
 	--[[
-=======
-	--[[ 
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 	    表示自己手里有两个A, 一个K
 	    self.Distributing = {
 	        cbCardCount =    {2,0,..,{1}}
@@ -3894,11 +3854,6 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 			end
 		end
 
-<<<<<<< HEAD
-
-=======
-		
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 		if haveCount == 5 then
 			-- 有五张不需要王的顺子
 			for j = 0,4 do
@@ -3938,11 +3893,8 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 	end
 
 	if (bFound) then
-<<<<<<< HEAD
-		if(self.cbShunZiBegin > 10) then
-=======
+
 		if(self.cbShunZiBegin >= 10) then
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 			self.cbShunZiBegin = 1;
 		else
 			-- self.cbShunZiBegin = self.cbShunZiBegin + 1
@@ -3965,11 +3917,7 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 		local bFound = false;
 		self.bSetShunZiBegin = false;
 		local temppp = self.Distributing
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 		for i = self.cbShunZiBegin, 14 do
 			if self.Distributing.cbCardCount[i] > 0 and not self.bSetShunZiBegin then
 				self.cbShunZiBegin = i;
@@ -4070,11 +4018,8 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 									cbOutCardData[j] = 0
 								end
 								for j = 1,self.cbStraightCount - 1 do
-<<<<<<< HEAD
+
 									cbOutCardData[j + 1] =cbTemp[j]
-=======
-									cbOutCardData[j + 1] =cbTemp[j] 
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 								end
 								--CopyMemory(cbTemp,cbOutCardData,cbStraightCount - 1);
 								--ZeroMemory(cbOutCardData,sizeof(cbOutCardData));
@@ -4134,11 +4079,8 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 								i = i - (self.cbStraightCount - 1);
 								--CopyMemory(cbOutCardData,cbTemp,cbStraightCount - 1);
 								for j = 1,self.cbStraightCount - 1 do
-<<<<<<< HEAD
+
 									cbOutCardData[j] =cbTemp[j]
-=======
-									cbOutCardData[j] =cbTemp[j] 
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 								end
 								self.cbStraightCount = 0;
 								self.cbShnuZiEnd = 1;
@@ -4157,19 +4099,12 @@ function GameViewLayer:ShunZi(cbInCardData,bCardCount,cbOutCardData)
 								cbOutCardData[j] = 0
 							end
 						end
-<<<<<<< HEAD
+
 					end
 
 				end
 			else
 				print("--------")
-=======
-					end				
-					
-				end
-			else
-				print("--------")	
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 			end
 		end
 	    local n1=0
@@ -4277,7 +4212,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 			local temp4 = GameLogic:GetCardLogicValue(cardData[i][#cardData[i] - 1])
 			local temp5 = GameLogic:GetCardLogicValue(cardData[i][#cardData[i]])
 
-            if (temp1 == 14 or temp1 == 1) 
+            if (temp1 == 14 or temp1 == 1)
             	and temp2 == 5 and temp3 == 4 and temp4 == 3 and temp5 == 2 then
                 table.insert(AllCardData,cardData[i][1])
                 table.insert(AllCardData,cardData[i][#cardData[i] - 3])
@@ -4364,25 +4299,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 		end
 	end
 
-		
-	local count = #AllCardData / 5 --有多少种可能
-	local index = self.m_cbIndex
-	if index > count then
-		index = 1
-	end
-	for j = 1,5 do
-		cbOutCardData[j] = AllCardData[(index - 1) * 5 + j]
-	end
-		
-	self.m_cbIndex = self.m_cbIndex + 1
-	if self.m_cbIndex > count then
-		self.m_cbIndex = 1
-	end
-	return count
-end
 
-
-<<<<<<< HEAD
 	local count = #AllCardData / 5 --有多少种可能
 	local index = self.m_cbIndex
 	if index > count then
@@ -4400,16 +4317,11 @@ end
 end
 
 
+
 --[[
 -- 这一次点击同花顺按钮, 取得的提示5张牌数据放到 cbOutCardData 里面
 function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 
-=======
---[[
--- 这一次点击同花顺按钮, 取得的提示5张牌数据放到 cbOutCardData 里面
-function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
-
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 	if (self.m_cbCardType ~= GameLogic.CT_FIVE_STRAIGHT_FLUSH) then
 		self.m_cbIndex = 1;
 	end
@@ -4417,11 +4329,7 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	-- change by Owen, 2018.5.4, 添加王的处理
 	local AnalyseResult = {cbCardCount = {},cbDistributing = {}, cbKingData = {}}
 	AnalyseResult.cbKingCount = 0
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 	for i =1 ,4 do
 		AnalyseResult.cbCardCount[i] = 0
 		AnalyseResult.cbDistributing[i] = {}
@@ -4443,11 +4351,11 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 				if not self:FindValue(cardData[i],temp) then
 					table.insert(cardData[i],temp)
 				end
-<<<<<<< HEAD
 			end
 			cccount = cccount + 1
 		end
 	end
+
 	if cccount == 0 then
 		return 0
 	end
@@ -4504,74 +4412,9 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 						return
 					end
 	    		end
-=======
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
-			end
-			cccount = cccount + 1
-		end
-	end
-<<<<<<< HEAD
-=======
-	if cccount == 0 then
-		return 0
-	end
-
-	-- you
-	local bFound = false
-	local foundCrads = {}
-
-	-- 从1开始往后遍历
-	local beginIndex = self.m_cbIndex
-	for i = beginIndex, 10 do
-		-- 遍历4个花色牌数组里面有没有这张牌
-		for j = 1, 4 do
-			for i1,v1 in ipairs(cardData[j]) do
-				-- 获得牌的数值（1 -- 13）, 大小王就返回14
-	            local function myGetCardValue(cbCardData)
-	                return (cbCardData - math.floor(cbCardData/16)*16)
-	            end
-	            -- 这个花色的数组里面有这一张牌
-	    		local cbCardValue = myGetCardValue(v1);
-	    		if i == cbCardValue then
-	    			-- 这个花色里面有这张牌
-	    			foundCrads = {}
-	    			foundCrads[#foundCrads + 1] = v1
-	    			-- 拿出从i开始往后的5个数的组合, 如A2345这五张牌, 
-	    			-- 这个花色的牌数组里面有几张
-					local haveCount = 0
-					for i2 = 1,4 do
-						for i3,v3 in ipairs(cardData[j]) do
-							-- 把1改成A
-							local function myGetCardValue1(cbCardData)
-				                local middleData = (cbCardData - math.floor(cbCardData/16)*16)
-				                if middleData == 1 then
-				                	middleData = 14
-				                end
-				                return middleData
-				            end
-							if (i + i2) == myGetCardValue(v3) do
-								haveCount = haveCount + 1
-								foundCrads[#foundCrads + 1] = v3
-							end
-						end
-					end
-					if haveCount + AnalyseResult.cbKingCount >= 5 then
-						bFound = true
-						cbOutCardData = foundCrads
-						if #foundCrads == 3 then
-							cbOutCardData[4] = AnalyseResult.cbKingData[1]
-							cbOutCardData[5] = AnalyseResult.cbKingData[2]
-						elseif #foundCrads == 4 then
-							cbOutCardData[5] = AnalyseResult.cbKingData[1]
-						end
-						self.m_cbIndex = self.m_cbIndex + i - beginIndex + 1
-						return
-					end
-	    		end
 			end
 		end
 	end
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 
 	-- 如果没找到的话则下次从1开始查找
 	self.m_cbIndex = 1
@@ -4595,11 +4438,6 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 	    --     cbCardCount =    {2,0,..,{1}}
 	    --     cbDistributing = {{1,17},{},..,{13}}
 	    -- }
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 
 	-- 找到的所有顺子存到这个表里面
 	local allShunZi = {}
@@ -4618,11 +4456,6 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 			end
 		end
 
-<<<<<<< HEAD
-
-=======
-		
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 		if haveCount == 5 then
 			-- 有五张不需要王的顺子
 			for j = 0,4 do
@@ -4664,12 +4497,6 @@ function GameViewLayer:TongHuaShun(cbInCardData,bCardCount,cbOutCardData)
 		end
 	end
 
-
-<<<<<<< HEAD
-
-=======
-		
->>>>>>> a46086e34649a12245fd8fbd5b6a4922441053bd
 	local count = #AllCardData / 5 --有多少种可能
 	local index = self.m_cbIndex
 	if index > count then
